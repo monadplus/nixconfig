@@ -12,15 +12,15 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.useOSProber = true; # TODO popOS ?
   boot.loader.timeout = 8;
-  boot.cleanTmpDir = true;
+  # boot.cleanTmpDir = true;
 
-  networking.hostName = "arnau";
-  networking.wireless.enable = true;
-  hardware.bluetooth.enable = true;
+  # networking.hostName = "arnau";
+  # networking.wireless.enable = true;
+  # hardware.bluetooth.enable = true;
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull; # support for bluetooth headsets
+  # hardware.pulseaudio.package = pkgs.pulseaudioFull; # support for bluetooth headsets
 
   i18n = lib.mkForce {
     consoleFont = "Lat2-Terminus16";
@@ -55,10 +55,9 @@
     # drivers = (with pkgs; [ gutenprint cups-bjnp hplip cnijfilter2 ]);
   };
 
-
   services.xserver = {
     enable = true;
-    autorun = true;
+    # autorun = true;
     layout = "us";
     xkbOptions = "eurosign:e";
 
@@ -71,7 +70,7 @@
     # displayManager.sddm.enable = true;             
 
     desktopManager.default = "none";
-    desktopManager.xterm.enable = false; # Enable a xterm terminal as a desktop manager
+    desktopManager.xterm.enable = false;
     displayManager.slim = {
       enable = true;
       defaultUser = "arnau";
@@ -113,8 +112,8 @@
 	group = "users";
 	extraGroups = [ "wheel" "networkmanager" ]; # docker
 	isNormalUser = true;
-	useDefaultShell = false;
-	shell = "/run/current-system/sw/bin/zsh";
+	# useDefaultShell = false;
+	# shell = "/run/current-system/sw/bin/zsh";
         hashedPassword = "$6$hKXoaMQzxJ$TI79FW9KtvORSrQKP5cqZR5fzOISMLDyH80BnBlg8G61piAe6qCw.07OVWk.6MfQO1l3mBhdTckNfnBpkQSCh0";
       }
     ];
