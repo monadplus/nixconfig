@@ -1,1 +1,0 @@
-hosts/zeus/hardware-configuration.nix
