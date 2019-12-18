@@ -33,8 +33,6 @@ in
   i18n = lib.mkForce {
     consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
-    # supportedLocales = [];
-    # consoleUseXkbConfig = true; # console kb settings = xserver kb settings
   };
 
   time.timeZone = "Europe/Madrid";
@@ -48,6 +46,10 @@ in
       inconsolata
       fira-mono
       ubuntu_font_family
+      gohufont
+      nerdfonts
+      opensans-ttf
+      siji
     ];
   };
 

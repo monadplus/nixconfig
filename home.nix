@@ -9,12 +9,11 @@
   # xsession.enable = true;
 
   home.packages = with pkgs; [
-    bat htop unzip gnupg
-    vlc # videos
+    bat htop unzip gnupg tree
+    vlc # TODO
     shutter # Screenshots
     zathura # EPUB, PDF and XPS
     udisks parted
-    vim  neovim
     curl wget
     mkpasswd
     dmenu # xmonad Alt+p
@@ -22,20 +21,42 @@
     gnumake gcc
     ghc cabal-install stack
     ncdu # Disk space usage analyzer
-    slack discord zoom
+    slack discord
     whois
     nix-prefetch-git
     jq
     thunderbird
     dropbox
+    enpass # TODO
 
-    # (zoom-us.overrideAttrs (super: {
-    #  postInstall = ''
-    #    ${super.postInstall}
-    #    wrapProgram $out/bin/zoom-us --set LIBGL_ALWAYS_SOFTWARE 1
-    #  '';
-    #}))
+    haskellPackages.fast-tags
+    haskellPackages.ghcid
+    haskellPackages.xmobar
+    haskellPackages.pandoc
+    haskellPackages.brittany
+
+    (zoom-us.overrideAttrs (super: {
+      postInstall = ''
+        ${super.postInstall}
+        wrapProgram $out/bin/zoom-us --set LIBGL_ALWAYS_SOFTWARE 1
+      '';
+    }))
   ];
+
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias =  true;
+    plugins = with pkgs.vimPlugins; [ 
+      vim # dracula/vim
+      solarized
+    ];
+    extraConfig = ''
+      syntax on
+      colorscheme solarized
+    '';
+     # ${builtins.readFile ./dotfiles/neovim/init.vim}
+  };
 
   programs.firefox = {
     enable = true;
