@@ -1,11 +1,18 @@
 { config, pkgs, lib, ... }:
 
+let
+  home-manager = builtins.fetchGit {
+    url = "https://github.com/rycee/home-manager.git";
+    ref = "master";
+    rev = "0f1c9f25cf03cd5ed62db05c461af7e13f84a7b6";
+  };
+in
 {
   imports = [
     ./hardware-configuration.nix
+    "${home-manager}/nixos"
   ];
 
-  # This is also set per user at ~/.config/nixos/config.nix
   nixpkgs.config = {
     allowUnfree = true;
     allowBroken = true;
@@ -123,7 +130,7 @@
       };
     };
 
-    # Not working for bash shell
+    # TODO Not sure why I need this
     autoRepeatDelay = 200; # milliseconds
     autoRepeatInterval = 30; # milliseconds
 
@@ -174,4 +181,7 @@
    VISUAL = "vim";
    BROWSER = "firefox";
  };
+ 
+ # https://github.com/rycee/home-manager/issues/463
+ home-manager.users.arnau = import ./home.nix { inherit pkgs config; };
 }
