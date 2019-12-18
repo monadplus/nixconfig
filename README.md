@@ -13,10 +13,17 @@ and it to openSSH daemon `ssh-add /home/arnau/.ssh/github`.
 $ sudo mv /etc/nixos/hardware-configuration.nix /tmp/hardware-configuration.nix
 $ sudo rm /etc/nixos
 $ sudo git clone git@github.com:monadplus/nixconfig.git /etc/nixos
-$ sudo mv /tmp/hardware-configuration.nix /etc/nixos/hardware-configuration-<<machine-name>>.nix
-```
 
-Edit `configuration.nix` and add your new hardware to the configuration.
+# Probably you will need to create a new hosts/your_hostname folder.
+$ sudo mv /tmp/hardware-configuration.nix /etc/nixos/hosts/<<your_hostname>>/hardware-configuration.nix
+
+# Edit your configuration (copy/pasting from another configuration would help)
+$ sudo vim /etc/nixos/hosts/<<your_hostname>>/configuration.nix
+
+# Symlink your configuration to /etc/hosts
+$ ln -s /etc/nixos/hosts/<<your_hostname>>/configuration.nix /etc/nixos/config.nix
+$ ln -s /etc/nixos/hosts/<<your_hostname>>/hardware-configuration.nix /etc/nixos/hardware.nix
+```
 
 Before realising your configuration you must add (test if you really need it) home-manager channels:
 
