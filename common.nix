@@ -59,8 +59,9 @@ in
         createHome = true;
         home = "/home/arnau";
 	group = "users";
-	extraGroups = [ "wheel" "networkmanager" ]; # docker
+	extraGroups = [ "wheel" "networkmanager" "docker"];
 	isNormalUser = true;
+	uid = 1000;
 	useDefaultShell = false;
 	shell = "/run/current-system/sw/bin/zsh";
         hashedPassword = "$6$hKXoaMQzxJ$TI79FW9KtvORSrQKP5cqZR5fzOISMLDyH80BnBlg8G61piAe6qCw.07OVWk.6MfQO1l3mBhdTckNfnBpkQSCh0";
