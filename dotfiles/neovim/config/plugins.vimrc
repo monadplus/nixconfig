@@ -64,24 +64,6 @@ set nowritebackup
 " Better display for messages
 set cmdheight=2
 
-" Show signature help
-"autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-
-" Highlight symbol under cursor on CursorHold
-"autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" No preview window on autocompletion (vim-lsc)
-"set completeopt-=preview
-
-" Close preview window on autocompletion (metals / vim-lsc)
-"autocmd CompleteDone * silent! pclose
-
-" Diagnostics highlighting
-"hi link ALEError Error
-"hi Warning term=underline cterm=underline ctermfg=Yellow gui=undercurl guisp=Gold
-"hi link ALEWarning Warning
-"hi link ALEInfo SpellCap
-
 " haskell-vim
 let g:haskell_indent_if = 2               " Align 'then' two spaces after 'if'
 let g:haskell_indent_before_where = 2     " Indent 'where' block two spaces under previous body

@@ -2,9 +2,6 @@ set directory=~/.vim/backup
 set backupdir=~/.vim/backup " keep swap files here
 filetype off                " required
 
-"Start up buffer
-"autocmd VimEnter * edit ~/.config/nvim/keybindings.md
-
 " Highlighting for jsonc filetype
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
@@ -36,21 +33,16 @@ let mapleader=','
 
 set backspace=2
 
-colorscheme dracula
-"set background=light
-"colorscheme solarized
+" TODO
+"colorscheme dracula
 
 syntax on
 filetype plugin indent on
 
-set shell=/bin/zsh
+"set shell=/bin/zsh
 
 set laststatus=2
 set noshowmode
-
-" Draw a line at 120 columns
-" set colorcolumn=120
-" highlight ColorColumn ctermbg=235 guibg=#2c2d27
 
 " Fixes broken cursor on Linux
 set guicursor=

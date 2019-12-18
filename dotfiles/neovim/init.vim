@@ -1,4 +1,3 @@
-source ~/.config/nvim/config/init.vimrc
-source ~/.config/nvim/config/plugins.vimrc
-source ~/.config/nvim/config/keys.vimrc
-source ~/.config/nvim/config/general.vimrc
+source /etc/nixos/dotfiles/neovim/config/general.vimrc
+source /etc/nixos/dotfiles/neovim/config/plugins.vimrc
+source /etc/nixos/dotfiles/neovim/config/keys.vimrc

@@ -48,14 +48,36 @@
     viAlias = true;
     vimAlias =  true;
     plugins = with pkgs.vimPlugins; [ 
+      vim-fugitive
+      vim-airline
+      vim-airline-themes
+      fzf-vim
+      nerdtree
+      nerdcommenter
+      gruvbox
+      rainbow
+      vim-surround
+      vim-easy-align
+      neomake
+      vim-hoogle
+      vim-multiple-cursors
+      lightline-vim
+      nerdtree-git-plugin
+      vim-gitgutter
+      haskell-vim
+      vim-stylishask
+      vim-hindent
+      vim-unimpaired
+      Recover-vim
+      supertab
+      tabular
+      vim-markdown
+      syntastic
       vim # dracula/vim
-      solarized
     ];
     extraConfig = ''
-      syntax on
-      colorscheme solarized
+      ${builtins.readFile ./dotfiles/neovim/init.vim}
     '';
-     # ${builtins.readFile ./dotfiles/neovim/init.vim}
   };
 
   programs.firefox = {
@@ -76,10 +98,6 @@
 
     # https://github.com/Powerlevel9k/powerlevel9k/wiki/Install-Instructions#nixos
     # promptInit = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
-
-    initExtra = ''
-      export TERM="xterm-256color"
-    '';
 
     localVariables = {
       COMPLETITION_WAITING_DOTS = "true";
