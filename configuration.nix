@@ -5,6 +5,12 @@
     ./hardware-configuration.nix
   ];
 
+  # This is also set per user at ~/.config/nixos/config.nix
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowBroken = true;
+  };
+
   # You should change this only after NixOS release notes say you should.
   system.stateVersion = "19.09";
 
@@ -12,30 +18,55 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.useOSProber = true; # TODO popOS ?
   boot.loader.timeout = 8;
-  # boot.cleanTmpDir = true;
+  boot.cleanTmpDir = true;
 
-  # networking.hostName = "arnau";
-  # networking.wireless.enable = true;
-  # hardware.bluetooth.enable = true;
+  networking.hostName = "arnau";
+  networking.wireless.enable = true;
 
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  # hardware.pulseaudio.package = pkgs.pulseaudioFull; # support for bluetooth headsets
+
+  hardware = {
+    # cpu.intel.updateMicrocode = true;
+    # opengl.driSupport = true;
+    # opengl.driSupport32Bit = true;
+    # opengl.extraPackages = [ pkgs.vaapiIntel ];
+    # trackpoint.enable = false;
+    # trackpoint.emulateWheel = false;
+
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+
+    pulseaudio = {
+      enable = true;
+      package = pkgs.pulseaudioFull;
+    };
+  };
+
+  virtualisation = {
+    # TODO docker requires sudo..
+    docker = {
+      enable = true;
+    };
+  };
 
   i18n = lib.mkForce {
-    consoleFont = "Lat2-Terminus16";
     consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
-    consoleUseXkbConfig = true; # console kb settings = xserver kb settings
+    # supportedLocales = [];
+    # consoleUseXkbConfig = true; # console kb settings = xserver kb settings
   };
 
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
 
   fonts = {
-    enableFontDir = true;
+    fontconfig.enable = true;
+    enableCoreFonts = true;
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
+      powerline-fonts  # agnoster theme uses this
       inconsolata
       fira-mono
       ubuntu_font_family
@@ -45,10 +76,6 @@
   # Enable the OpenSSH daemon (allow secure remote logins)
   services.openssh.enable = true;
 
-  # Start OpenSSH agent when you log in.
-  # Use ssh-add to add a key to the agent.
-  programs.ssh.startAgent = true;
-
   # Enable CUPS to print documents.
   services.printing = {
     enable = true;
@@ -57,36 +84,44 @@
 
   services.xserver = {
     enable = true;
-    # autorun = true;
+    autorun = true;
     layout = "us";
     xkbOptions = "eurosign:e";
 
     # Enable touchpad support.
     # libinput.enable = true;
 
-    # Enable the KDE Desktop Environment.
-    # desktopManager.plasma5.enable = true;
-    # desktopManager.defaul = "plasma5";
-    # displayManager.sddm.enable = true;             
+    videoDrivers = [ "intel" ];
 
-    desktopManager.default = "none";
-    desktopManager.xterm.enable = false;
-    displayManager.slim = {
-      enable = true;
-      defaultUser = "arnau";
-      theme = pkgs.fetchurl {
-        url    = "https://github.com/ylwghst/nixos-light-slim-theme/archive/1.0.0.tar.gz";
-        sha256 = "0cc701k920zhy54srd1qwb5rcxqp5adjhnl154z7c0276csglzw9";
-      }; 
+    desktopManager = {
+      default = "none";
+      xterm.enable = false;
     };
 
-    windowManager.default = "xmonad";
-    windowManager.xmonad.enable = true;
-    #windowManager.xmonad.extraPackages = hpkgs : [
-      # hpkgs.taffybar
-      # hpkgs.xmonad-contrib
-      # hpkgs.xmonad-extras
-    #];
+    displayManager = {
+      slim = {
+        enable = true;
+        defaultUser = "arnau";
+        theme = pkgs.fetchurl {
+                  url    = "https://github.com/ylwghst/nixos-light-slim-theme/archive/1.0.0.tar.gz";
+                  sha256 = "0cc701k920zhy54srd1qwb5rcxqp5adjhnl154z7c0276csglzw9";
+                }; 
+      };
+    };
+
+    windowManager = {
+      default = "xmonad";
+      xmonad = {
+        enable = true;
+	enableContribAndExtras = true;
+        extraPackages = haskellPackages : [
+          haskellPackages.xmonad-contrib
+          haskellPackages.xmonad-extras
+	  haskellPackages.xmobar
+          haskellPackages.xmonad
+        ];
+      };
+    };
 
     # Not working for bash shell
     autoRepeatDelay = 200; # milliseconds
@@ -100,20 +135,30 @@
   # battery management
   # services.tlp.enable = true
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  programs = {
+    command-not-found.enable = true;
+    ssh.startAgent = true; # Start OpenSSH agent when you log in (e.g. ssh-add ..)
+    zsh.enable = true;
+    # https://github.com/Powerlevel9k/powerlevel9k/wiki/Install-Instructions#nixos
+    zsh.promptInit = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
+  };
+
+  documentation = {
+    man.enable = true;
+  };
+
   users = {
-    # Don't allow imperative style
-    mutableUsers = false;
+    mutableUsers = false; # Don't allow imperative style
     extraUsers = [ 
       {
         name = "arnau";
-        createHome = true; # Only if it does not exist.	
+        createHome = true;
         home = "/home/arnau";
 	group = "users";
 	extraGroups = [ "wheel" "networkmanager" ]; # docker
 	isNormalUser = true;
-	# useDefaultShell = false;
-	# shell = "/run/current-system/sw/bin/zsh";
+	useDefaultShell = false;
+	shell = "/run/current-system/sw/bin/zsh";
         hashedPassword = "$6$hKXoaMQzxJ$TI79FW9KtvORSrQKP5cqZR5fzOISMLDyH80BnBlg8G61piAe6qCw.07OVWk.6MfQO1l3mBhdTckNfnBpkQSCh0";
       }
     ];
