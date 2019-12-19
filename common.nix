@@ -43,13 +43,10 @@ in
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
       powerline-fonts
-      inconsolata
-      fira-mono
-      ubuntu_font_family
-      gohufont
-      nerdfonts
-      opensans-ttf
-      siji
+      nerdfonts # vim-devicons
+      # Do you need them ?
+      material-icons
+      material-design-icons
     ];
   };
 

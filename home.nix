@@ -11,7 +11,9 @@
   home.packages = with pkgs; [
     bat htop unzip gnupg tree fzf
     vlc # TODO
-    shutter # Screenshots
+    xscreensaver
+    gimp
+    shutter scrot # Screenshots
     zathura # EPUB, PDF and XPS
     udisks parted
     curl wget
@@ -76,6 +78,7 @@
       syntastic
       vim # dracula/vim
       solarized
+      vim-devicons
     ];
     extraConfig = ''
       ${builtins.readFile ./dotfiles/neovim/init.vim}

@@ -11,7 +11,8 @@ with lib;
   boot.loader.timeout = 8;
   boot.cleanTmpDir = true;
 
-  networking.wireless.enable = true;
+  # TODO gnome doesn't want this set to true
+  #networking.wireless.enable = true;
 
   sound.enable = true;
 
@@ -53,6 +54,7 @@ with lib;
     enable = true;
     autorun = true;
     layout = "us";
+    # TODO
     xkbOptions = "eurosign:e";
 
     # Enable touchpad support.
@@ -61,8 +63,9 @@ with lib;
     videoDrivers = [ "intel" ];
 
     desktopManager = {
-      default = "none";
-      xterm.enable = false;
+       default = "none";
+       xterm.enable = false;
+       plasma5.enable = true;
     };
 
     displayManager = {
@@ -72,23 +75,22 @@ with lib;
         theme = pkgs.fetchurl {
                   url    = "https://github.com/ylwghst/nixos-light-slim-theme/archive/1.0.0.tar.gz";
                   sha256 = "0cc701k920zhy54srd1qwb5rcxqp5adjhnl154z7c0276csglzw9";
-                }; 
+                };
       };
     };
 
-    windowManager = {
-      default = "xmonad";
-      xmonad = {
-        enable = true;
-	enableContribAndExtras = true;
-        extraPackages = haskellPackages : [
-          haskellPackages.xmonad-contrib
-          haskellPackages.xmonad-extras
-	  haskellPackages.xmobar
-          haskellPackages.xmonad
-        ];
-      };
-    };
+    #windowManager = {
+      #default = "xmonad";
+      #xmonad = {
+        #enable = true;
+        #enableContribAndExtras = true;
+        #extraPackages = haskellPackages : [
+          #haskellPackages.xmonad-contrib
+          #haskellPackages.xmonad-extras
+          #haskellPackages.xmobar
+        #];
+      #};
+    #};
 
     # TODO Not sure why I need this
     autoRepeatDelay = 200; # milliseconds
