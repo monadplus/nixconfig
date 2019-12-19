@@ -33,8 +33,10 @@ let mapleader=','
 
 set backspace=2
 
-" TODO
 "colorscheme dracula
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
 
 syntax on
 filetype plugin indent on

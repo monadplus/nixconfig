@@ -42,7 +42,7 @@ in
     enableCoreFonts = true;
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
-      powerline-fonts  # agnoster theme uses this
+      powerline-fonts
       inconsolata
       fira-mono
       ubuntu_font_family
@@ -55,7 +55,7 @@ in
 
   users = {
     mutableUsers = false; # Don't allow imperative style
-    extraUsers = [ 
+    extraUsers = [
       {
         name = "arnau";
         createHome = true;

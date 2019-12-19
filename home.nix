@@ -9,7 +9,7 @@
   # xsession.enable = true;
 
   home.packages = with pkgs; [
-    bat htop unzip gnupg tree
+    bat htop unzip gnupg tree fzf
     vlc # TODO
     shutter # Screenshots
     zathura # EPUB, PDF and XPS
@@ -47,11 +47,12 @@
     enable = true;
     viAlias = true;
     vimAlias =  true;
-    plugins = with pkgs.vimPlugins; [ 
+    plugins = with pkgs.vimPlugins; [
+      vim-nix
       vim-fugitive
       vim-airline
       vim-airline-themes
-      fzf-vim
+      fzfWrapper
       nerdtree
       nerdcommenter
       gruvbox
@@ -74,6 +75,7 @@
       vim-markdown
       syntastic
       vim # dracula/vim
+      solarized
     ];
     extraConfig = ''
       ${builtins.readFile ./dotfiles/neovim/init.vim}
@@ -96,13 +98,9 @@
   programs.zsh = {
     enable = true;
 
-    # https://github.com/Powerlevel9k/powerlevel9k/wiki/Install-Instructions#nixos
-    # promptInit = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
-
     localVariables = {
       COMPLETITION_WAITING_DOTS = "true";
-      
-    }; 
+    };
 
     shellAliases = {
       ls = "ls -GFhla";
@@ -111,7 +109,7 @@
 
     "oh-my-zsh" = {
       enable = true;
-      theme = "agnoster"; # TODO dracula
+      theme = "agnoster";
       plugins = [ "git" "sudo" ];
     };
   };

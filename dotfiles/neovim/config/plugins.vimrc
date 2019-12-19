@@ -1,26 +1,26 @@
 " airline: status bar at the bottom
-let g:airline_powerline_fonts=0
+let g:airline_powerline_fonts=1
 
 " if you want to disable auto detect, comment out those two lines (COC)
 "let g:airline#extensions#disable_rtp_load = 1
 "let g:airline_extensions = ['branch', 'hunks', 'coc']
 
-let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
-let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
+"let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+"let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
 " Nerd commenter
 filetype plugin on
 
 " Nerdtree git plugin symbols
 let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "ᵐ",
-    \ "Staged"    : "ˢ",
-    \ "Untracked" : "ᵘ",
-    \ "Renamed"   : "ʳ",
-    \ "Unmerged"  : "ᶴ",
-    \ "Deleted"   : "ˣ",
-    \ "Dirty"     : "˜",
-    \ "Clean"     : "ᵅ",
+    \ "Modified"  : "m",
+    \ "Staged"    : "s",
+    \ "Untracked" : "u",
+    \ "Renamed"   : "r",
+    \ "Unmerged"  : "n",
+    \ "Deleted"   : "x",
+    \ "Dirty"     : "~",
+    \ "Clean"     : "c",
     \ "Unknown"   : "?"
     \ }
 
@@ -42,27 +42,6 @@ let g:NERDTreeShowGitStatus = 1
 
 " Rainbow brackets
 let g:rainbow_active = 1
-
-" vim-scala
-au BufRead,BufNewFile *.sbt set filetype=scala
-
-" ------------------- COC config -----------------------
-
-" Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
-
-" Some server have issues with backup files, see #649
-set nobackup
-set nowritebackup
-
-" Better display for messages
-set cmdheight=2
 
 " haskell-vim
 let g:haskell_indent_if = 2               " Align 'then' two spaces after 'if'
