@@ -31,10 +31,15 @@
     dropbox
     enpass # TODO
 
+    konsole
+
     haskellPackages.fast-tags
     haskellPackages.ghcid
     haskellPackages.xmobar
+    haskellPackages.hoogle
     haskellPackages.pandoc
+    haskellPackages.stylish-haskell
+    haskellPackages.hindent
     haskellPackages.brittany
 
     (zoom-us.overrideAttrs (super: {

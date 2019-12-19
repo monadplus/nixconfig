@@ -55,7 +55,7 @@ with lib;
     autorun = true;
     layout = "us";
     # TODO
-    xkbOptions = "eurosign:e";
+    # xkbOptions = "eurosign:e";
 
     # Enable touchpad support.
     # libinput.enable = true;
@@ -72,10 +72,11 @@ with lib;
       slim = {
         enable = true;
         defaultUser = "arnau";
-        theme = pkgs.fetchurl {
-                  url    = "https://github.com/ylwghst/nixos-light-slim-theme/archive/1.0.0.tar.gz";
-                  sha256 = "0cc701k920zhy54srd1qwb5rcxqp5adjhnl154z7c0276csglzw9";
-                };
+        theme =
+          pkgs.fetchurl {
+            url    = "https://github.com/ylwghst/nixos-light-slim-theme/archive/1.0.0.tar.gz";
+            sha256 = "0cc701k920zhy54srd1qwb5rcxqp5adjhnl154z7c0276csglzw9";
+          };
       };
     };
 
@@ -84,6 +85,7 @@ with lib;
       #xmonad = {
         #enable = true;
         #enableContribAndExtras = true;
+        #config = /etc/nixos/dotfiles/xmonad/xmonad.hs;
         #extraPackages = haskellPackages : [
           #haskellPackages.xmonad-contrib
           #haskellPackages.xmonad-extras
@@ -91,10 +93,6 @@ with lib;
         #];
       #};
     #};
-
-    # TODO Not sure why I need this
-    autoRepeatDelay = 200; # milliseconds
-    autoRepeatInterval = 30; # milliseconds
 
     displayManager.sessionCommands = ''
       ${pkgs.xorg.xset}/bin/xset r rate 265 40
