@@ -3,16 +3,17 @@
 with lib;
 
 {
-  networking.hostName = "zeus";
+  networking.hostName = "hades";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.useOSProber = true; # TODO popOS ?
   boot.loader.timeout = 8;
   boot.cleanTmpDir = true;
 
-  # TODO gnome doesn't want this set to true
-  #networking.wireless.enable = true;
+  networking.useDHCP = false;
+  networking.interfaces.enp3s0f0.useDHCP = true;
+  networking.interfaces.enp4s0.useDHCP = true;
+  networking.interfaces.wlp1s0.useDHCP = true;
 
   sound.enable = true;
 
@@ -60,7 +61,8 @@ with lib;
     # Enable touchpad support.
     # libinput.enable = true;
 
-    videoDrivers = [ "intel" ];
+    # TODO
+    #videoDrivers = (if config.networking.hostName == "zeus" then [ "intel" ] else []);
 
     desktopManager = {
        default = "none";
