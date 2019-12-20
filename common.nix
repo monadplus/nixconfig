@@ -19,8 +19,18 @@ in
 
   system.stateVersion = "19.09";
 
+  location.latitude = 41.3828939;
+  location.longitude = 2.1774322;
+
   # https://github.com/rycee/home-manager/issues/463
   home-manager.users.arnau = import ./home.nix { inherit pkgs config; };
+
+  # https://github.com/nix-community/NUR/
+  nixpkgs.config.packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
 
   # Only keep the last 500MiB of systemd journal.
   services.journald.extraConfig = "SystemMaxUse=500M";
@@ -64,7 +74,6 @@ in
     desktopManager = {
        default = "none";
        xterm.enable = false;
-       plasma5.enable = true;
     };
 
     displayManager = {
@@ -79,19 +88,20 @@ in
       };
     };
 
-    #windowManager = {
-      #default = "xmonad";
-      #xmonad = {
-        #enable = true;
-        #enableContribAndExtras = true;
-        #config = /etc/nixos/dotfiles/xmonad/xmonad.hs;
-        #extraPackages = haskellPackages : [
-          #haskellPackages.xmonad-contrib
-          #haskellPackages.xmonad-extras
-          #haskellPackages.xmobar
-        #];
-      #};
-    #};
+    windowManager = {
+      default = "xmonad";
+      xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+        # nb. `xmonad --recompile` will no longer work!
+        config = /etc/nixos/dotfiles/xmonad/xmonad.hs;
+        extraPackages = haskellPackages : [
+          haskellPackages.xmonad-contrib
+          haskellPackages.xmonad-extras
+          haskellPackages.xmobar
+        ];
+      };
+    };
 
     displayManager.sessionCommands = ''
       ${pkgs.xorg.xset}/bin/xset r rate 265 40
@@ -106,7 +116,7 @@ in
         createHome = true;
         home = "/home/arnau";
         group = "users";
-        extraGroups = [ "wheel" "networkmanager" "docker"];
+        extraGroups = [ "wheel" "networkmanager" "video" "docker"];
         isNormalUser = true;
         uid = 1000;
         useDefaultShell = false;

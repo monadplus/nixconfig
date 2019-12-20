@@ -21,6 +21,7 @@ main = do
   spawn "xmobar"
   xmonad $ defaultConfig
      { borderWidth        = 2
+     , modMask            = mod4Mask -- Win as mod
      , terminal           = "konsole"
      , normalBorderColor  = "#cccccc"
      , focusedBorderColor = "#cd8b00"

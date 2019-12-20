@@ -29,7 +29,7 @@
     jq
     thunderbird
     dropbox
-    enpass # TODO dies after executing..
+    enpass
     konsole
     haskellPackages.fast-tags
     haskellPackages.ghcid
@@ -91,6 +91,17 @@
     # TODO check why it fails
     # enableAdobeFlash = true;
     enableIcedTea = true;
+    # nb. it is necessary to manually enable these extensions inside Firefox after the first installation.
+    # Source: https://gitlab.com/rycee/nur-expressions/blob/master/pkgs/firefox-addons/addons.json
+    # Notice this is using NUR
+    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      ublock-origin
+      decentraleyes
+      refined-github
+      cookie-autodelete
+      # TODO
+      # enpass
+    ];
   };
 
   programs.git = {

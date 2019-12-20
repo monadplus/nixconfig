@@ -7,7 +7,7 @@ with lib;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 8;
+  boot.loader.timeout = 10;
   boot.cleanTmpDir = true;
 
   networking.useDHCP = false;
@@ -20,14 +20,26 @@ with lib;
 
   sound.enable = true;
 
+  # TODO light doesn't work
+  #programs.light.enable = true;
+  #services.actkbd = {
+      #enable = true;
+      #bindings = [
+        #{ keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -A 10"; }
+        #{ keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -U 10"; }
+      #];
+    #};
+
   hardware = {
-    # TODO
-    # cpu.intel.updateMicrocode = true;
-    # opengl.driSupport = true;
-    # opengl.driSupport32Bit = true;
-    # opengl.extraPackages = [ pkgs.vaapiIntel ];
-    # trackpoint.enable = false;
-    # trackpoint.emulateWheel = false;
+
+    # https://github.com/Hummer12007/brightnessctl
+    # TODO light doesn't work
+    brightnessctl.enable = true;
+
+    trackpoint.enable = true;
+    trackpoint.emulateWheel = true; # While holding middle button
+    trackpoint.speed = 97; # Kernel default
+    trackpoint.sensitivity = 128; # Kernel default
 
     bluetooth = {
       enable = true;
@@ -51,4 +63,12 @@ with lib;
     # Controls how logind shall handle the system power and sleep keys.
     HandlePowerKey=suspend
   '';
+
+  # TODO doesnt work ? I dont even know how to test it
+  services.redshift = {
+    # this setting is affected by location.latitude/location.longitude
+    enable = true;
+    temperature.day = 5500;
+    temperature.night = 2700;
+  };
 }
