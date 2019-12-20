@@ -22,8 +22,16 @@ in
   # https://github.com/rycee/home-manager/issues/463
   home-manager.users.arnau = import ./home.nix { inherit pkgs config; };
 
+  # Only keep the last 500MiB of systemd journal.
+  services.journald.extraConfig = "SystemMaxUse=500M";
+
+  # Collect nix store garbage and optimise daily.
+  nix.gc.automatic = true;
+  nix.optimise.automatic = true;
+
   # Enable the OpenSSH daemon (allow secure remote logins)
   services.openssh.enable = true;
+  programs.ssh.startAgent = true; # Start ssh-agent as systemd service
 
   services.printing = {
     enable = true;
@@ -39,15 +47,55 @@ in
 
   fonts = {
     fontconfig.enable = true;
+    enableFontDir = true;
     enableCoreFonts = true;
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
       powerline-fonts
       nerdfonts # vim-devicons
-      # Do you need them ?
-      material-icons
-      material-design-icons
     ];
+  };
+
+  services.xserver = {
+    enable = true;
+    autorun = true;
+    layout = "us";
+
+    desktopManager = {
+       default = "none";
+       xterm.enable = false;
+       plasma5.enable = true;
+    };
+
+    displayManager = {
+      slim = {
+        enable = true;
+        defaultUser = "arnau";
+        theme =
+          pkgs.fetchurl {
+            url    = "https://github.com/ylwghst/nixos-light-slim-theme/archive/1.0.0.tar.gz";
+            sha256 = "0cc701k920zhy54srd1qwb5rcxqp5adjhnl154z7c0276csglzw9";
+          };
+      };
+    };
+
+    #windowManager = {
+      #default = "xmonad";
+      #xmonad = {
+        #enable = true;
+        #enableContribAndExtras = true;
+        #config = /etc/nixos/dotfiles/xmonad/xmonad.hs;
+        #extraPackages = haskellPackages : [
+          #haskellPackages.xmonad-contrib
+          #haskellPackages.xmonad-extras
+          #haskellPackages.xmobar
+        #];
+      #};
+    #};
+
+    displayManager.sessionCommands = ''
+      ${pkgs.xorg.xset}/bin/xset r rate 265 40
+    '';
   };
 
   users = {
@@ -78,15 +126,20 @@ in
     man.enable = true;
   };
 
-  # TODO merge with home.nix
-  programs = {
-    command-not-found.enable = true;
 
-    ssh.startAgent = true; # Start OpenSSH agent when you log in (e.g. ssh-add ..)
+  programs.command-not-found.enable = true;
 
-    zsh.enable = true;
+  programs.zsh = {
+    enable = true;
     # https://github.com/Powerlevel9k/powerlevel9k/wiki/Install-Instructions#nixos
-    zsh.promptInit = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
+    promptInit = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
+  };
+
+
+  virtualisation = {
+    docker = {
+      enable = true;
+    };
   };
 
 }

@@ -10,7 +10,7 @@
 
   home.packages = with pkgs; [
     bat htop unzip gnupg tree fzf
-    vlc # TODO
+    vlc # works on plasma
     xscreensaver
     gimp
     shutter scrot # Screenshots
@@ -29,10 +29,8 @@
     jq
     thunderbird
     dropbox
-    enpass # TODO
-
+    enpass # TODO dies after executing..
     konsole
-
     haskellPackages.fast-tags
     haskellPackages.ghcid
     haskellPackages.xmobar
@@ -62,7 +60,6 @@
       fzfWrapper
       nerdtree
       nerdcommenter
-      gruvbox
       rainbow
       vim-surround
       vim-easy-align
@@ -78,7 +75,6 @@
       vim-unimpaired
       Recover-vim
       supertab
-      tabular
       vim-markdown
       syntastic
       vim # dracula/vim
