@@ -17,7 +17,7 @@
     zathura # EPUB, PDF and XPS
     udisks parted
     curl wget
-    mkpasswd
+    mkpasswd # user passwords
     dmenu # xmonad Alt+p
     xclip
     gnumake gcc
@@ -120,6 +120,8 @@
     shellAliases = {
       ls = "ls -GFhla";
       ".." = "cd ..";
+      # Alternative: `tlp-stat -b`
+      battery = ''upower -i $(upower -e | grep BAT) | grep --color=never -E "state|to\ full|to\ empty|percentage"'';
     };
 
     "oh-my-zsh" = {

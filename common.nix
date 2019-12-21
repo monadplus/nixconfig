@@ -43,6 +43,9 @@ in
   services.openssh.enable = true;
   programs.ssh.startAgent = true; # Start ssh-agent as systemd service
 
+  # Battery info
+  services.upower.enable = true;
+
   services.printing = {
     enable = true;
     # drivers = (with pkgs; [ gutenprint cups-bjnp hplip cnijfilter2 ]);

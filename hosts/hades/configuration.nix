@@ -10,6 +10,34 @@ with lib;
   boot.loader.timeout = 10;
   boot.cleanTmpDir = true;
 
+  nix.maxJobs = 8;
+  nix.buildCores = 0; # Use all cores of your CPU
+  # ^^^^^^^^^^ Some builds may become non-deterministic with this option
+
+  # This includes support for suspend-to-RAM and powersave features on laptops.
+  powerManagement = {
+    enable = true;
+    # TLP sets this to null => let TLP do its work.
+    #cpuFreqGovernor = "ondemand";
+  };
+
+  # https://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html
+  services.tlp = {
+    enable = true;
+    # Example: https://gist.github.com/pauloromeira/787c75d83777098453f5c2ed7eafa42a
+    extraConfig = ''
+      START_CHARGE_THRESH_BAT0=70
+      STOP_CHARGE_THRESH_BAT0=85
+    '';
+  };
+
+
+  services.logind.extraConfig = ''
+    # Controls how logind shall handle the system power and sleep keys.
+    HandlePowerKey=suspend
+  '';
+
+
   networking.useDHCP = false;
   networking.interfaces.enp3s0f0.useDHCP = true;
   networking.interfaces.enp4s0.useDHCP = true;
@@ -53,16 +81,8 @@ with lib;
     };
   };
 
-  # battery management
-  services.tlp.enable = true;
-
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
-
-  services.logind.extraConfig = ''
-    # Controls how logind shall handle the system power and sleep keys.
-    HandlePowerKey=suspend
-  '';
 
   # TODO doesnt work ? I dont even know how to test it
   services.redshift = {
