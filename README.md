@@ -4,9 +4,9 @@
 
 First, you need to install a fresh NixOS following the [manual](https://nixos.org/nixos/manual/index.html#sec-installation).
 
-Then, you need to have `git` on the system. 
+Then, you need to have `git` on the system.
 If installing is required do `nix-env -iA pkgs.git`.
-You will need to import your github private key (or create a new one `ssh-keygen -t rsa -b 4096 -C "arnauabella@gmail.com"`) 
+You will need to import your github private key (or create a new one `ssh-keygen -t rsa -b 4096 -C "arnauabella@gmail.com"`)
 and it to openSSH daemon `ssh-add /home/arnau/.ssh/github`.
 
 ```bash
@@ -38,3 +38,13 @@ To install everything:
 $ sudo nixos-rebuild switch
 $ reboot
 ```
+
+## Command-lines
+
+### Wi-fi
+
+TODO
+
+### Audio
+
+alsamixer

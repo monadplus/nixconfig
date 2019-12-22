@@ -9,28 +9,25 @@
   # xsession.enable = true;
 
   home.packages = with pkgs; [
-    bat htop unzip gnupg tree fzf
+    bat xclip htop unzip gnupg tree fzf mkpasswd jq
+    input-utils # lsinput: keyboard input
+    wpa_supplicant_gui
+    curl wget
+    konsole
     vlc # works on plasma
     xscreensaver
     gimp
     shutter scrot # Screenshots
     zathura # EPUB, PDF and XPS
     udisks parted
-    curl wget
-    mkpasswd # user passwords
     dmenu # xmonad Alt+p
-    xclip
+    whois
     gnumake gcc
-    ghc cabal-install stack
+    ghc cabal-install stack nix-prefetch-git
     ncdu # Disk space usage analyzer
     slack discord
-    whois
-    nix-prefetch-git
-    jq
-    thunderbird
-    dropbox
-    enpass
-    konsole
+    dropbox enpass thunderbird
+
     haskellPackages.fast-tags
     haskellPackages.ghcid
     haskellPackages.xmobar

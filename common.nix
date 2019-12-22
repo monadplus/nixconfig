@@ -119,7 +119,7 @@ in
         createHome = true;
         home = "/home/arnau";
         group = "users";
-        extraGroups = [ "wheel" "networkmanager" "video" "docker"];
+        extraGroups = [ "wheel" "networkmanager" "video" "audio" "docker"];
         isNormalUser = true;
         uid = 1000;
         useDefaultShell = false;
