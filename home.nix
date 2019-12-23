@@ -9,8 +9,9 @@
   # xsession.enable = true;
 
   home.packages = with pkgs; [
-    bat xclip htop unzip gnupg tree fzf mkpasswd jq
+    bat htop unzip gnupg tree fzf mkpasswd jq
     input-utils # lsinput: keyboard input
+    xclip clipmenu # Clipboard managers
     wpa_supplicant_gui
     curl wget
     konsole

@@ -76,6 +76,20 @@ with lib;
   #can't connect to wpa2 networks.
   #networking.networkmanager.enable = true;
 
+  # https://nixos.wiki/wiki/NixOS:extend_NixOS
+  # clipmenu: https://github.com/cdown/clipmenu/
+  # TODO fails to start... for now I am moving it to zsh..
+  #systemd.services."clipmenu" = {
+      #wantedBy = [ "default.target" ];
+      #after = [ "graphical.target" ];
+      #description = "Clipmenu daemon";
+      #serviceConfig = {
+        #ExecStart = ''${pkgs.clipmenu}/bin/clipmenud'';
+        #Restart = "always";
+        #RestartSec = 0.5; # secs
+      #};
+  #};
+
   # https://nixos.wiki/wiki/Actkbd
   services.actkbd = {
       enable = true;
@@ -83,7 +97,6 @@ with lib;
       # nix-shell -p actkbd --run "sudo actkbd -n -s -d /dev/input/event#" # Replace '#' by event ID
       bindings = [
         # audio (fix: https://github.com/NixOS/nixpkgs/issues/24297)
-        # TODO look for the right keys
         { keys = [ 113 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer -q set Master toggle'"; }
         { keys = [ 114 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer -q set Master 5%- unmute'"; }
         { keys = [ 115 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer -q set Master 5%+ unmute'"; }
@@ -92,6 +105,8 @@ with lib;
         # Screen bright
         { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set 10%-"; }
         { keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set +10%"; }
+        # copyq (requires copyq daemon running
+        { keys = [ 42 47 56 ]; events = [ "key" ]; command = ''${pkgs.clipmenu}/bin/clipmenu -i -fn Terminus:size=8''; }
       ];
     };
 

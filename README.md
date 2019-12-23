@@ -48,3 +48,11 @@ TODO
 ### Audio
 
 alsamixer
+
+### Clibpard manager
+
+[clipmenu](https://github.com/cdown/clipmenu)
+
+Requires a systemd daemon runnning: `clipmenud`
+
+And then you can access the tray: `https://github.com/cdown/clipmenu`
