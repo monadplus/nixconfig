@@ -33,10 +33,12 @@ let mapleader=','
 
 set backspace=2
 
-"colorscheme dracula
 set background=dark
-let g:solarized_termcolors=256
-colorscheme solarized
+"Fix https://github.com/dracula/vim/issues/161
+au VimEnter * colorscheme dracula "colorscheme dracula
+let g:airline_theme='dracula'
+"let g:solarized_termcolors=256
+"colorscheme solarized
 
 syntax on
 filetype plugin indent on
