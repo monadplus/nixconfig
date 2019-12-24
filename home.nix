@@ -5,13 +5,11 @@
     enable = true;
   };
 
-  # Allow graphical services
-  # xsession.enable = true;
-
   home.packages = with pkgs; [
     bat htop unzip gnupg tree fzf mkpasswd jq
     input-utils # lsinput: keyboard input
-    xclip # clipmenu copyq parcellite
+    xclip
+    arandr # Graphical xrandr
     wpa_supplicant_gui
     curl wget
     konsole
@@ -45,6 +43,12 @@
       '';
     }))
   ];
+
+  # Monitors
+  programs.autorandr = {
+    enable = true;
+    # TODO configure profiles
+  };
 
   programs.neovim = {
     enable = true;

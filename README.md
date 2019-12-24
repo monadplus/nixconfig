@@ -41,6 +41,22 @@ $ reboot
 
 ## Command-lines
 
+### Monitors
+
+`arandr` is the graphical version of `xrandr` (use this one.)
+
+`xrandr` (cli):
+
+```bash
+xrandr # List monitors and options
+xrandr --auto # Detect monitors and connect them
+xrandr --output HDMI-1 --off # Disable hdmi monitor
+xrandr --output HDMI-1 --right-of eDP-1  # Place HDMI-1 at the right
+# ^^^^^^ To change mirror monitoring
+```
+
+We installed `autoxrandr` to change config when monitor is plugged in.
+
 ### Wi-fi
 
 Known networks are set on configuration.nix
