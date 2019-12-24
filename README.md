@@ -43,16 +43,59 @@ $ reboot
 
 ### Wi-fi
 
-TODO
+Known networks are set on configuration.nix
+
+wpa_gui: GUI, simple to use.
+
+wpa_cli:
+
+```
+$ wpa_cli
+> scan
+OK
+<3>CTRL-EVENT-SCAN-RESULTS
+> scan_results
+bssid / frequency / signal level / flags / ssid
+00:00:00:00:00:00 2462 -49 [WPA2-PSK-CCMP][ESS] MYSSID
+11:11:11:11:11:11 2437 -64 [WPA2-PSK-CCMP][ESS] ANOTHERSSID
+
+# If the SSID does not have password authentication, you must explicitly configure the network as keyless by replacing the command
+
+> save_config
+OK
+> quit
+```
 
 ### Audio
 
 alsamixer
 
-### Clibpard manager
+### Bluetooth
+
+blueman-manager (gui) / blueman-applet (daemon)
+
+Command line:
+
+```
+$ bluetoothctl
+[bluetooth] # power on
+[bluetooth] # agent on
+[bluetooth] # default-agent
+[bluetooth] # scan on
+...put device in pairing mode and wait [hex-address] to appear here...
+[bluetooth] # pair [hex-address]
+[bluetooth] # connect [hex-address]
+```
+
+### Clibpard manager (Not working..)
 
 [clipmenu](https://github.com/cdown/clipmenu)
 
 Requires a systemd daemon runnning: `clipmenud`
 
 And then you can access the tray: `https://github.com/cdown/clipmenu`
+
+
+### Dropbox
+
+Automatically started and mounted (not sure how..)

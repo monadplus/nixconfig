@@ -73,18 +73,14 @@ with lib;
     '';
   };
 
-  #can't connect to wpa2 networks.
-  #networking.networkmanager.enable = true;
-
   # https://nixos.wiki/wiki/NixOS:extend_NixOS
-  # clipmenu: https://github.com/cdown/clipmenu/
-  # TODO fails to start... for now I am moving it to zsh..
-  #systemd.services."clipmenu" = {
+  # This is an example
+  #systemd.services."copyq" = {
       #wantedBy = [ "default.target" ];
       #after = [ "graphical.target" ];
-      #description = "Clipmenu daemon";
+      #description = "Copyq daemon";
       #serviceConfig = {
-        #ExecStart = ''${pkgs.clipmenu}/bin/clipmenud'';
+        #ExecStart = ''${pkgs.copyq}/bin/copyq'';
         #Restart = "always";
         #RestartSec = 0.5; # secs
       #};
@@ -101,12 +97,10 @@ with lib;
         { keys = [ 114 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer -q set Master 5%- unmute'"; }
         { keys = [ 115 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer -q set Master 5%+ unmute'"; }
         # Toggle Microphone
-        { keys = [ 190 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer set Capture toggle'"; }
+         { keys = [ 190 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer set Capture toggle'"; }
         # Screen bright
         { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set 10%-"; }
         { keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set +10%"; }
-        # copyq (requires copyq daemon running
-        { keys = [ 42 47 56 ]; events = [ "key" ]; command = ''${pkgs.clipmenu}/bin/clipmenu -i -fn Terminus:size=8''; }
       ];
     };
 
@@ -119,13 +113,14 @@ with lib;
     trackpoint.emulateWheel = true; # While holding middle button
     trackpoint.speed = 97; # Kernel default
     trackpoint.sensitivity = 128; # Kernel default
-
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-    };
-
   };
+
+  # https://nixos.wiki/wiki/Bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+  services.blueman.enable = true; # GUI for bluetooth
 
   hardware.pulseaudio = {
     enable = true;

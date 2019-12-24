@@ -11,7 +11,7 @@
   home.packages = with pkgs; [
     bat htop unzip gnupg tree fzf mkpasswd jq
     input-utils # lsinput: keyboard input
-    xclip clipmenu # Clipboard managers
+    xclip # clipmenu copyq parcellite
     wpa_supplicant_gui
     curl wget
     konsole
