@@ -43,6 +43,8 @@ $ reboot
 
 ### Monitors
 
+Just plug your screen and run `autorandr -c`
+
 `arandr` is the graphical version of `xrandr` (use this one.)
 
 `xrandr` (cli):
@@ -58,6 +60,8 @@ xrandr --output HDMI-1 --right-of eDP-1  # Place HDMI-1 at the right
 We installed `autoxrandr` to change config when hardware changes.
 
 It requires a bit of configuration to automatically work ! (read https://github.com/phillipberndt/autorandr#how-to-use)
+
+On `home.nix` we set up a declarative autorandx.
 
 ### Wi-fi
 
@@ -88,9 +92,13 @@ OK
 
 alsamixer
 
+We set up keybinding to automatically increase/decrease the volume.
+
+The volume for the bluetooth headsets doesn't work.
+
 ### Bluetooth
 
-blueman-manager (gui) / blueman-applet (daemon)
+`blueman-manager` (gui) / blueman-applet (daemon)
 
 Command line:
 
@@ -117,3 +125,9 @@ And then you can access the tray: `https://github.com/cdown/clipmenu`
 ### Dropbox
 
 Automatically started and mounted (not sure how..)
+
+## Xmonad
+
+Xmonad configuration can be found at `./dotfiles/xmonad/xmonad.hs` and it's configured via nixos (i.e. there is no need to symlink it to ~/.xmonad/).
+
+xmonad top bar is a plug-in called `xmobar` and it is configured with it own config file: `~/.xmobarrc` (can be found on ./dotfiles/xmonad/.xmobarrc)

@@ -15,4 +15,5 @@
 [ ] A terminal emulator managed by config files (konsole is bad at this)
 [ ] Bluetooth volume
 [ ] LightDM tune
+[ ] trackpad: increase sensivity
 [ ] Multiscreen using config file doesn't work well out of the box (you must run `autorandr -c`)

@@ -137,17 +137,17 @@
 
   programs.firefox = {
     enable = true;
-    # TODO check why it fails
-    # enableAdobeFlash = true;
-    enableIcedTea = true;
+    enableAdobeFlash = false;
+    enableIcedTea = false;
     # nb. it is necessary to manually enable these extensions inside Firefox after the first installation.
     # Source: https://gitlab.com/rycee/nur-expressions/blob/master/pkgs/firefox-addons/addons.json
-    # Notice this is using NUR
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
       ublock-origin
       decentraleyes
       refined-github
       cookie-autodelete
+      https-everywhere
+      reddit-enhancement-suite
       # TODO
       # enpass
     ];
@@ -178,5 +178,29 @@
       theme = "agnoster";
       plugins = [ "git" "sudo" ];
     };
+  };
+
+  # Creates the dot files on the nix-store and symlinks them to your $HOME.
+  home.file = {
+
+    ".xmobarrc".source = ./dotfiles/xmonad/.xmobarrc;
+
+    # Examples:
+
+    #".foo".text = ''
+      #This is an example
+    #'';
+
+    #".example" = {
+      #source = ./dotfiles/example;
+      #recursive = true;
+    #};
+
+    #".config/foo".source = fetchFromGitHub {
+       #owner = "pltanton";
+       #repo = "net_widgets";
+       #rev = "82d1ecd";
+       #sha256 = "13c9kcc8fj4qjsbx14mfdhav5ymqxdjbng6lpnc5ycgfpyap2xqf";
+    #};
   };
 }
