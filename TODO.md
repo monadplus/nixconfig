@@ -10,7 +10,8 @@
        parcellite: no gui
 [X] Bluetooth headphones : https://nixos.wiki/wiki/Bluetooth
 [X] Interactive with public wi-fi (gui) => wpa_gui
-[ ] Multiple screens
+[X] Multiple screens
 [ ] Xmonad + Xmobar: first iteration doesn't have to be shinny, only usable.
 [ ] A terminal emulator managed by config files (konsole is bad at this)
 [ ] Bluetooth volume
+[ ] Multiple screens configuration on boot (profiles?)

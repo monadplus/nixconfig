@@ -13,10 +13,6 @@ with lib;
   boot.loader.timeout = 10;
   boot.cleanTmpDir = true;
 
-  nix.maxJobs = 8;
-  nix.buildCores = 0; # Use all cores of your CPU
-  # ^^^^^^^^^^ Some builds may become non-deterministic with this option
-
   # This includes support for suspend-to-RAM and powersave features on laptops.
   powerManagement = {
     enable = true;

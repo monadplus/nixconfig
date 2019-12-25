@@ -23,7 +23,11 @@
       fsType = "vfat";
     };
 
-  swapDevices = [ ];
+    swapDevices = [
+      { label = "swap"; }
+    ];
 
   nix.maxJobs = lib.mkDefault 8;
+  nix.buildCores = 0; # Use all cores of your CPU
+  # ^^^^^^^^^^ Some builds may become non-deterministic with this option
 }

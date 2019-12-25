@@ -79,16 +79,9 @@ in
        xterm.enable = false;
     };
 
-    displayManager = {
-      slim = {
-        enable = true;
-        defaultUser = "arnau";
-        theme =
-          pkgs.fetchurl {
-            url    = "https://github.com/ylwghst/nixos-light-slim-theme/archive/1.0.0.tar.gz";
-            sha256 = "0cc701k920zhy54srd1qwb5rcxqp5adjhnl154z7c0276csglzw9";
-          };
-      };
+    displayManager.lightdm = {
+      enable = true;
+      greeters.gtk.indicators = [ "~host" "~spacer" "~clock" "~spacer" "~a11y" "~session" "~power"];
     };
 
     windowManager = {
