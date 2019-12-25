@@ -100,6 +100,15 @@ in
     };
 
     displayManager.sessionCommands = ''
+      stalonetray &
+
+      # Apps
+      xscreensaver -no-splash &
+      # TODO: clipmenu ?
+
+      ASDF=asdf
+
+      # Miscellaneous
       ${pkgs.xorg.xset}/bin/xset r rate 265 40
     '';
   };

@@ -1,28 +1,34 @@
 module Main (main) where
 
-import           System.Exit
-import           XMonad
-import           XMonad.Config.Desktop
-import           XMonad.Hooks.DynamicLog
-import           XMonad.Hooks.ManageHelpers
-import           XMonad.Layout.BinarySpacePartition (emptyBSP)
-import           XMonad.Layout.NoBorders            (noBorders)
-import           XMonad.Layout.ResizableTile        (ResizableTall (..))
-import           XMonad.Layout.ToggleLayouts        (ToggleLayout (..),
-                                                     toggleLayouts)
-import           XMonad.Prompt
-import           XMonad.Prompt.ConfirmPrompt
-import           XMonad.Prompt.Shell
-import           XMonad.Util.EZConfig
+import XMonad
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.ManageDocks
+import XMonad.Util.Run(spawnPipe)
+import XMonad.Util.EZConfig(additionalKeys)
+import System.IO
 
 --------------------------------------------------------------------------------
 
+-- TODO xmobar not showing when anything is open
+-- TODO xmobar info sucks
 main = do
-  spawn "xmobar"
-  xmonad $ defaultConfig
-     { borderWidth        = 2
-     , modMask            = mod4Mask -- Win as mod
-     , terminal           = "konsole"
-     , normalBorderColor  = "#cccccc"
-     , focusedBorderColor = "#cd8b00"
-     }
+    xmproc <- spawnPipe "xmobar" -- Launch an external application through the system shell and return a Handle to its standard input.
+
+    xmonad $ defaultConfig
+        { manageHook = manageDocks <+> manageHook defaultConfig
+        , layoutHook = avoidStruts  $  layoutHook defaultConfig
+        -- xmonad calls the logHook with every internal state update, which is useful for (among other things) outputting status information to an external status bar program such as xmobar or dzen.
+        , logHook = dynamicLogWithPP xmobarPP
+                        { ppOutput = hPutStrLn xmproc
+                        , ppTitle = xmobarColor "green" "" . shorten 50
+                        }
+        , modMask = mod4Mask
+        , terminal = "konsole"
+        } `additionalKeys`
+        -- Locking the screen: Shift + Meta + z
+        [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock; xset dpms force off")
+        -- Print screen
+        , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
+        -- Print screen
+        , ((0, xK_Print), spawn "scrot")
+        ]

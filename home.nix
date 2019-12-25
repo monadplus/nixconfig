@@ -19,7 +19,7 @@
     shutter scrot # Screenshots
     zathura # EPUB, PDF and XPS
     udisks parted
-    dmenu # xmonad Alt+p
+    dmenu stalonetray # Stand-alone trays.
     whois
     gnumake gcc
     ghc cabal-install stack nix-prefetch-git
@@ -183,7 +183,10 @@
   # Creates the dot files on the nix-store and symlinks them to your $HOME.
   home.file = {
 
+    # Xmonad config
     ".xmobarrc".source = ./dotfiles/xmonad/.xmobarrc;
+    ".stalonetrayrc".source = ./dotfiles/xmonad/.stalonetrayrc;
+    ".xsession".source = ./dotfiles/xmonad/.xsession; # Set up everything on login
 
     # Examples:
 
