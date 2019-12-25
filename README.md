@@ -55,7 +55,9 @@ xrandr --output HDMI-1 --right-of eDP-1  # Place HDMI-1 at the right
 # ^^^^^^ To change mirror monitoring
 ```
 
-We installed `autoxrandr` to change config when monitor is plugged in.
+We installed `autoxrandr` to change config when hardware changes.
+
+It requires a bit of configuration to automatically work ! (read https://github.com/phillipberndt/autorandr#how-to-use)
 
 ### Wi-fi
 

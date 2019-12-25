@@ -14,4 +14,5 @@
 [ ] Xmonad + Xmobar: first iteration doesn't have to be shinny, only usable.
 [ ] A terminal emulator managed by config files (konsole is bad at this)
 [ ] Bluetooth volume
-[ ] Multiple screens configuration on boot (profiles?)
+[ ] LightDM tune
+[ ] Multiscreen using config file doesn't work well out of the box (you must run `autorandr -c`)
