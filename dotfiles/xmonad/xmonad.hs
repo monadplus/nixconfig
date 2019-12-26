@@ -25,8 +25,12 @@ main = do
         , modMask = mod4Mask
         , terminal = "konsole"
         } `additionalKeys`
+
+        [
+        -- Clipboard manager
+          ((controlMask .|. shiftMask, xK_v), spawn "clipmenu")
         -- Locking the screen: Shift + Meta + z
-        [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock; xset dpms force off")
+        , ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock; xset dpms force off")
         -- Print screen
         , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
         -- Print screen

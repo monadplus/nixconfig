@@ -9,6 +9,7 @@
     bat htop unzip gnupg tree fzf mkpasswd jq
     input-utils # lsinput: keyboard input
     xclip
+    clipmenu
     arandr # Graphical xrandr
     wpa_supplicant_gui
     curl wget
@@ -186,7 +187,6 @@
     # Xmonad config
     ".xmobarrc".source = ./dotfiles/xmonad/.xmobarrc;
     ".stalonetrayrc".source = ./dotfiles/xmonad/.stalonetrayrc;
-    ".xsession".source = ./dotfiles/xmonad/.xsession; # Set up everything on login
 
     # Examples:
 

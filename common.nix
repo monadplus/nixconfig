@@ -89,7 +89,6 @@ in
       xmonad = {
         enable = true;
         enableContribAndExtras = true;
-        # nb. `xmonad --recompile` will no longer work!
         config = /etc/nixos/dotfiles/xmonad/xmonad.hs;
         extraPackages = haskellPackages : [
           haskellPackages.xmonad-contrib
@@ -104,9 +103,9 @@ in
 
       # Apps
       xscreensaver -no-splash &
-      # TODO: clipmenu ?
-
-      ASDF=asdf
+      blueman-manager &
+      wpa_gui &
+      clipmenud &
 
       # Miscellaneous
       ${pkgs.xorg.xset}/bin/xset r rate 265 40
