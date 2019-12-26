@@ -13,7 +13,7 @@ in
   ];
 
   nixpkgs.config = {
-    allowUnfree = true; # Allow packages with non-free licenses.
+    allowUnfree = true;
     allowBroken = true;
   };
 
@@ -65,7 +65,7 @@ in
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
       powerline-fonts
-      nerdfonts # vim-devicons
+      nerdfonts
     ];
   };
 
@@ -99,6 +99,7 @@ in
     };
 
     displayManager.sessionCommands = ''
+      # Must be run before the rest of the apps in order to make them appear.
       stalonetray &
 
       # Apps
@@ -109,7 +110,6 @@ in
       Enpass &
       Discord &
       slack &
-
 
       # Miscellaneous
       ${pkgs.xorg.xset}/bin/xset r rate 265 40
@@ -129,21 +129,21 @@ in
         uid = 1000;
         useDefaultShell = false;
         shell = "/run/current-system/sw/bin/zsh";
+        # mkpasswd
         hashedPassword = "$6$hKXoaMQzxJ$TI79FW9KtvORSrQKP5cqZR5fzOISMLDyH80BnBlg8G61piAe6qCw.07OVWk.6MfQO1l3mBhdTckNfnBpkQSCh0";
       }
     ];
   };
 
   environment.variables = {
-    EDITOR = "vim";
-    VISUAL = "vim";
+    EDITOR = "nvim";
+    VISUAL = "nvim";
     BROWSER = "firefox";
   };
 
   documentation = {
     man.enable = true;
   };
-
 
   programs.command-not-found.enable = true;
 
@@ -153,11 +153,11 @@ in
     promptInit = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
   };
 
-
   virtualisation = {
     docker = {
       enable = true;
     };
+    # Virtualbox
   };
 
 }

@@ -27,7 +27,7 @@
     ncdu # Disk space usage analyzer
     dmenu stalonetray # Stand-alone trays.
     whois
-    slack discord # TODO skypeforlinux servers down ?
+    slack discord skypeforlinux
     dropbox enpass thunderbird
     awscli
 
@@ -48,7 +48,7 @@
     haskellPackages.brittany
     haskellPackages.idris
 
-    # Overrides
+    # Fixes
     (zoom-us.overrideAttrs (super: {
       postInstall = ''
         ${super.postInstall}
@@ -72,8 +72,6 @@
             primary = true;
             position = "0x0";
             mode = "1920x1080";
-            #gamma = "1.0:0.909:0.833";
-            #rate = "60.00";
           };
         };
       };
@@ -89,7 +87,6 @@
             primary = true;
             position = "0x0";
             mode = "1920x1080";
-            #rate = "60.00";
           };
 
           "HDMI-1" = {
@@ -225,7 +222,6 @@
 
   # Creates the dot files on the nix-store and symlinks them to your $HOME.
   home.file = {
-
     ".xmobarrc".source = ./dotfiles/xmonad/.xmobarrc;
     ".stalonetrayrc".source = ./dotfiles/xmonad/.stalonetrayrc;
 
@@ -267,6 +263,5 @@
        rev = "7fc14e688771a11fc6fab0f2d60f8b219d661add";
        sha256 = "0xh232xxcc2bw71asg46bpyk119kkvp05d81v7iwwgd0vz9fgqbp";
     };
-
   };
 }

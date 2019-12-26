@@ -10,14 +10,12 @@ with lib;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 10;
+  boot.loader.timeout = 5;
   boot.cleanTmpDir = true;
 
   # This includes support for suspend-to-RAM and powersave features on laptops.
   powerManagement = {
     enable = true;
-    # TLP sets this to null => let TLP do its work.
-    #cpuFreqGovernor = "ondemand";
   };
 
   # https://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html
@@ -30,37 +28,29 @@ with lib;
     '';
   };
 
-
   services.logind.extraConfig = ''
     # Controls how logind shall handle the system power and sleep keys.
     HandlePowerKey=suspend
   '';
-
 
   networking.useDHCP = false;
   networking.interfaces.enp3s0f0.useDHCP = true;
   networking.interfaces.enp4s0.useDHCP = true;
   networking.interfaces.wlp1s0.useDHCP = true;
 
-  # Wi-Fi: wpa_supplicant
   networking.wireless = {
     enable = true;
     # wpa_passphrase ESSID PSK
     networks = {
       # HOME
-
-      # TODO connect to the nearest
       "MOVISTAR_8348" = {
         pskRaw = "9be2248888cc9c79b7f81aef7a17c9f3f6be1e33e19a573b5c0a8178831307c6";
       };
       "MOVISTAR_8348_Extender" = {
         pskRaw = "9be2248888cc9c79b7f81aef7a17c9f3f6be1e33e19a573b5c0a8178831307c6";
       };
-
-      # ------------------
       # UNIVERSITY
 
-      # ------------------
       # WORK
     };
     extraConfig = ''
@@ -112,16 +102,21 @@ with lib;
   };
   # https://nixos.wiki/wiki/ALSA
   sound.enable = true;
-  # Manage audio using actkbd (doesnt work, manually set up.)
-  #sound.mediaKeys.enable = true; # Disable on desktop managers.
 
+  # Touchpad
+  services.xserver.libinput = {
+    enable = true;
+    middleEmulation = false;
+    additionalOptions = ''
+      Option "VertScrollDelta" "-180" # scroll sensitivity, the bigger the negative number = less sensitive
+      Option "HorizScrollDelta" "-180"
+      Option "FingerLow" "40"
+      Option "FingerHigh" "70"
+      Option "Resolution" "270" # Pointer sensitivity, this is for a retina screen, so you'll probably need to change this for an air
+    '';
+  };
 
-  # Enable touchpad support.
-  services.xserver.libinput.enable = true;
-
-  # TODO doesnt work ? I dont even know how to test it
   services.redshift = {
-    # this setting is affected by location.latitude/location.longitude
     enable = true;
     temperature.day = 5500;
     temperature.night = 3700;
