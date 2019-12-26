@@ -104,6 +104,7 @@ with lib;
   sound.enable = true;
 
   # Touchpad
+  # TODO: sensivity
   services.xserver.libinput = {
     enable = true;
     middleEmulation = false;

@@ -15,6 +15,7 @@
     curl wget
     chromium
     konsole
+    udiskie # Automounter for removable media
     nomacs # Image viewer
     vlc
     rtv # Reddit terminal viewer: https://github.com/michael-lazar/rtv
@@ -190,8 +191,13 @@
     };
   };
 
+  # Automounter for removable media
+  # TODO check if it is working.
   services.udiskie = {
     enable = true;
+    automount = true;
+    notify = true;
+    tray = "always";
   };
 
   services.gpg-agent = {
