@@ -17,18 +17,21 @@
 [ ] Bluetooth volume
 [ ] LightDM tune
 [ ] trackpad: increase sensivity
+[ ] hoogle: local database
 [ ] enpass plugin for firefox (write it yourself)
     or picking a free-software alternative would be great ;)
 [ ] AWS cli
 [ ] AWS config declarative (?)
 
 ## Missing from macOS
+[ ] psql pgcli
 [ ] utorrent
 [ ] Markdown processor
 [ ] tyme2: hours of work management
 [ ] OpenOffice, libreOffice, Word
 [ ] SWI-Prolog
-[ ] GPG
+[ ] tunnelblick or alternative
+[ ] minikube ?
 
 
 ## Failed to make it work

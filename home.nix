@@ -9,20 +9,25 @@
     bat htop unzip gnupg tree fzf mkpasswd jq
     input-utils # lsinput: keyboard input
     xclip clipmenu
+    translate-shell # trans -s es -t en   word | multiple words | "this is a sentence."
     arandr # Graphical xrandr
     wpa_supplicant_gui
     curl wget
+    chromium
     konsole
+    nomacs # Image viewer
     vlc
+    rtv # Reddit terminal viewer: https://github.com/michael-lazar/rtv
     xscreensaver
     gimp
+    lazydocker
     shutter scrot # Screenshots
     zathura # EPUB, PDF and XPS
     udisks parted
     ncdu # Disk space usage analyzer
     dmenu stalonetray # Stand-alone trays.
     whois
-    slack discord
+    slack discord # TODO skypeforlinux servers down ?
     dropbox enpass thunderbird
     awscli
 
@@ -41,6 +46,7 @@
     haskellPackages.stylish-haskell
     haskellPackages.hindent
     haskellPackages.brittany
+    haskellPackages.idris
 
     # Overrides
     (zoom-us.overrideAttrs (super: {
@@ -190,33 +196,47 @@
   # Creates the dot files on the nix-store and symlinks them to your $HOME.
   home.file = {
 
-    # Xmonad config
     ".xmobarrc".source = ./dotfiles/xmonad/.xmobarrc;
     ".stalonetrayrc".source = ./dotfiles/xmonad/.stalonetrayrc;
 
-    # Aws
     ".aws" = {
       source = ./dotfiles/aws;
       recursive = true;
     };
 
+    ".psqlrc".source = ./dotfiles/psql/.psqlrc;
 
-    # Examples:
+    ".stylish-haskell.yaml".source = ./dotfiles/stylish-haskell/.stylish-haskell.yaml;
 
-    #".foo".text = ''
-      #This is an example
-    #'';
+    ".config/htop/htoprc".source = ./dotfiles/htop/htoprc;
 
-    #".example" = {
-      #source = ./dotfiles/example;
-      #recursive = true;
-    #};
+    ".dmenurc".source = ./dotfiles/dmenu/.dmenurc;
 
-    #".config/foo".source = fetchFromGitHub {
-       #owner = "pltanton";
-       #repo = "net_widgets";
-       #rev = "82d1ecd";
-       #sha256 = "13c9kcc8fj4qjsbx14mfdhav5ymqxdjbng6lpnc5ycgfpyap2xqf";
-    #};
+    ".local/share/konsole" = {
+      source = ./dotfiles/konsole;
+      recursive  = true;
+    };
+
+    #  nb. .config/git/config overrides .gitconfig
+    ".gitconfig".text = ''
+      [user]
+      email=arnauabella@gmail.com
+      name=monadplus
+      [pager]
+      diff = nvim
+      show = nvim
+      [core]
+      editor = nvim
+      [color]
+      ui = true
+    '';
+
+    "haskell/pipes".source = pkgs.fetchFromGitHub {
+       owner = "Gabriel439";
+       repo = "Haskell-Pipes-Library";
+       rev = "7fc14e688771a11fc6fab0f2d60f8b219d661add";
+       sha256 = "0xh232xxcc2bw71asg46bpyk119kkvp05d81v7iwwgd0vz9fgqbp";
+    };
+
   };
 }

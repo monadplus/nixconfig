@@ -106,6 +106,10 @@ in
       blueman-manager &
       wpa_gui &
       clipmenud &
+      Enpass &
+      Discord &
+      slack &
+
 
       # Miscellaneous
       ${pkgs.xorg.xset}/bin/xset r rate 265 40

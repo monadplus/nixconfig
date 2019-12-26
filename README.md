@@ -119,10 +119,16 @@ Requires a systemd daemon runnning: `clipmenud`
 
 And then you can access the tray: `https://github.com/cdown/clipmenu`
 
+### Images
+
+```bash
+$ nomacs <<image.jpg>>
+```
 
 ### Dropbox
 
-Automatically started and mounted (not sure how..)
+Started by systemd
+
 
 ## Xmonad
 
