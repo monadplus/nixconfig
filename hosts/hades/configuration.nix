@@ -69,19 +69,6 @@ with lib;
     '';
   };
 
-  # https://nixos.wiki/wiki/NixOS:extend_NixOS
-  # This is an example
-  #systemd.services."copyq" = {
-      #wantedBy = [ "default.target" ];
-      #after = [ "graphical.target" ];
-      #description = "Copyq daemon";
-      #serviceConfig = {
-        #ExecStart = ''${pkgs.copyq}/bin/copyq'';
-        #Restart = "always";
-        #RestartSec = 0.5; # secs
-      #};
-  #};
-
   # https://nixos.wiki/wiki/Actkbd
   services.actkbd = {
       enable = true;

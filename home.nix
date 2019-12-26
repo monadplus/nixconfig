@@ -193,6 +193,36 @@
     };
   };
 
+  services.udiskie = {
+    enable = true;
+  };
+
+  services.gpg-agent = {
+    enable = true;
+    enableSshSupport = true;
+    defaultCacheTtl = 1800;
+  };
+
+  systemd.user.services.dropbox = {
+    Unit = {
+      Description = "Dropbox";
+      After = [ "graphical-session-pre.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+
+    Service = {
+      Restart = "on-failure";
+      RestartSec = 1;
+      ExecStart = "${pkgs.dropbox}/bin/dropbox";
+      Environment = "QT_PLUGIN_PATH=/run/current-system/sw/${pkgs.qt5.qtbase.qtPluginPrefix}";
+     };
+
+    Install = {
+        WantedBy = [ "graphical-session.target" ];
+    };
+  };
+
+
   # Creates the dot files on the nix-store and symlinks them to your $HOME.
   home.file = {
 
