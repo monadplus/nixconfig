@@ -1,7 +1,5 @@
 # Nix configuration
 
-> Please, update me!
-
 First, you need to install a fresh NixOS following the [manual](https://nixos.org/nixos/manual/index.html#sec-installation).
 
 Then, you need to have `git` on the system.
@@ -131,3 +129,15 @@ Automatically started and mounted (not sure how..)
 Xmonad configuration can be found at `./dotfiles/xmonad/xmonad.hs` and it's configured via nixos (i.e. there is no need to symlink it to ~/.xmonad/).
 
 xmonad top bar is a plug-in called `xmobar` and it is configured with it own config file: `~/.xmobarrc` (can be found on ./dotfiles/xmonad/.xmobarrc)
+
+## GPG
+
+Files protected with GPG have the extension `.gpg`.  In order to encrypt/decrypt them:
+
+```bash
+# Encrypt
+gpg -c filename
+
+# Decrypt
+gpg filename.gpg
+```

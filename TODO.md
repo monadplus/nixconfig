@@ -4,14 +4,12 @@
 [X] Wi-fi: for home
 [X] audio, toggle audio and toggle micro
 [X] Screenlight and redshift
-[~] Clipboard manager: I tried:
-       copyq: requires a graphic environment and doesnt work on systemd (I dont know if it possible to disable gui of daemon)
-       clipmenu: almost working (I even saw a git issue with my same problem) but it doesnt work as kb
-       parcellite: no gui
+[X] Clipboard manager: copyq(), clipmenu(*), parcellite(). As systemd it doesnt work, I put it on xsession.
 [X] Bluetooth headphones : https://nixos.wiki/wiki/Bluetooth
 [X] Interactive with public wi-fi (gui) => wpa_gui
 [X] Multiple screens
 [X] Xmonad + Xmobar: first iteration doesn't have to be shinny, only usable.
+[ ] Xmobar on top of screen
 [ ] Configure Xmonad
 [ ] Configure Xmobar
 [ ] Configure stalonetray
@@ -19,19 +17,21 @@
 [ ] Bluetooth volume
 [ ] LightDM tune
 [ ] trackpad: increase sensivity
+[ ] enpass plugin for firefox (write it yourself)
+    or picking a free-software alternative would be great ;)
+[ ] AWS cli
+[ ] AWS config declarative (?)
 
-## Not working
+## Missing from macOS
+[ ] utorrent
+[ ] Markdown processor
+[ ] tyme2: hours of work management
+[ ] OpenOffice, libreOffice, Word
+[ ] SWI-Prolog
+[ ] GPG
 
-[ ] xmonad .xsession not loading. I tried setting up the following but nah
 
-```
-xsession.enable = true;
-xsession.initExtra = ''
-  FOO=BAR
-'';
-xsession.windowManager.command = ''${pkgs.xmonad-with-packages}/bin/xmonad'';
-```
+## Failed to make it work
 
 [ ] Multiscreen using config file doesn't work well out of the box (you must run `autorandr -c`)
   - Answer from rycee: Unfortunately since the HM autorandr module is not set up to detect hardware events, that is, it won't react to simply inserting the HDMI cable. It would be sweet to fix so that it does and if anybody know udev or something well enough to figure out how to do it that would be great.I suspect it's not doable without hooking it up in the system level configuration, though. Something like what the autorandr Makefile does.
-

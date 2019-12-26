@@ -8,26 +8,31 @@
   home.packages = with pkgs; [
     bat htop unzip gnupg tree fzf mkpasswd jq
     input-utils # lsinput: keyboard input
-    xclip
-    clipmenu
+    xclip clipmenu
     arandr # Graphical xrandr
     wpa_supplicant_gui
     curl wget
     konsole
-    vlc # works on plasma
+    vlc
     xscreensaver
     gimp
     shutter scrot # Screenshots
     zathura # EPUB, PDF and XPS
     udisks parted
+    ncdu # Disk space usage analyzer
     dmenu stalonetray # Stand-alone trays.
     whois
-    gnumake gcc
-    ghc cabal-install stack nix-prefetch-git
-    ncdu # Disk space usage analyzer
     slack discord
     dropbox enpass thunderbird
+    awscli
 
+    # Programming
+    gnumake gcc
+    ghc cabal-install stack nix-prefetch-git
+    nodejs yarn
+    nodePackages.node2nix # https://github.com/svanderburg/node2nix#installation
+
+    # Haskell exec
     haskellPackages.fast-tags
     haskellPackages.ghcid
     haskellPackages.xmobar
@@ -37,6 +42,7 @@
     haskellPackages.hindent
     haskellPackages.brittany
 
+    # Overrides
     (zoom-us.overrideAttrs (super: {
       postInstall = ''
         ${super.postInstall}
@@ -187,6 +193,13 @@
     # Xmonad config
     ".xmobarrc".source = ./dotfiles/xmonad/.xmobarrc;
     ".stalonetrayrc".source = ./dotfiles/xmonad/.stalonetrayrc;
+
+    # Aws
+    ".aws" = {
+      source = ./dotfiles/aws;
+      recursive = true;
+    };
+
 
     # Examples:
 
