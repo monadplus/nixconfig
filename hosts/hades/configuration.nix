@@ -104,16 +104,17 @@ with lib;
   sound.enable = true;
 
   # Touchpad
-  # TODO: sensivity
   services.xserver.libinput = {
     enable = true;
+    tapping = false;
     middleEmulation = false;
     additionalOptions = ''
-      Option "VertScrollDelta" "-180" # scroll sensitivity, the bigger the negative number = less sensitive
+      Option "AccelSpeed" "0.3"        # Mouse sensivity
+      Option "TapButton2" "0"          # Disable two finger tap
+      Option "VertScrollDelta" "-180"  # scroll sensitivity, the bigger the negative number = less sensitive
       Option "HorizScrollDelta" "-180"
-      Option "FingerLow" "40"
+      Option "FingerLow" "40"          # when finger pressure drops below this value, the driver counts it as a release.
       Option "FingerHigh" "70"
-      Option "Resolution" "270" # Pointer sensitivity, this is for a retina screen, so you'll probably need to change this for an air
     '';
   };
 
