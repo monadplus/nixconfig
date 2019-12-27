@@ -12,25 +12,18 @@
 [X] touchpad: increase sensivity
 [X] AWS cli
 [ ] Xmobar on top of screen
-[ ] Configure Xmonad
-[ ] Configure Xmobar
-[ ] Configure stalonetray
-[ ] A terminal emulator managed by config files (konsole is bad at this)
+[ ] Configure Xmonad, xmobar and stalonetray
+[ ] Terminal: termite, st, ..
+[ ] Wallpaper
 [ ] Bluetooth volume
 [ ] LightDM tune
 [ ] hoogle: local database, reload autoaticlaly ?
 [ ] enpass plugin for firefox (write it yourself)
     or picking a free-software alternative would be great ;)
-
-## Missing from macOS
-[X] utorrent: transmission
-[ ] Markdown processor
-[ ] tyme2: hours of work management
-[ ] OpenOffice, libreOffice, Word
-[ ] SWI-Prolog
-[ ] tunnelblick or alternative
-[ ] minikube ?
-
+[ ] Time tracker (both doesnt work)
+    - hamster-time-tracker
+    - super-productivity
+[ ] Setting up kubernetes on nixos: https://rzetterberg.github.io/kubernetes-nixos.html
 
 ## Failed to make it work
 

@@ -12,6 +12,7 @@
     translate-shell # trans -s es -t en   word | multiple words | "this is a sentence."
     arandr # Graphical xrandr
     wpa_supplicant_gui
+    typora # Markdown reader
     pgcli
     transgui # Transmission GUI
     curl wget
@@ -19,12 +20,14 @@
     konsole
     udiskie # Automounter for removable media
     nomacs # Image viewer
-    vlc
+    libreoffice
+    openvpn
+    vlc # Videos
     rtv # Reddit terminal viewer: https://github.com/michael-lazar/rtv
     xscreensaver
     gimp
     lazydocker
-    shutter scrot # Screenshots
+    scrot # Screenshots
     zathura # EPUB, PDF and XPS
     udisks parted
     ncdu # Disk space usage analyzer

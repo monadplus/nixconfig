@@ -31,8 +31,7 @@ main = do
           ((controlMask .|. shiftMask, xK_v), spawn "clipmenu")
         -- Locking the screen: Shift + Meta + z
         , ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock; xset dpms force off")
-        -- Print screen
-        , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
-        -- Print screen
-        , ((0, xK_Print), spawn "scrot")
+        -- Sreenshot
+        , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s -q 100 ~/Screenshots/$(date +'%Y-%b-%d-%s').png")
+        , ((0, xK_Print), spawn "scrot -q 100 ~/Screenshots/$(date +'%Y-%b-%d-%s').png")
         ]

@@ -111,13 +111,62 @@ $ bluetoothctl
 [bluetooth] # connect [hex-address]
 ```
 
-### Clibpard manager (Not working..)
+### Markdown reader
+
+`typora`
+
+### Browser
+
+`firefox` and `chromium`
+
+### Epub, PDF, Xps
+
+`zathura`
+
+### Disk managers
+
+Partitions: `$ parted`
+
+To display partitions: `$ sudo parted -l`
+
+Disk space usage analyzer: `$ ncdu`
+
+### VPN
+
+`$ openvpn`
+
+### Touchpad
+
+Touchpad configuration is managed by [libinput](https://wiki.archlinux.org/index.php/Libinput).
+
+The configuration is managed in a declarative way.
+
+How to change the sensivity:
+
+```bash
+$ xinput list # Search for TouchPad id
+$ xinput --list-props ID # From the previous list
+$ xinput --set-prop ID "libinput Accel Speed" 0.3 # 0.3 is just an example
+```
+
+### Screenshots
+
+Managed by `scrot`.
+
+Hotkeys:
+
+- `PtrSc`
+- `Ctrl + PtrSc`
+
+### Clibpard manager
 
 [clipmenu](https://github.com/cdown/clipmenu)
 
 Requires a systemd daemon runnning: `clipmenud`
 
 And then you can access the tray: `https://github.com/cdown/clipmenu`
+
+I remapped _clipmenu_ to `Ctrl+Shift+V` via xmonad.
 
 ### Images
 
