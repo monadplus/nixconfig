@@ -12,6 +12,8 @@
     translate-shell # trans -s es -t en   word | multiple words | "this is a sentence."
     arandr # Graphical xrandr
     wpa_supplicant_gui
+    pgcli
+    transgui # Transmission GUI
     curl wget
     chromium
     konsole
@@ -225,8 +227,6 @@
     };
   };
 
-
-  # Creates the dot files on the nix-store and symlinks them to your $HOME.
   home.file = {
     ".xmobarrc".source = ./dotfiles/xmonad/.xmobarrc;
     ".stalonetrayrc".source = ./dotfiles/xmonad/.stalonetrayrc;

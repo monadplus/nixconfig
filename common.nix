@@ -124,7 +124,14 @@ in
         createHome = true;
         home = "/home/arnau";
         group = "users";
-        extraGroups = [ "wheel" "networkmanager" "video" "audio" "docker"];
+        extraGroups = [
+          "wheel"
+          "networkmanager"
+          "video"
+          "audio"
+          "docker"
+          "transmission"
+        ];
         isNormalUser = true;
         uid = 1000;
         useDefaultShell = false;
@@ -151,6 +158,32 @@ in
     enable = true;
     # https://github.com/Powerlevel9k/powerlevel9k/wiki/Install-Instructions#nixos
     promptInit = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
+  };
+
+  # BitTorrent client:
+  services.transmission = {
+    enable = true;
+    user = "transmission";
+    group = "transmission";
+    port = 9091;
+    #settings = {
+      #download-dir = "/var/lib/transmission/Downloads";
+      #incomplete-dir = "/var/lib/transmission/.incomplete";
+      #incomplete-dir-enabled = true;
+    #};
+  };
+
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_11;
+    enableTCPIP = true;
+    authentication = pkgs.lib.mkOverride 10 ''
+      local all all trust
+      host all all ::1/128 trust
+    '';
+    initialScript = pkgs.writeText "backend-initScript" ''
+      CREATE DATABASE example;
+    '';
   };
 
   virtualisation = {

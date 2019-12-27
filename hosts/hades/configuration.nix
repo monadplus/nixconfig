@@ -49,8 +49,10 @@ with lib;
       "MOVISTAR_8348_Extender" = {
         pskRaw = "9be2248888cc9c79b7f81aef7a17c9f3f6be1e33e19a573b5c0a8178831307c6";
       };
+      "Monad" = {
+        pskRaw = "338529ea97241bd0320fc7d9a4058647a9da447a5f1a70ba1129c2ae289e7461";
+      };
       # UNIVERSITY
-
       # WORK
     };
     extraConfig = ''
@@ -111,7 +113,7 @@ with lib;
     additionalOptions = ''
       Option "AccelSpeed" "0.3"        # Mouse sensivity
       Option "TapButton2" "0"          # Disable two finger tap
-      Option "VertScrollDelta" "-180"  # scroll sensitivity, the bigger the negative number = less sensitive
+      Option "VertScrollDelta" "-180"  # scroll sensitivity
       Option "HorizScrollDelta" "-180"
       Option "FingerLow" "40"          # when finger pressure drops below this value, the driver counts it as a release.
       Option "FingerHigh" "70"

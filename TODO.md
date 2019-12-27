@@ -9,6 +9,8 @@
 [X] Interactive with public wi-fi (gui) => wpa_gui
 [X] Multiple screens
 [X] Xmonad + Xmobar: first iteration doesn't have to be shinny, only usable.
+[X] touchpad: increase sensivity
+[X] AWS cli
 [ ] Xmobar on top of screen
 [ ] Configure Xmonad
 [ ] Configure Xmobar
@@ -16,16 +18,12 @@
 [ ] A terminal emulator managed by config files (konsole is bad at this)
 [ ] Bluetooth volume
 [ ] LightDM tune
-[ ] trackpad: increase sensivity
-[ ] hoogle: local database
+[ ] hoogle: local database, reload autoaticlaly ?
 [ ] enpass plugin for firefox (write it yourself)
     or picking a free-software alternative would be great ;)
-[ ] AWS cli
-[ ] AWS config declarative (?)
 
 ## Missing from macOS
-[ ] psql pgcli
-[ ] utorrent
+[X] utorrent: transmission
 [ ] Markdown processor
 [ ] tyme2: hours of work management
 [ ] OpenOffice, libreOffice, Word

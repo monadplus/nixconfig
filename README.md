@@ -129,6 +129,13 @@ $ nomacs <<image.jpg>>
 
 Started by systemd
 
+### BitTorrent
+
+Open [transmission](https://github.com/transmission/transmission) at <http://localhost:9091/transmission/web/>
+
+Open it via [transgui](https://github.com/transmission-remote-gui/transgui).
+
+Transmission daemon can be controlled via the RPC interface using transmission-remote or the WebUI (http://localhost:9091/ by default).
 
 ## Xmonad
 
