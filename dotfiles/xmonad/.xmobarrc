@@ -1,20 +1,24 @@
-Config { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
-        , borderColor = "black"
+Config {  borderColor = "black"
         , border = TopB
         , bgColor = "black"
         , fgColor = "grey"
+        , font = "xft:monospace-10"
         , position = TopW L 100
         , lowerOnStart = True
-        , commands = [ Run Network "wlp1s0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-                     , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+        , commands = [ Run Network "wlp1s0" ["-L","100","-H","300","--normal","green","--high","red"] 10
+                     , Run Cpu ["-L","25","-H","75","--low","green","--normal","yellow","--high","red"] 10
+                     , Run CpuFreq ["-t", "<cpu0>GHz"] 10
+                     , Run CoreTemp ["-t", "Temp: <core0>C","-L", "40", "-H", "60","-l", "lightblue", "-n", "gray90", "-h", "red"] 50
                      , Run Memory ["-t","Mem: <usedratio>%"] 10
-                     , Run Battery ["-t","<left>","-L","30","-H","70","--low", "red","--normal","yellow","--high","green"] 10
+                     , Run Battery ["-t","Battery <left>%","-L","20","-H","75","--low", "red","--normal","yellow","--high","green"] 10
                      , Run Swap [] 10
                      , Run Com "uname" ["-s","-r"] "" 36000
+                     , Run Volume "default" "Master" ["-t", "Vol: <volume>% <status>"] 10
+                     , Run Brightness ["-t", "Brightness: <percent>"] 10
                      , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                      , Run StdinReader
                      ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%StdinReader% | %cpu% | %memory% * %swap% | %battery% | %wlp1s0% }{<fc=#ee9a00>%date%</fc> | %uname%"
+        , template = "%StdinReader% | %cpu% %cpufreq% | %memory% * %swap% | %battery% | %default:Master% | %wlp1s0% }{<fc=#ee9a00>%date%</fc> | %uname%"
         }

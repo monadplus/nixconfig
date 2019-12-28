@@ -11,19 +11,20 @@
 [X] Xmonad + Xmobar: first iteration doesn't have to be shinny, only usable.
 [X] touchpad: increase sensivity
 [X] AWS cli
-[ ] Xmobar on top of screen
-[ ] Configure Xmonad, xmobar and stalonetray
+[X] Xmobar on top of screen
+[X] Configure Xmonad, xmobar and stalonetray
+[ ] Xmonad: move apps to their workspace
 [ ] Terminal: termite, st, ..
-[ ] Wallpaper
 [ ] Bluetooth volume
+[ ] Time tracker (both doesnt work)
+    - hamster-time-tracker
+    - super-productivity
 [ ] LightDM tune
 [ ] hoogle: local database, reload autoaticlaly ?
 [ ] enpass plugin for firefox (write it yourself)
     or picking a free-software alternative would be great ;)
-[ ] Time tracker (both doesnt work)
-    - hamster-time-tracker
-    - super-productivity
 [ ] Setting up kubernetes on nixos: https://rzetterberg.github.io/kubernetes-nixos.html
+[ ] Wallpaper
 
 ## Failed to make it work
 
