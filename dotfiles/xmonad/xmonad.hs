@@ -73,9 +73,10 @@ defaults xmproc = def
   , manageHook = manageDocks <+> myManageHook <+> manageHook def
   , layoutHook = avoidStruts $ gaps $ smartBorders $ layoutHook def
   , handleEventHook = handleEventHook def <+> docksEventHook
+  -- Display xmobar info about the current process
   , logHook = dynamicLogWithPP xmobarPP
                 { ppOutput = hPutStrLn xmproc
-                , ppTitle = xmobarColor "darkgreen" "" . shorten 20
+                , ppTitle = xmobarColor "darkgreen" "" . shorten 40
                 , ppHiddenNoWindows = xmobarColor "grey" ""
                 }
   , startupHook = setWMName "LG3D"

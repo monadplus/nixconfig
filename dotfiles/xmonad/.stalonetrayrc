@@ -1,13 +1,13 @@
 decorations none
-transparent false # otherwise grey background
+transparent true
 dockapp_mode none
-geometry 6x1+1400 # 1920 - (6*12)
+geometry 8x1+1792 # 1920 - (8*16)
 # max_geometry 5x1-325-10
 background "#000000"
 kludges force_icons_size
 grow_gravity NE
 icon_gravity NE
-icon_size 12
+icon_size 16
 sticky true
 #window_strut none
 window_type dock
