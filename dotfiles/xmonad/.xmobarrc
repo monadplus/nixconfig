@@ -55,7 +55,7 @@ Config {  borderColor = "black"
           , Run Volume "default" "Master" ["-t", "Vol: <volume>% <status>"] 10
 
           -- %kbd%
-          -- , Run Kbd [("us", "us"), ("us(dvorak)", "us(dvorak)")]
+          -- , Run Kbd [("us", "us"), ("us(dvorak)", "us(dvorak)")] 10
 
           , Run Com "bash" ["-c", "echo `brightnessctl -m | grep -oE '[0-9]{0,3}%'`"]  "mybright" 10
 
