@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 
 with lib;
+with builtins;
 
 {
   networking.hostName = "hades";
@@ -66,17 +67,25 @@ with lib;
       enable = true;
       # sudo lsinput # Find the input device (be aware that not all devices are mapped to one input..)
       # nix-shell -p actkbd --run "sudo actkbd -n -s -d /dev/input/event#" # Replace '#' by event ID
-      bindings = [
-        # audio (fix: https://github.com/NixOS/nixpkgs/issues/24297)
-        { keys = [ 113 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer -q set Master toggle'"; }
-        { keys = [ 114 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer -q set Master 5%- unmute'"; }
-        { keys = [ 115 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer -q set Master 5%+ unmute'"; }
-        # Toggle Microphone
-         { keys = [ 190 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer set Capture toggle'"; }
-        # Screen bright
-        { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set 10%-"; }
-        { keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set +10%"; }
-      ];
+      bindings =
+        let
+          toggleVol      = keys: { inherit keys; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer -q set Master toggle'"; };
+          incrVol        = keys: { inherit keys; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer -q set Master 5%- unmute'"; };
+          decrVol        = keys: { inherit keys; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer -q set Master 5%+ unmute'"; };
+          toggleMic      = keys: { inherit keys; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer set Capture toggle'"; };
+          incrBrightness = keys: { inherit keys; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set 10%-"; };
+          decrBrightness = keys: { inherit keys; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set +10%"; };
+        in concatLists [
+           # audio (fix: https://github.com/NixOS/nixpkgs/issues/24297)
+          ( map toggleVol [ [ 113 ] [ 59 ] ] )
+          ( map incrVol [ [ 114 ] [ 60 ] ] )
+          ( map decrVol [ [ 115 ] [ 61 ] ] )
+
+          ( map toggleMic [ [ 190 ] [ 62 ] ] )
+
+          ( map incrBrightness [ [ 224 ] ] )
+          ( map decrBrightness [ [ 225 ] ] )
+        ];
     };
 
   hardware = {
