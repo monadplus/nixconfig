@@ -68,7 +68,7 @@ gaps = spacingRaw
          True              -- smartBorder
          (Border 0 0 0 0)  -- screenBorder
          False             -- screenBorderEnabled
-         (Border 8 8 8 8)  -- windowBorder (Border top bottom right left)
+         (Border 4 4 4 4)  -- windowBorder (Border top bottom right left)
          True              -- windowBorderEnabled
 
 myLayout = maximize (ResizableTall 1 (3 / 100) (1 / 2) [] ||| Full)
@@ -88,7 +88,8 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
        , ( (modm .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf) -- %!  Reset the layouts on the current workspace to default
        , ( (modMask, xK_space), sendMessage NextLayout) -- %! Rotate through the available layout algorithms
        , ( (modMask .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf) -- %!  Reset the layouts on the current workspace to default
-       , ( (mod4Mask, xK_t), withFocused $ windows . W.sink) -- %! Push window back into tiling
+       -- %! Push window back into tiling
+       , ( (mod4Mask, xK_t), withFocused $ windows . W.sink)
        , ( (mod4Mask, xK_h), sendMessage Shrink) -- %! Shrink the master area
        , ( (mod4Mask, xK_l), sendMessage Expand) -- %! Expand the master area
        , ( (mod4Mask, xK_m), windows W.swapMaster) -- %! Swap the focused window and the master window

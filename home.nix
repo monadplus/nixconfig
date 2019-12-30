@@ -17,7 +17,7 @@
     transgui # Transmission GUI
     curl wget
     chromium
-    konsole
+    konsole alacritty
     udiskie # Automounter for removable media
     nomacs # Image viewer
     libreoffice
@@ -251,6 +251,8 @@
       source = ./dotfiles/konsole;
       recursive  = true;
     };
+
+    ".config/alacritty/alacritty.yml".source = ./dotfiles/alacritty/.alacritty.yml;
 
     #  nb. .config/git/config overrides .gitconfig
     ".gitconfig".text = ''

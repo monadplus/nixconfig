@@ -14,11 +14,12 @@
 [X] Xmobar on top of screen
 [X] Configure Xmonad, xmobar and stalonetray
 [X] Xmonad: move apps to their workspace
-[ ] Terminal: termite, st, ..
+[X] Terminal: alacritty, st, terminate
+    - I tried alacritty and meh
+[ ] Time tracker
+    - hamster-time-tracker (not working)
+    - super-productivity (not working)
 [ ] Bluetooth volume
-[ ] Time tracker (both doesnt work)
-    - hamster-time-tracker
-    - super-productivity
 [ ] hoogle: local database, reload autoaticlaly ?
 [ ] enpass plugin for firefox (write it yourself)
     or picking a free-software alternative would be great ;)
