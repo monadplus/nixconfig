@@ -60,7 +60,7 @@ myManageHook = composeAll . concat $
     browsers = ["Firefox", "Chromium-browser"]
     chats    = ["Discord", "Slack"]
     mails    = ["Mail", "thunderbird"]
-    media    = ["vlc", "nomacs", "Image Lounge"]
+    media    = ["vlc", "nomacs", "transgui", "Image Lounge"]
     doShift' workspace =  doShift (show workspace)
     check x = className =? x <||> title =? x <||> resource =? x
 

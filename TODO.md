@@ -25,3 +25,4 @@
     or picking a free-software alternative would be great ;)
 [ ] Setting up kubernetes on nixos: https://rzetterberg.github.io/kubernetes-nixos.html
 [ ] Wallpaper
+[ ] Symbols: maths

@@ -174,10 +174,6 @@ I remapped _clipmenu_ to `Ctrl+Shift+V` via xmonad.
 $ nomacs <<image.jpg>>
 ```
 
-### Dropbox
-
-Started by systemd
-
 ### BitTorrent
 
 Open [transmission](https://github.com/transmission/transmission) at <http://localhost:9091/transmission/web/>
