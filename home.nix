@@ -219,7 +219,7 @@
 
   services.gpg-agent = {
     enable = true;
-    enableSshSupport = true;
+    # enableSshSupport = true;
     defaultCacheTtl = 1800;
   };
 
@@ -267,6 +267,8 @@
     ".config/alacritty/alacritty.yml".source = ./dotfiles/alacritty/.alacritty.yml;
 
     ".translate-shell/init.trans".source = ./dotfiles/translate-shell/init.trans;
+
+    ".cabal/config".source = ./dotfiles/cabal/config;
 
     #  nb. .config/git/config overrides .gitconfig
     ".gitconfig".text = ''
