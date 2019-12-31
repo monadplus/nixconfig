@@ -39,6 +39,11 @@ $ reboot
 
 ## Command-lines
 
+### Terminal emulator
+
+- __Konsole__: my personal choice.
+- __Alacritty__: I couldn't manage to configure very basic shortcuts like clear history.
+
 ### Monitors
 
 Just plug your screen and run `autorandr -c`
@@ -60,6 +65,10 @@ We installed `autoxrandr` to change config when hardware changes.
 It requires a bit of configuration to automatically work ! (read https://github.com/phillipberndt/autorandr#how-to-use)
 
 On `home.nix` we set up a declarative autorandx.
+
+### Monitors backlight
+
+https://wiki.archlinux.org/index.php/Backlight#External_monitors
 
 ### Wi-fi
 
@@ -173,6 +182,16 @@ I remapped _clipmenu_ to `Ctrl+Shift+V` via xmonad.
 ```bash
 $ nomacs <<image.jpg>>
 ```
+
+### Translate CLI
+
+We use `translate-shell` for that:
+
+```
+trans -s es -t en   word | multiple words | "this is a sentence."
+```
+
+`translate-shell` is configured via the dotfile _~/.translate-shell/init.trans_.
 
 ### BitTorrent
 

@@ -14,7 +14,7 @@
     wpa_supplicant_gui
     typora # Markdown reader
     pgcli
-    transgui # Transmission GUI
+    transgui # BitTorrent GUI
     curl wget
     chromium
     konsole alacritty
@@ -25,6 +25,7 @@
     vlc # Videos
     rtv # Reddit terminal viewer: https://github.com/michael-lazar/rtv
     xscreensaver
+    ddcutil # Query and change Linux monitor settings using DDC/CI and USB
     gimp
     lazydocker
     scrot # Screenshots
@@ -126,6 +127,8 @@
     enable = true;
     viAlias = true;
     vimAlias =  true;
+    # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/vim.section.md#adding-new-plugins-to-nixpkgs
+    # TODO add vim-translate (https://github.com/VincentCordobes/vim-translate)
     plugins = with pkgs.vimPlugins; [
       vim-nix
       vim-fugitive
@@ -262,6 +265,8 @@
     };
 
     ".config/alacritty/alacritty.yml".source = ./dotfiles/alacritty/.alacritty.yml;
+
+    ".translate-shell/init.trans".source = ./dotfiles/translate-shell/init.trans;
 
     #  nb. .config/git/config overrides .gitconfig
     ".gitconfig".text = ''
