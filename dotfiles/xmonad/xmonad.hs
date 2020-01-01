@@ -35,12 +35,13 @@ myStatusBar = "xmobar"
 
 modm = mod4Mask -- Windows key
 
-data Workspace = Code | Browser | Chat | Mail | Media
+data Workspace = Code | Code2 | Browser | Chat | Mail | Media
   deriving Show
 
 myWorkspaces :: [Workspace]
 myWorkspaces =
   [ Code
+  , Code2
   , Browser
   , Chat
   , Mail
@@ -56,7 +57,7 @@ myManageHook = composeAll . concat $
     ]
   where
     -- className: `$ xprop | grep WM_CLASS`
-    myFloats = ["Enpass", "Gimp"]
+    myFloats = ["Enpass", "Gimp", "zoom", "zoom-us"]
     browsers = ["Firefox", "Chromium-browser"]
     chats    = ["Discord", "Slack"]
     mails    = ["Mail", "thunderbird"]
@@ -86,19 +87,16 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
        , ( (modm, xK_period), sendMessage (IncMasterN (-1))) -- %! Deincrement the number of windows in the master area
        , ( (modm, xK_space), sendMessage NextLayout) -- %! Rotate through the available layout algorithms
        , ( (modm .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf) -- %!  Reset the layouts on the current workspace to default
-       , ( (modMask, xK_space), sendMessage NextLayout) -- %! Rotate through the available layout algorithms
-       , ( (modMask .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf) -- %!  Reset the layouts on the current workspace to default
-       -- %! Push window back into tiling
-       , ( (mod4Mask, xK_t), withFocused $ windows . W.sink)
-       , ( (mod4Mask, xK_h), sendMessage Shrink) -- %! Shrink the master area
-       , ( (mod4Mask, xK_l), sendMessage Expand) -- %! Expand the master area
-       , ( (mod4Mask, xK_m), windows W.swapMaster) -- %! Swap the focused window and the master window
-       , ( (mod4Mask .|. shiftMask, xK_j), windows W.swapDown) -- %! Swap the focused window with the next window
-       , ( (mod4Mask .|. shiftMask, xK_k), windows W.swapUp) -- %! Swap the focused window with the previous window
+       , ( (modm, xK_t), withFocused $ windows . W.sink) -- %! Push window back into tiling
+       , ( (modm, xK_h), sendMessage Shrink) -- %! Shrink the master area
+       , ( (modm, xK_l), sendMessage Expand) -- %! Expand the master area
         -- , ((mod4Mask              , xK_m     ), windows W.focusMaster  ) -- %! Move focus to the master window
-       , ( (mod4Mask .|. shiftMask, xK_c), kill) -- %! Close the focused window
-       , ( (modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess)) -- Quit xmonad.
-       , ( (mod4Mask, xK_q), broadcastMessage ReleaseResources >> restart "xmonad" True) -- %! Restart xmonad
+       , ( (modm, xK_m), windows W.swapMaster) -- %! Swap the focused window and the master window
+       , ( (modm .|. shiftMask, xK_j), windows W.swapDown) -- %! Swap the focused window with the next window
+       , ( (modm .|. shiftMask, xK_k), windows W.swapUp) -- %! Swap the focused window with the previous window
+       , ( (modm .|. shiftMask, xK_c), kill) -- %! Close the focused window
+       , ( (modm .|. shiftMask, xK_q), io (exitWith ExitSuccess)) -- Quit xmonad.
+       , ( (modm, xK_q), broadcastMessage ReleaseResources >> restart "xmonad" True) -- %! Restart xmonad
        , ( (modm .|. shiftMask, xK_x), spawn "kill $(pidof xmobar); xmobar") -- %! Kill & restart statusbar
        , ( (modm, xK_f), withFocused (sendMessage . maximizeRestore))
        , ( (modm, xK_z), sendMessage MirrorShrink)
@@ -107,7 +105,7 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
        , ( (modm .|. shiftMask, xK_e), toggleFloatAllNew) -- toggle fullscreen (really just lower status bar below everything)
        , ( (modm, xK_b), sendMessage ToggleStruts)
        , ( (modm , xK_g), toggleWindowSpacingEnabled)-- floating window keys
-       , ( (modm, xK_equal), withFocused (keysMoveWindow (0, -30)))
+       , ( (modm, xK_equal), withFocused (keysMoveWindow (-1, -30)))
        , ( (modm, xK_apostrophe), withFocused (keysMoveWindow (0, 30)))
        , ( (modm, xK_bracketright), withFocused (keysMoveWindow (30, 0)))
        , ( (modm, xK_bracketleft), withFocused (keysMoveWindow (-30, 0)))

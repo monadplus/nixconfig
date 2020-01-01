@@ -120,6 +120,8 @@ $ bluetoothctl
 [bluetooth] # connect [hex-address]
 ```
 
+`pavucontrol` to manage bluetooth devices configuration.
+
 ### Markdown reader
 
 `typora`

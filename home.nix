@@ -6,11 +6,12 @@
   };
 
   home.packages = with pkgs; [
-    bat htop unzip gnupg tree fzf mkpasswd jq
+    bat htop unzip gnupg tree fzf mkpasswd jq binutils
     input-utils # lsinput: keyboard input
     xclip clipmenu
     translate-shell # trans -s es -t en   word | multiple words | "this is a sentence."
     arandr # Graphical xrandr
+    pavucontrol # Configure bluetooth device
     wpa_supplicant_gui
     typora # Markdown reader
     pgcli

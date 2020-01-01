@@ -1,5 +1,8 @@
 { config, pkgs, lib, ... }:
 
+with lib;
+with builtins;
+
 let
   home-manager = builtins.fetchGit {
     url = "https://github.com/rycee/home-manager.git";
@@ -19,8 +22,27 @@ in
 
   system.stateVersion = "19.09";
 
+  # Use the latest kernel - This solver suspend and bright issue.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 5;
+  boot.cleanTmpDir = true;
+
+  networking.useDHCP = false;
+  networking.interfaces.enp3s0f0.useDHCP = true;
+  networking.interfaces.enp4s0.useDHCP = true;
+  networking.interfaces.wlp1s0.useDHCP = true;
+
   location.latitude = 41.3828939;
   location.longitude = 2.1774322;
+
+  services.redshift = {
+    enable = true;
+    temperature.day = 5500;
+    temperature.night = 3700;
+  };
 
   # https://github.com/rycee/home-manager/issues/463
   home-manager.users.arnau = import ./home.nix { inherit pkgs config; };
@@ -181,6 +203,32 @@ in
       #incomplete-dir-enabled = true;
     #};
   };
+
+  # https://nixos.wiki/wiki/Actkbd
+  services.actkbd = {
+      enable = true;
+      # sudo lsinput # Find the input device (be aware that not all devices are mapped to one input..)
+      # nix-shell -p actkbd --run "sudo actkbd -n -s -d /dev/input/event#" # Replace '#' by event ID
+      bindings =
+        let
+          toggleVol      = keys: { inherit keys; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer -q set Master toggle'"; };
+          incrVol        = keys: { inherit keys; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer -q set Master 5%- unmute'"; };
+          decrVol        = keys: { inherit keys; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer -q set Master 5%+ unmute'"; };
+          toggleMic      = keys: { inherit keys; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l arnau -c 'amixer set Capture toggle'"; };
+          incrBrightness = keys: { inherit keys; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set 10%-"; };
+          decrBrightness = keys: { inherit keys; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set +10%"; };
+        in concatLists [
+           # audio (fix: https://github.com/NixOS/nixpkgs/issues/24297)
+          ( map toggleVol [ [ 59 ] [ 113 ] ] )
+          ( map incrVol [ [ 60 ] [ 114 ] ] )
+          ( map decrVol [ [ 61 ] [ 115 ] ] )
+
+          ( map toggleMic [ [ 62 ] [ 190 ] ] )
+
+          ( map incrBrightness [ [ 224 ] ] )
+          ( map decrBrightness [ [ 225 ] ] )
+        ];
+    };
 
   services.postgresql = {
     enable = true;
