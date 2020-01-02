@@ -15,8 +15,7 @@
     pavucontrol # Configure bluetooth device
     wpa_supplicant_gui
     typora # Markdown reader
-    apt
-    pgcli
+    postgresql pgcli # postgresql includes psql and others
     transgui # BitTorrent GUI
     curl wget
     chromium
@@ -30,7 +29,7 @@
     xscreensaver
     ddcutil # Query and change Linux monitor settings using DDC/CI and USB
     gimp
-    lazydocker
+    docker-compose lazydocker
     scrot # Screenshots
     zathura # EPUB, PDF and XPS
     udisks parted
@@ -43,7 +42,7 @@
 
     # Programming
     gnumake gcc
-    ghc cabal-install stack nix-prefetch-git
+    ghc cabal-install stack nix-prefetch-git # Stack non-haskell dependencies at .stack/config.yaml
     nodejs yarn
     nodePackages.node2nix # https://github.com/svanderburg/node2nix#installation
 
