@@ -20,7 +20,6 @@ templates:
 # to see the current sequence.
 # stack-colors: STYLES
 
-
 # More info at: https://docs.haskellstack.org/en/stable/nix_integration/
 # And: https://nixos.org/nixpkgs/manual/#haskell
 nix:
@@ -32,6 +31,7 @@ nix:
   enable: true
 
   # true by default. Tells Nix whether to run in a pure shell or not.
+  # https://docs.haskellstack.org/en/stable/nix_integration/#the-nix-shell
   pure: true
 
   # Empty by default. The list of packages you want to be
@@ -39,7 +39,7 @@ nix:
   # build`) and run time (with `stack exec`).
   #
   # Coinweb project requires: lzma, openssl, secp256k1, postgresql
-  packages: [ lzma openssl secp256k1 postgresql]
+  packages: [ lzma openssl secp256k1 postgresql ]
 
   # Unset by default. You cannot set this option if `packages:`
   # is already present and not empty.

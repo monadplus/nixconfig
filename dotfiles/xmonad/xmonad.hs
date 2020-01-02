@@ -95,8 +95,9 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
        , ( (modm .|. shiftMask, xK_j), windows W.swapDown) -- %! Swap the focused window with the next window
        , ( (modm .|. shiftMask, xK_k), windows W.swapUp) -- %! Swap the focused window with the previous window
        , ( (modm .|. shiftMask, xK_c), kill) -- %! Close the focused window
-       , ( (modm .|. shiftMask, xK_q), io (exitWith ExitSuccess)) -- Quit xmonad.
-       , ( (modm, xK_q), broadcastMessage ReleaseResources >> restart "xmonad" True) -- %! Restart xmonad
+       -- nb. Both exits are commented to avoid undesirable misclicks
+       --, ( (modm, xK_q), broadcastMessage ReleaseResources >> restart "xmonad" True) -- %! Restart xmonad
+       --, ( (modm .|. shiftMask, xK_q), io (exitWith ExitSuccess)) -- Quit xmonad.
        , ( (modm .|. shiftMask, xK_x), spawn "kill $(pidof xmobar); xmobar") -- %! Kill & restart statusbar
        , ( (modm, xK_f), withFocused (sendMessage . maximizeRestore))
        , ( (modm, xK_z), sendMessage MirrorShrink)

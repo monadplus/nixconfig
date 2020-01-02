@@ -17,6 +17,7 @@
     typora # Markdown reader
     postgresql pgcli # postgresql includes psql and others
     transgui # BitTorrent GUI
+    system-config-printer # printer manager GUI
     curl wget
     chromium
     konsole alacritty
@@ -281,8 +282,8 @@
       email=arnauabella@gmail.com
       name=monadplus
       [pager]
-      diff = nvim
-      show = nvim
+      diff = less
+      show = less
       [core]
       editor = nvim
       [color]
