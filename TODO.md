@@ -16,9 +16,7 @@
 [X] Xmonad: move apps to their workspace
 [X] Terminal: alacritty, st, terminate
     - I tried alacritty and meh
-[ ] Time tracker
-    - hamster-time-tracker (not working)
-    - super-productivity (not working)
+[X] Time tracker
 [ ] Bluetooth headset a2dp and volume
 [ ] Printer
 [ ] Symbols: maths

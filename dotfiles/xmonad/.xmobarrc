@@ -67,5 +67,5 @@ Config {  borderColor = "black"
 
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%StdinReader%}{Cpu: %cpu% - %thermal0% | %memory% %swap% | %battery% | Brightness: %mybright% | %default:Master% | %wlp1s0%    <fc=#ee9a00>%date%</fc>"
+        , template = "%StdinReader%}{%wlp1s0% | Cpu: %cpu% - %thermal0% | %memory% %swap% | %battery% | Brightness: %mybright% | %default:Master%   <fc=#ee9a00>%date%</fc>"
         }

@@ -54,6 +54,9 @@ in
     };
   };
 
+  # Fix for hamster: https://github.com/NixOS/nixpkgs/issues/27498
+  services.dbus.packages = with pkgs; [ gnome2.GConf gnome3.dconf hamster-time-tracker ];
+
   # Only keep the last 500MiB of systemd journal.
   services.journald.extraConfig = "SystemMaxUse=500M";
 
@@ -138,6 +141,7 @@ in
       wpa_gui &
       clipmenud &
       Enpass &
+      hamster &
 
       # Miscellaneous
       ${pkgs.xorg.xset}/bin/xset r rate 265 40

@@ -9,6 +9,7 @@
     bat htop unzip gnupg tree fzf mkpasswd jq binutils
     input-utils # lsinput: keyboard input
     xclip clipmenu
+    hamster-time-tracker # nb. hamster required a fix that is present on common.nix.
     translate-shell # trans -s es -t en   word | multiple words | "this is a sentence."
     arandr # Graphical xrandr
     pavucontrol # Configure bluetooth device
