@@ -15,6 +15,7 @@
     pavucontrol # Configure bluetooth device
     wpa_supplicant_gui
     typora # Markdown reader
+    apt
     pgcli
     transgui # BitTorrent GUI
     curl wget
@@ -199,7 +200,9 @@
     shellAliases = {
       ls = "ls -GFhla";
       ".." = "cd ..";
-      # Alternative: `tlp-stat -b`
+      cdHaskell = "cd /home/arnau/haskell";
+      cdNixos = "cd /etc/nixos";
+      cdCoinweb = "cd /home/arnau/haskell/coinweb/on-server";
       battery = ''upower -i $(upower -e | grep BAT) | grep --color=never -E "state|to\ full|to\ empty|percentage"'';
     };
 
@@ -271,6 +274,7 @@
     ".translate-shell/init.trans".source = ./dotfiles/translate-shell/init.trans;
 
     ".cabal/config".source = ./dotfiles/cabal/config;
+    ".stack/config.yaml".source = ./dotfiles/stack/config.yaml;
 
     #  nb. .config/git/config overrides .gitconfig
     ".gitconfig".text = ''
