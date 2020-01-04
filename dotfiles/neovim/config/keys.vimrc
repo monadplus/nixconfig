@@ -16,6 +16,14 @@ let mapleader=','
 " Quit
 :nnoremap qq :q<CR>
 
+" Rename
+function! Rnvar()
+  let word_to_replace = expand("<cword>")
+  let replacement = input("New name: ")
+  execute '%s/' . word_to_replace . '/' . replacement . '/gc'
+endfunction
+:nnoremap <leader>rn :call Rnvar()<CR>
+
 " Replace tabs with spaces
 :nnoremap <leader>tt :%s/\t/  /g<CR>
 

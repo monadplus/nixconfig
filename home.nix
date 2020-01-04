@@ -53,6 +53,7 @@
     haskellPackages.xmobar
     haskellPackages.hoogle
     haskellPackages.pandoc
+    haskellPackages.hlint
     haskellPackages.stylish-haskell
     haskellPackages.hindent
     haskellPackages.brittany
@@ -200,9 +201,15 @@
     shellAliases = {
       ls = "ls -GFhla";
       ".." = "cd ..";
+
       cdHaskell = "cd /home/arnau/haskell";
       cdNixos = "cd /etc/nixos";
       cdCoinweb = "cd /home/arnau/haskell/coinweb/on-server";
+
+      # Git
+      gs = "git status";
+      gco = "git checkout";
+
       battery = ''upower -i $(upower -e | grep BAT) | grep --color=never -E "state|to\ full|to\ empty|percentage"'';
     };
 
@@ -275,6 +282,7 @@
 
     ".cabal/config".source = ./dotfiles/cabal/config;
     ".stack/config.yaml".source = ./dotfiles/stack/config.yaml;
+    ".ghc/ghci.conf".source = ./dotfiles/ghc/ghci.conf;
 
     #  nb. .config/git/config overrides .gitconfig
     ".gitconfig".text = ''
