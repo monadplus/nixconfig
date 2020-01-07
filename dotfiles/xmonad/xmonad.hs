@@ -27,7 +27,7 @@ import           XMonad.Util.Run             (spawnPipe)
 
 -----------------------------------------------------------------
 
-myTerminal = "konsole hide-menubar"
+myTerminal workspace = "konsole hide-menubar --workdir " <> workspace
 
 myLauncher = "dmenu_run -fn 'Tamzen-10' -nf '#fff' -p ' Search '"
 
@@ -35,17 +35,18 @@ myStatusBar = "xmobar"
 
 modm = mod4Mask -- Windows key
 
-data Workspace = Code | Code2 | Browser | Chat | Mail | Media
+data Workspace = Main | Code | Browser | Chat | Mail | Media | Swap
   deriving Show
 
 myWorkspaces :: [Workspace]
 myWorkspaces =
-  [ Code
-  , Code2
+  [ Main
+  , Code
   , Browser
   , Chat
   , Mail
   , Media
+  , Swap
   ]
 
 myManageHook = composeAll . concat $
@@ -77,7 +78,9 @@ myLayout = maximize (ResizableTall 1 (3 / 100) (1 / 2) [] ||| Full)
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig { XMonad.modMask = modMask }) =
   M.fromList
-    $  [ ( (modm, xK_Return)              , spawn myTerminal)
+    $  [ ( (modm, xK_Return)                , spawn (myTerminal "/etc/nixos"))
+       , ( (modm .|. shiftMask, xK_Return)  , spawn (myTerminal "~/haskell"))
+       , ( (modm .|. controlMask, xK_Return), spawn (myTerminal "~/haskell/coinweb/on-server"))
        , ( (modm, xK_p)                   , spawn myLauncher)
        , ( (modm, xK_Tab)                 , nextWS)
        , ( (modm .|. shiftMask, xK_Tab)   , prevWS)
@@ -134,7 +137,7 @@ defaults xmproc = def
   , focusedBorderColor = "#89DDFF"
   , keys       = myKeys
   , modMask    = modm
-  , terminal   = myTerminal
+  , terminal   = myTerminal "/etc/nixos"
   , workspaces = show <$> myWorkspaces
   , manageHook = manageDocks <+> floatNextHook <+> myManageHook <+> manageHook def
   , layoutHook = avoidStruts $ gaps $ smartBorders $ myLayout

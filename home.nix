@@ -43,7 +43,7 @@
 
     # Programming
     gnumake gcc
-    ghc cabal-install stack nix-prefetch-git # Stack non-haskell dependencies at .stack/config.yaml
+    ghc cabal-install stack cabal2nix nix-prefetch-git # Stack non-haskell dependencies at .stack/config.yaml
     nodejs yarn
     nodePackages.node2nix # https://github.com/svanderburg/node2nix#installation
 

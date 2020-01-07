@@ -17,7 +17,9 @@
 [X] Terminal: alacritty, st, terminate
     - I tried alacritty and meh
 [X] Time tracker
+[ ] Volume doesn't always work and it's frustrating
 [ ] Bluetooth headset a2dp and volume
+[ ] Bluetooth randomly stops working (no adapter found on `bluetoothctl list`) after having been working for days...
 [ ] Printer
 [ ] Symbols: maths
 
@@ -27,4 +29,3 @@
 [ ] enpass plugin for firefox (write it yourself)
     or picking a free-software alternative would be great ;)
 [ ] Setting up kubernetes on nixos: https://rzetterberg.github.io/kubernetes-nixos.html
-[ ] Wallpaper
