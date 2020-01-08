@@ -127,6 +127,7 @@ in
           haskellPackages.xmonad-contrib
           haskellPackages.xmonad-extras
           haskellPackages.xmobar
+          haskellPackages.X11
         ];
       };
     };
@@ -222,15 +223,15 @@ in
           incrBrightness = keys: { inherit keys; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set 10%-"; };
           decrBrightness = keys: { inherit keys; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set +10%"; };
         in concatLists [
-           # audio (fix: https://github.com/NixOS/nixpkgs/issues/24297)
-          ( map toggleVol [ [ 59 ] [ 113 ] ] )
-          ( map incrVol [ [ 60 ] [ 114 ] ] )
-          ( map decrVol [ [ 61 ] [ 115 ] ] )
+          # audio (fix: https://github.com/NixOS/nixpkgs/issues/24297)
+          #( map toggleVol [ [ 59 ] [ 113 ] ] )
+          #( map incrVol [ [ 60 ] [ 114 ] ] )
+          #( map decrVol [ [ 61 ] [ 115 ] ] )
 
           ( map toggleMic [ [ 62 ] [ 190 ] ] )
 
-          ( map incrBrightness [ [ 224 ] ] )
-          ( map decrBrightness [ [ 225 ] ] )
+          #( map incrBrightness [ [ 224 ] ] )
+          #( map decrBrightness [ [ 225 ] ] )
         ];
     };
 

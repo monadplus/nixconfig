@@ -2,28 +2,32 @@ module Main (main) where
 
 -----------------------------------------------------------------
 
-import           Data.Default                (def)
-import qualified Data.Map.Strict             as M
+import           Data.Default                 (def)
+import qualified Data.Map.Strict              as M
 
-import           System.Exit                 (ExitCode (..), exitWith)
+import           System.Exit                  (ExitCode (..), exitWith)
 import           System.IO
 
+import           Data.Bool
+import qualified Graphics.X11.ExtraTypes.XF86 as XF86
 import           XMonad
-import           XMonad.Actions.CycleWS      (nextWS, prevWS)
-import           XMonad.Actions.FloatKeys    (keysMoveWindow, keysResizeWindow)
+import           XMonad.Actions.CycleWS       (nextWS, prevWS)
+import           XMonad.Actions.FloatKeys     (keysMoveWindow, keysResizeWindow)
+import           XMonad.Actions.Volume
 import           XMonad.Hooks.DynamicLog
-import           XMonad.Hooks.EwmhDesktops   (ewmh)
-import           XMonad.Hooks.FloatNext      (floatNextHook, toggleFloatAllNew, toggleFloatNext)
-import           XMonad.Hooks.ManageDocks    (ToggleStruts (..), avoidStruts, docks, docksEventHook, manageDocks)
-import           XMonad.Hooks.SetWMName      (setWMName)
-import           XMonad.Layout.Maximize      (maximize)
-import           XMonad.Layout.Maximize      (maximizeRestore)
-import           XMonad.Layout.NoBorders     (smartBorders)
-import           XMonad.Layout.ResizableTile (MirrorResize (..), ResizableTall (..))
-import           XMonad.Layout.Spacing       (Border (..), spacingRaw, toggleWindowSpacingEnabled)
-import qualified XMonad.StackSet             as W
-import           XMonad.Util.EZConfig        (additionalKeys)
-import           XMonad.Util.Run             (spawnPipe)
+import           XMonad.Hooks.EwmhDesktops    (ewmh)
+import           XMonad.Hooks.FloatNext       (floatNextHook, toggleFloatAllNew, toggleFloatNext)
+import           XMonad.Hooks.ManageDocks     (ToggleStruts (..), avoidStruts, docks, docksEventHook, manageDocks)
+import           XMonad.Hooks.SetWMName       (setWMName)
+import           XMonad.Layout.Maximize       (maximize)
+import           XMonad.Layout.Maximize       (maximizeRestore)
+import           XMonad.Layout.NoBorders      (smartBorders)
+import           XMonad.Layout.ResizableTile  (MirrorResize (..), ResizableTall (..))
+import           XMonad.Layout.Spacing        (Border (..), spacingRaw, toggleWindowSpacingEnabled)
+import qualified XMonad.StackSet              as W
+import           XMonad.Util.Dzen
+import           XMonad.Util.EZConfig         (additionalKeys)
+import           XMonad.Util.Run              (spawnPipe)
 
 -----------------------------------------------------------------
 
@@ -75,6 +79,18 @@ gaps = spacingRaw
 
 myLayout = maximize (ResizableTall 1 (3 / 100) (1 / 2) [] ||| Full)
 
+-- TODO doesn't work
+alert :: String -> X ()
+alert = dzenConfig centered
+  where
+    centered = onCurr (center 150 66)
+                >=> font "-*-helvetica-*-r-*-*-64-*-*-*-*-*-*-*"
+                >=> addArgs ["-fg", "#80c0ff"]
+                >=> addArgs ["-bg", "#000040"]
+
+alertDouble :: Double -> X ()
+alertDouble = alert . show . round
+
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig { XMonad.modMask = modMask }) =
   M.fromList
@@ -115,6 +131,15 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
        , ( (modm, xK_bracketleft), withFocused (keysMoveWindow (-30, 0)))
        , ( (controlMask .|. shiftMask, xK_m), withFocused $ keysResizeWindow (0, -15) (0, 0))
        , ( (controlMask .|. shiftMask, xK_comma), withFocused $ keysResizeWindow (0, 15) (0, 0))
+       -- Volumne
+       , ( (0, XF86.xF86XK_AudioMute)       , toggleMute    >> return ())
+       , ( (0, XF86.xF86XK_AudioLowerVolume), lowerVolume 5 >> return ())
+       , ( (0, XF86.xF86XK_AudioRaiseVolume), raiseVolume 5 >> return ())
+       -- Screen brightness
+       , ( (0, XF86.xF86XK_MonBrightnessUp)  , spawn "brightnessctl set +10%")
+       , ( (0, XF86.xF86XK_MonBrightnessDown), spawn "brightnessctl set 10%-")
+       -- TODO toogle micro
+       -- Workspace management
        ] ++ [ ((m .|. modMask, k), windows $ f i) -- mod-[1..9], Switch to workspace N
             | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9] -- mod-shift-[1..9], Move client to workspace N
             , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
