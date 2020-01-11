@@ -44,6 +44,8 @@ in
     temperature.night = 3700;
   };
 
+  services.autorandr.enable = true;
+
   # https://github.com/rycee/home-manager/issues/463
   home-manager.users.arnau = import ./home.nix { inherit pkgs config; };
 
@@ -148,7 +150,7 @@ in
       ${pkgs.xorg.xset}/bin/xset r rate 265 40
 
       # Unfortunately since the HM autorandr module is not set up to detect hardware events, that is, it won't react to simply inserting the HDMI cable. It would be sweet to fix so that it does and if anybody know udev or something well enough to figure out how to do it that would be great.I suspect it's not doable without hooking it up in the system level configuration, though. Something like what the autorandr Makefile does.
-      ${pkgs.autorandr}/bin/autorandr -c
+      # ${pkgs.autorandr}/bin/autorandr -c
     '';
   };
 
