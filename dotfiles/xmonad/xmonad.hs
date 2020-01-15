@@ -39,7 +39,7 @@ myStatusBar = "xmobar"
 
 modm = mod4Mask -- Windows key
 
-data Workspace = Main | Code | Browser | Chat | Mail | Media | Swap
+data Workspace = Main | Code | Browser | Chat | Mail | Tmp
   deriving Show
 
 myWorkspaces :: [Workspace]
@@ -49,8 +49,7 @@ myWorkspaces =
   , Browser
   , Chat
   , Mail
-  , Media
-  , Swap
+  , Tmp
   ]
 
 myManageHook = composeAll . concat $
@@ -58,15 +57,13 @@ myManageHook = composeAll . concat $
     , [ check c --> doShift' Browser | c <- browsers]
     , [ check c --> doShift' Chat    | c <- chats   ]
     , [ check c --> doShift' Mail    | c <- mails   ]
-    , [ check c --> doShift' Media   | c <- media   ]
     ]
   where
     -- className: `$ xprop | grep WM_CLASS`
-    myFloats = ["Enpass", "Gimp", "zoom", "zoom-us"]
+    myFloats = ["Enpass", "Gimp", "zoom", "zoom-us", "vlc", "nomacs", "transgui", "Image Lounge"]
     browsers = ["Firefox", "Chromium-browser"]
     chats    = ["Discord", "Slack"]
     mails    = ["Mail", "thunderbird"]
-    media    = ["vlc", "nomacs", "transgui", "Image Lounge"]
     doShift' workspace =  doShift (show workspace)
     check x = className =? x <||> title =? x <||> resource =? x
 
@@ -101,6 +98,8 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
        -- Focus
        , ( (modm, xK_Tab)              , nextWS             )
        , ( (modm .|. shiftMask, xK_Tab), prevWS             )
+       , ( (modm, xK_j)                , windows W.focusDown)
+       , ( (modm, xK_k)                , windows W.focusUp  )
        , ( (modm, xK_h)                , windows W.focusDown)
        , ( (modm, xK_l)                , windows W.focusUp  )
 
