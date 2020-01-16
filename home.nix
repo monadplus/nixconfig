@@ -7,6 +7,8 @@
 
   home.packages = with pkgs; [
     bat htop unzip gnupg tree fzf mkpasswd jq binutils
+    exa # ls replacement
+    fd # find replacement
     input-utils # lsinput: keyboard input
     xorg.xev # keyboard code
     xclip clipmenu
@@ -45,6 +47,7 @@
     # Programming
     gnumake gcc
     ghc cabal-install stack cabal2nix nix-prefetch-git # Stack non-haskell dependencies at .stack/config.yaml
+    haskellPackages.Agda AgdaStdlib
     nodejs yarn
     nodePackages.node2nix # https://github.com/svanderburg/node2nix#installation
 
@@ -200,19 +203,25 @@
     };
 
     shellAliases = {
-      ls = "ls -GFhla";
+      ls   = "exa -la --git";
       ".." = "cd ..";
+      ":e" = "'vim'";
+      ":q" = "'exit'";
 
       cdHaskell = "cd /home/arnau/haskell";
-      cdNixos = "cd /etc/nixos";
+      cdAgda    = "cd /home/arnau/agda";
+      cdNixos   = "cd /etc/nixos";
       cdCoinweb = "cd /home/arnau/haskell/coinweb/on-server";
 
-      # Git
-      gs = "git status";
+      gs = "git status -s";
       gco = "git checkout";
+      gc = "git commit";
+      gac = "git add . && git commit -a -m ";
       branches = "git for-each-ref --sort='-authordate:iso8601' --format=' %(color:green)%(authordate:iso8601)%09%(color:white)%(refname:short)' refs/heads";
 
       battery = ''upower -i $(upower -e | grep BAT) | grep --color=never -E "state|to\ full|to\ empty|percentage"'';
+      h = "history | grep";
+      mkcd = ''f(){ mkdir -p "$1"; cd "$1" }; f'';
     };
 
     "oh-my-zsh" = {
