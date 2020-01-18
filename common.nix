@@ -62,9 +62,24 @@ in
   # Only keep the last 500MiB of systemd journal.
   services.journald.extraConfig = "SystemMaxUse=500M";
 
-  # Collect nix store garbage and optimise daily.
-  nix.gc.automatic = true;
-  nix.optimise.automatic = true;
+  nix = {
+    # Collect nix store garbage and optimise daily.
+    gc.automatic = true;
+    optimise.automatic = true;
+
+    trustedUsers = [ "root" "arnau" ];
+
+    binaryCaches = [
+      "https://monadplus.cachix.org"
+    ];
+
+    # TODO move cachix credentials to declarative style.
+    # /home/arnau/.config/cachix/cachix.dhall
+    # /home/arnau/.config/nix/nix.conf
+    binaryCachePublicKeys = [
+      "monadplus.cachix.org-1:+XFtvxGut8gfIXJtrA3plN9mZkgIHIDvYPCf+NEVd3c="
+    ];
+  };
 
   # Enable the OpenSSH daemon (allow secure remote logins)
   services.openssh.enable = true;

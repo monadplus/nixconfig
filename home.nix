@@ -50,6 +50,7 @@
     haskellPackages.Agda AgdaStdlib
     nodejs yarn
     nodePackages.node2nix # https://github.com/svanderburg/node2nix#installation
+    cachix # Cache for nix
 
     # Haskell exec
     haskellPackages.fast-tags
