@@ -39,7 +39,7 @@ nix:
   # build`) and run time (with `stack exec`).
   #
   # Coinweb project requires: lzma, openssl, secp256k1, postgresql
-  packages: [ lzma openssl secp256k1 postgresql zlib ]
+  packages: [ lzma openssl secp256k1 postgresql zlib pcre ]
 
   # Unset by default. You cannot set this option if `packages:`
   # is already present and not empty.

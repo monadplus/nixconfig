@@ -11,6 +11,7 @@
     fd # find replacement
     input-utils # lsinput: keyboard input
     xorg.xev # keyboard code
+    dzen2 # Display messages on screen
     xclip clipmenu
     hamster-time-tracker # nb. hamster required a fix that is present on common.nix.
     translate-shell # trans -s es -t en   word | multiple words | "this is a sentence."

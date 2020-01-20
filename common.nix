@@ -266,6 +266,14 @@ in
     #'';
   #};
 
+  # http://localhost:8080
+  services.hoogle = {
+    enable = true;
+    packages = (hpkgs: with hpkgs; [text lens]);
+    haskellPackages = pkgs.haskellPackages;
+    port = 8080;
+  };
+
   virtualisation = {
     docker = {
       enable = true;

@@ -28,6 +28,7 @@ import qualified XMonad.StackSet              as W
 import           XMonad.Util.Dzen
 import           XMonad.Util.EZConfig         (additionalKeys)
 import           XMonad.Util.Run              (spawnPipe)
+import           XMonad.Hooks.UrgencyHook
 
 -----------------------------------------------------------------
 
@@ -155,6 +156,9 @@ myKeys conf@(XConfig { XMonad.modMask = modMask }) =
 
        -- Toogle micro
 
+      -- Focus Urgent
+       , ( (modMask, xK_BackSpace), focusUrgent)
+
       -- Workspace management
        ] ++ [ ((m .|. modMask, k), windows $ f i)
             | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
@@ -198,4 +202,9 @@ defaults xmproc = def
 
 main = do
     xmproc <- spawnPipe myStatusBar
-    xmonad $ ewmh $ docks $ defaults xmproc `additionalKeys` myAdditionalKeys
+    xmonad
+      $ ewmh
+      $ docks
+      -- https://hackage.haskell.org/package/xmonad-contrib-0.8/docs/XMonad-Hooks-UrgencyHook.html
+      $ withUrgencyHook dzenUrgencyHook { args = ["-bg", "darkgreen", "-xs", "1"] }
+      $ defaults xmproc `additionalKeys` myAdditionalKeys
