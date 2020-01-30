@@ -19,6 +19,7 @@ let mapleader=','
 " Rename
 function! Rnvar()
   let word_to_replace = expand("<cword>")
+  "let replacement = input("New name: " . word_to_replace)
   let replacement = input("New name: ")
   execute '%s/' . word_to_replace . '/' . replacement . '/gc'
 endfunction

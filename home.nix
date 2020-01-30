@@ -44,6 +44,8 @@
     slack discord skypeforlinux
     dropbox enpass thunderbird
     awscli
+    bind # dig WWW.EXAMPLE.COM +nostats +nocomments +nocmd
+    jekyll bundler
 
     # Programming
     gnumake gcc
@@ -222,7 +224,6 @@
       branches = "git for-each-ref --sort='-authordate:iso8601' --format=' %(color:green)%(authordate:iso8601)%09%(color:white)%(refname:short)' refs/heads";
 
       battery = ''upower -i $(upower -e | grep BAT) | grep --color=never -E "state|to\ full|to\ empty|percentage"'';
-      h = "history | grep";
       mkcd = ''f(){ mkdir -p "$1"; cd "$1" }; f'';
     };
 
