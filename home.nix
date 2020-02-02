@@ -41,7 +41,7 @@
     ncdu # Disk space usage analyzer
     dmenu stalonetray # Stand-alone trays.
     whois
-    slack discord skypeforlinux
+    slack skypeforlinux hexchat
     dropbox enpass thunderbird
     awscli
     bind # dig WWW.EXAMPLE.COM +nostats +nocomments +nocmd
@@ -54,6 +54,7 @@
     nodejs yarn
     nodePackages.node2nix # https://github.com/svanderburg/node2nix#installation
     cachix # Cache for nix
+    nixops
 
     # Haskell exec
     haskellPackages.fast-tags
@@ -74,6 +75,10 @@
         wrapProgram $out/bin/zoom-us --set LIBGL_ALWAYS_SOFTWARE 1
       '';
     }))
+
+    (discord.override {
+      nss = pkgs.nss_3_47_1;
+    })
   ];
 
   # Monitors
@@ -310,6 +315,11 @@
       editor = nvim
       [color]
       ui = true
+    '';
+
+    # nix-env, nix-build, nix-shell
+    ".config/nixpkgs/config.nix".text = ''
+         { allowUnfree = true; }
     '';
 
     "haskell/pipes".source = pkgs.fetchFromGitHub {
