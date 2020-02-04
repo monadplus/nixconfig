@@ -117,12 +117,15 @@ in
   services.xserver = {
     enable = true;
     autorun = true;
-    layout = "us";
-    extraLayouts."us-custom" = {
-      description = "US layout with alt-gr greek";
-      languages = [ "eng" ];
-      symbolsFile = ./dotfiles/keyboard/us-custom;
-    };
+    layout = "us,jp";
+    xkbOptions = "grp:caps_toggle"; # while holding
+    xkbVariant = ""; # default
+    xkbModel = "pc104"; # default
+    # extraLayouts."us-custom" = {
+    #   description = "US layout with alt-gr greek";
+    #   languages = [ "eng" ];
+    #   symbolsFile = ./dotfiles/keyboard/us-custom;
+    # };
 
     desktopManager = {
        default = "none";

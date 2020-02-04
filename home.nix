@@ -68,6 +68,8 @@
     haskellPackages.brittany
     haskellPackages.idris
 
+    (haskell.lib.doJailbreak haskellPackages.threadscope)
+
     # Fixes
     (zoom-us.overrideAttrs (super: {
       postInstall = ''
@@ -319,7 +321,9 @@
 
     # nix-env, nix-build, nix-shell
     ".config/nixpkgs/config.nix".text = ''
-         { allowUnfree = true; }
+         { allowUnfree = true;
+           allowBroken = true;
+         }
     '';
 
     "haskell/pipes".source = pkgs.fetchFromGitHub {
