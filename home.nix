@@ -69,6 +69,7 @@
     haskellPackages.idris
 
     (haskell.lib.doJailbreak haskellPackages.threadscope)
+    (haskell.lib.doJailbreak haskellPackages.eventlog2html)
 
     # Fixes
     (zoom-us.overrideAttrs (super: {
