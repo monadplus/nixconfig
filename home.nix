@@ -68,8 +68,12 @@
     haskellPackages.brittany
     haskellPackages.idris
 
+    # Profiling in haskell
     (haskell.lib.doJailbreak haskellPackages.threadscope)
     (haskell.lib.doJailbreak haskellPackages.eventlog2html)
+    (haskell.lib.doJailbreak haskellPackages.eventlog2html)
+    haskellPackages.profiteur
+    haskellPackages.prof-flamegraph flameGraph
 
     # Fixes
     (zoom-us.overrideAttrs (super: {
