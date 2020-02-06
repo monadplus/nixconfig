@@ -96,9 +96,9 @@ in
   i18n = lib.mkForce {
     consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
-    # TODO not working...
-     #inputMethod.enabled = "ibus";
-     #inputMethod.ibus.engines = with pkgs.ibus-engines; [ uniemoji ];
+    #TODO not working...
+    #inputMethod.enabled = "ibus";
+    #inputMethod.ibus.engines = with pkgs.ibus-engines; [ uniemoji ];
   };
 
   time.timeZone = "Europe/Madrid";
@@ -117,15 +117,15 @@ in
   services.xserver = {
     enable = true;
     autorun = true;
-    layout = "us,jp";
-    xkbOptions = "grp:caps_toggle"; # while holding
+    layout = "us-custom,us";
+    xkbOptions = "terminate:ctrl_alt_bksp"; # TODO not working
     xkbVariant = ""; # default
     xkbModel = "pc104"; # default
-    # extraLayouts."us-custom" = {
-    #   description = "US layout with alt-gr greek";
-    #   languages = [ "eng" ];
-    #   symbolsFile = ./dotfiles/keyboard/us-custom;
-    # };
+    extraLayouts."us-custom" = {
+      description = "US + Math + Greek";
+      languages = [ "eng" ];
+      symbolsFile = ./dotfiles/keyboard/us-custom;
+    };
 
     desktopManager = {
        default = "none";

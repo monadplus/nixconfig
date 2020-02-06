@@ -1,7 +1,7 @@
 xkb_symbols "us-custom"
 {
   include "us(basic)"            // includes the base US keys
-  include "level3(ralt_switch)"  // configures right alt as a third level switch
+  include "level3(lalt_switch)"  // configures left alt as a third level switch
 
   key <LatA> { [ a, A, Greek_alpha ] };
   key <LatB> { [ b, B, Greek_beta  ] };
