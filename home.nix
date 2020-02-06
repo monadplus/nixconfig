@@ -17,7 +17,7 @@
     translate-shell # trans -s es -t en   word | multiple words | "this is a sentence."
     arandr # Graphical xrandr
     pavucontrol # Configure bluetooth device
-    wpa_supplicant_gui
+    wpa_supplicant wpa_supplicant_gui
     typora # Markdown reader
     postgresql pgcli # postgresql includes psql and others
     transgui # BitTorrent GUI
@@ -37,6 +37,7 @@
     docker-compose lazydocker
     scrot # Screenshots
     zathura # EPUB, PDF and XPS
+    gv # postscript/ghostscript viewer
     udisks parted
     ncdu # Disk space usage analyzer
     dmenu stalonetray # Stand-alone trays.
@@ -46,6 +47,8 @@
     awscli
     bind # dig WWW.EXAMPLE.COM +nostats +nocomments +nocmd
     jekyll bundler
+
+    # python python3
 
     # Programming
     gnumake gcc
@@ -237,6 +240,9 @@
 
       battery = ''upower -i $(upower -e | grep BAT) | grep --color=never -E "state|to\ full|to\ empty|percentage"'';
       mkcd = ''f(){ mkdir -p "$1"; cd "$1" }; f'';
+
+      untar = "tar -xvf";
+      untargz = "tar -xzvf";
     };
 
     "oh-my-zsh" = {

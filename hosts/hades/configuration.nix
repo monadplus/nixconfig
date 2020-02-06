@@ -41,6 +41,20 @@ with builtins;
         pskRaw = "338529ea97241bd0320fc7d9a4058647a9da447a5f1a70ba1129c2ae289e7461";
       };
       # UNIVERSITY
+      "eduroam" = {
+        auth = ''
+          ssid="eduroam"
+          key_mgmt=WPA-EAP
+          eap=TTLS
+          group=CCMP
+          phase2="auth=PAP"
+          anonymous_identity="anonymous@upc.edu"
+          identity="arnau.abella"
+          password="asdadaADSA131231!#!@#!"
+          ca_cert="/home/arnau/upc.crt"
+          priority=10
+        '';
+      };
       # WORK
     };
     extraConfig = ''
