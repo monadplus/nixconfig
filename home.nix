@@ -47,6 +47,7 @@
     awscli
     bind # dig WWW.EXAMPLE.COM +nostats +nocomments +nocmd
     jekyll bundler
+    texlive.combined.scheme-full # contains every TeX Live package.
 
     # python python3
 
