@@ -51,6 +51,18 @@
 
     # python python3
 
+    # R
+    # On the shell: nix-shell --packages 'rWrapper.override{ packages = with rPackages; [ ggplot2 ]; }'
+    ( rWrapper.override {
+        packages = with rPackages; [ ggplot2 dplyr xts ];
+      }
+    )
+    # RStudio (gui)
+    ( rstudioWrapper.override {
+        packages = with rPackages; [ ggplot2 dplyr xts ];
+      }
+    )
+
     # Programming
     gnumake gcc
     ghc cabal-install stack cabal2nix nix-prefetch-git # Stack non-haskell dependencies at .stack/config.yaml
@@ -78,13 +90,6 @@
     (haskell.lib.doJailbreak haskellPackages.eventlog2html)
     haskellPackages.profiteur
     haskellPackages.prof-flamegraph flameGraph
-
-    # R
-    # On the shell: nix-shell --packages 'rWrapper.override{ packages = with rPackages; [ ggplot2 ]; }'
-    ( rWrapper.override {
-        packages = with rPackages; [ ggplot2 dplyr xts ];
-      }
-    )
 
     # Fixes
     (zoom-us.overrideAttrs (super: {
