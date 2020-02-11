@@ -8,6 +8,7 @@ let mapleader=','
 ":nnoremap ff :vimgrep <cword> **/*.scala<CR>
 :nnoremap ff :vimgrep <cword> **/*.hs<CR>
 :nnoremap <leader>ff :vimgrep <cword> **/*.sql<CR>
+:nnoremap <leader>5 :!pdflatex %<CR>
 
 " Git
 :nnoremap gf :G<CR>

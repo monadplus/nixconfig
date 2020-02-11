@@ -79,6 +79,13 @@
     haskellPackages.profiteur
     haskellPackages.prof-flamegraph flameGraph
 
+    # R
+    # On the shell: nix-shell --packages 'rWrapper.override{ packages = with rPackages; [ ggplot2 ]; }'
+    ( rWrapper.override {
+        packages = with rPackages; [ ggplot2 dplyr xts ];
+      }
+    )
+
     # Fixes
     (zoom-us.overrideAttrs (super: {
       postInstall = ''
@@ -185,6 +192,7 @@
       vim # dracula/vim
       solarized
       vim-devicons
+      vimtex
     ];
     extraConfig = ''
       ${builtins.readFile ./dotfiles/neovim/init.vim}

@@ -5,6 +5,9 @@ filetype off                " required
 " Highlighting for jsonc filetype
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
+" Latex
+let g:tex_flavor = 'latex'
+
 " Better Unix support
 set viewoptions=folds,options,cursor,unix,slash
 set encoding=utf-8
