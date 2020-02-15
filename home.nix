@@ -6,7 +6,7 @@
   };
 
   home.packages = with pkgs; [
-    bat htop unzip gnupg tree fzf mkpasswd jq binutils
+    bat htop unzip gnupg tree fzf mkpasswd jq binutils file
     exa # ls replacement
     fd # find replacement
     input-utils # lsinput: keyboard input
@@ -48,8 +48,19 @@
     bind # dig WWW.EXAMPLE.COM +nostats +nocomments +nocmd
     jekyll bundler
     texlive.combined.scheme-full # contains every TeX Live package.
+    gecode # Constraint Problme Solving
+    steam-run # run executable without a nix-derivation
 
-    # python python3
+    # TODO override doCheck for python38.numpy
+    ( python35.withPackages(
+        pkgs: with pkgs; [ numpy ] # numpy scikitlearn ]
+      )
+    )
+
+    # python2nix # python -mpython2nix pandas
+
+    # python35Packages.pylama # Code audit for python
+    python35Packages.flake8
 
     # R
     # On the shell: nix-shell --packages 'rWrapper.override{ packages = with rPackages; [ ggplot2 ]; }'
@@ -59,7 +70,7 @@
     )
     # RStudio (gui)
     ( rstudioWrapper.override {
-        packages = with rPackages; [ ggplot2 dplyr xts ];
+        packages = with rPackages; [ ggplot2 dplyr xts aplpack];
       }
     )
 
@@ -71,6 +82,9 @@
     nodePackages.node2nix # https://github.com/svanderburg/node2nix#installation
     cachix # Cache for nix
     nixops
+
+    # Haskell runtime dependencies
+    gsl
 
     # Haskell exec
     haskellPackages.fast-tags
@@ -198,6 +212,7 @@
       solarized
       vim-devicons
       vimtex
+      python-mode
     ];
     extraConfig = ''
       ${builtins.readFile ./dotfiles/neovim/init.vim}
