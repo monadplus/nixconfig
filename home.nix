@@ -50,27 +50,24 @@
     texlive.combined.scheme-full # contains every TeX Live package.
     gecode # Constraint Problme Solving
     steam-run # run executable without a nix-derivation
+    zeal # Offline docs
+    direnv
 
-    # TODO override doCheck for python38.numpy
-    ( python35.withPackages(
-        pkgs: with pkgs; [ numpy ] # numpy scikitlearn ]
-      )
-    )
+    # Python
+    python2nix # python -mpython2nix pandas
 
-    # python2nix # python -mpython2nix pandas
+    # ( python37.withPackages(
+    #     pkgs: with pkgs; [ numpy ]
+    #   ))
 
-    # python35Packages.pylama # Code audit for python
-    python35Packages.flake8
-
-    # R
+    # R / RStudio
     # On the shell: nix-shell --packages 'rWrapper.override{ packages = with rPackages; [ ggplot2 ]; }'
     ( rWrapper.override {
         packages = with rPackages; [ ggplot2 dplyr xts ];
       }
     )
-    # RStudio (gui)
     ( rstudioWrapper.override {
-        packages = with rPackages; [ ggplot2 dplyr xts aplpack];
+        packages = with rPackages; [ ggplot2 dplyr xts aplpack readxl openxlsx prob Rcmdr RcmdrPlugin_IPSUR];
       }
     )
 
@@ -176,13 +173,11 @@
     };
   };
 
-
   programs.neovim = {
     enable = true;
-    viAlias = true;
     vimAlias =  true;
+
     # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/vim.section.md#adding-new-plugins-to-nixpkgs
-    # TODO add vim-translate (https://github.com/VincentCordobes/vim-translate)
     plugins = with pkgs.vimPlugins; [
       vim-nix
       vim-fugitive
@@ -212,7 +207,12 @@
       solarized
       vim-devicons
       vimtex
-      python-mode
+      zeavim-vim
+
+      # Python setup (syntastic is also used)
+      jedi-vim # LSP Client for Python
+      direnv-vim
+      YouCompleteMe
     ];
     extraConfig = ''
       ${builtins.readFile ./dotfiles/neovim/init.vim}
@@ -249,6 +249,10 @@
     localVariables = {
       COMPLETITION_WAITING_DOTS = "true";
     };
+
+    initExtra = ''
+      eval "$(direnv hook zsh)"
+    '';
 
     shellAliases = {
       ls   = "exa -la --git";
@@ -364,6 +368,19 @@
          { allowUnfree = true;
            allowBroken = true;
          }
+    '';
+
+    # Used for python + venv + direnv but didnt work.
+
+    # This has been integrated into direnv stdlib
+    ".nix-direnv".source = pkgs.fetchFromGitHub {
+       owner = "nix-community";
+       repo = "nix-direnv";
+       rev = "f9889758694bdfe11251ac475d78a93804dbd93c";
+       sha256 = "16mpc6lidmn6annyl4skdixzx7syvwdj9c5la0sidg57l8kh1rqd";
+    };
+    ".direnvrc".text = ''
+      source $HOME/.nix-direnv/direnvrc
     '';
 
     "haskell/pipes".source = pkgs.fetchFromGitHub {

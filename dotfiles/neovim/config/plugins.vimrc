@@ -95,3 +95,12 @@ let g:syntastic_mode_map = { "mode": "active", "passive_filetypes": ["haskell", 
 
 " Pointfree Configuration (:help pointfree)
 au BufNewFile,BufRead *.hs nmap pf <Plug>Pointfree
+
+"jedi-vim
+let g:jedi#completions_enabled = 0
+
+"zealvim.vim
+let g:zv_file_types = {
+            \   'py': 'python3,numpy,pandas,matplotlib',
+            \   'tex' : 'latex'
+            \ }
