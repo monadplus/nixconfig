@@ -9,6 +9,10 @@
     bat htop unzip gnupg tree fzf mkpasswd jq binutils file
     exa # ls replacement
     fd # find replacement
+    patchelf # $ patchelf --print-needed binary_name # Prints required libraries for the dynamic binary.
+             # ldd also works
+    pax-utils # Static analysis of files: dumpelf lddtree
+    nix-index # nix-index + nix-locate
     input-utils # lsinput: keyboard input
     xorg.xev # keyboard code
     dzen2 # Display messages on screen
@@ -62,12 +66,15 @@
 
     # R / RStudio
     # On the shell: nix-shell --packages 'rWrapper.override{ packages = with rPackages; [ ggplot2 ]; }'
-    ( rWrapper.override {
-        packages = with rPackages; [ ggplot2 dplyr xts ];
-      }
-    )
+    #( rWrapper.override {
+        #packages = with rPackages; [ ggplot2 dplyr xts ];
+      #}
+    #)
     ( rstudioWrapper.override {
-        packages = with rPackages; [ ggplot2 dplyr xts aplpack readxl openxlsx prob Rcmdr RcmdrPlugin_IPSUR];
+      packages = with rPackages; [ ggplot2 dplyr xts aplpack readxl openxlsx
+                                   prob Rcmdr RcmdrPlugin_IPSUR rmarkdown tinytex
+                                   rprojroot
+                                 ];
       }
     )
 
@@ -95,6 +102,11 @@
     haskellPackages.brittany
     haskellPackages.idris
 
+    # Grammars
+    haskellPackages.BNFC # bnfc -m Calc.cf
+    haskellPackages.alex # runtime dependecy from bnfc
+    haskellPackages.happy  # runtime dependecy from bnfc
+
     # Profiling in haskell
     (haskell.lib.doJailbreak haskellPackages.threadscope)
     (haskell.lib.doJailbreak haskellPackages.eventlog2html)
@@ -103,15 +115,16 @@
     haskellPackages.prof-flamegraph flameGraph
 
     # Fixes
-    (zoom-us.overrideAttrs (super: {
-      postInstall = ''
-        ${super.postInstall}
-        wrapProgram $out/bin/zoom-us --set LIBGL_ALWAYS_SOFTWARE 1
-      '';
-    }))
+    zoom-us # It seems to be fixed
+    #(zoom-us.overrideAttrs (super: {
+      #postInstall = ''
+        #${super.postInstall}
+        #wrapProgram $out/bin/zoom-us --set LIBGL_ALWAYS_SOFTWARE 1
+      #'';
+    #}))
 
     (discord.override {
-      nss = pkgs.nss_3_47_1;
+      nss = pkgs.nss_3_49_2;
     })
   ];
 
@@ -210,9 +223,9 @@
       zeavim-vim
 
       # Python setup (syntastic is also used)
-      jedi-vim # LSP Client for Python
-      direnv-vim
-      YouCompleteMe
+      #jedi-vim # LSP Client for Python
+      #direnv-vim
+      #YouCompleteMe
     ];
     extraConfig = ''
       ${builtins.readFile ./dotfiles/neovim/init.vim}
