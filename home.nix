@@ -6,70 +6,138 @@
   };
 
   home.packages = with pkgs; [
-    bat htop unzip gnupg tree fzf mkpasswd jq binutils file
-    exa # ls replacement
-    fd # find replacement
-    patchelf # $ patchelf --print-needed binary_name # Prints required libraries for the dynamic binary.
-             # ldd also works
-    pax-utils # Static analysis of files: dumpelf lddtree
-    nix-index # nix-index + nix-locate
-    input-utils # lsinput: keyboard input
-    xorg.xev # keyboard code
-    dzen2 # Display messages on screen
-    xclip clipmenu
-    hamster-time-tracker # nb. hamster required a fix that is present on common.nix.
+
+    # Utils
+    bat             # better cat
+    htop            # better top
+    unzip
+    gnupg           # GNU programs: gpg, gpg-agent, etc
+    tree
+    fzf             # Fuzzy Search
+    jq              # JSON
+    binutils
+    file
+    exa             # better ls
+    fd              # better find
+    pax-utils       # Static analysis of files: dumpelf, lddtree, etc.
+    xorg.xev        # keyboard codes
+    xclip
+    clipmenu
     translate-shell # trans -s es -t en   word | multiple words | "this is a sentence."
+    curl
+    wget
+    openvpn
+    direnv
+
+    # OS Miscelaneous
+    libreoffice
+    xscreensaver
+    dzen2 # Display messages on screen
+    mkpasswd
+    input-utils # lsinput: keyboard input
     arandr # Graphical xrandr
     pavucontrol # Configure bluetooth device
-    wpa_supplicant wpa_supplicant_gui
-    typora # Markdown reader
-    postgresql pgcli # postgresql includes psql and others
-    transgui # BitTorrent GUI
-    system-config-printer # printer manager GUI
-    curl wget
-    chromium
-    konsole alacritty
-    udiskie # Automounter for removable media
-    nomacs # Image viewer
-    libreoffice
-    openvpn
-    vlc # Videos
-    rtv # Reddit terminal viewer: https://github.com/michael-lazar/rtv
-    xscreensaver
     ddcutil # Query and change Linux monitor settings using DDC/CI and USB
+
+    # Apps
+    dropbox
+    enpass
+    thunderbird
+
+    # Wi-fi
+    wpa_supplicant
+    wpa_supplicant_gui
+
+    # Time tracker
+    hamster-time-tracker # nb. hamster required a fix that is present on common.nix.
+
+    # BitTorrent
+    transgui
+
+    # Printers
+    system-config-printer # GUI
+
+    # Browsers
+    chromium
+
+    # Terminals
+    konsole
+    alacritty # GPU-based
+
+    # Image Processing
     gimp
-    docker-compose lazydocker
-    scrot # Screenshots
+    scrot  # Screenshots
+    nomacs # jpg,png viewer
+    gv     # postscript/ghostscript viewer
+
+    # Video Player
+    vlc
+
+    # Readers
     zathura # EPUB, PDF and XPS
-    gv # postscript/ghostscript viewer
-    udisks parted
+    typora  # Markdown
+
+    # Disk utility
+    udisks
+    parted
     ncdu # Disk space usage analyzer
-    dmenu stalonetray # Stand-alone trays.
-    whois
-    slack skypeforlinux hexchat
-    dropbox enpass thunderbird
+    udiskie # Automounter for removable media
+
+    # Docs
+    zeal # note: works offline
+
+    # Chats
+    slack
+    zoom-us
+    skypeforlinux
+    hexchat
+    rtv # Reddit terminal viewer: https://github.com/michael-lazar/rtv
+    (discord.override { nss = pkgs.nss_3_49_2;}) # Fix to open links on browser.
+
+    # OS required tools
+    dmenu
+    stalonetray
+
+    # Databases
+    postgresql # psql included
+    pgcli
+
+    # AWS
     awscli
-    bind # dig WWW.EXAMPLE.COM +nostats +nocomments +nocmd
-    jekyll bundler
+
+    # DNS
+    bind # $ dig www.example.com +nostats +nocomments +nocmd
+
+    # Jekyll
+    jekyll
+    bundler
+
+    # Docker
+    docker-compose lazydocker
+
+    # LaTeX
     texlive.combined.scheme-full # contains every TeX Live package.
-    gecode # Constraint Problme Solving
-    steam-run # run executable without a nix-derivation
-    zeal # Offline docs
-    direnv
+
+    # Nix related
+    nix-prefetch-git
+    cachix # Cache for nix
+    nixops
+    nix-index # nix-index, nix-locate
+    nix-deploy # Lightweight nixOps, better nix-copy-closure.
+    steam-run # Run executable without a nix-derivation.
+    patchelf # $ patchelf --print-needed binary_name # Prints required libraries for the dynamic binary.
+             # Alternative: ldd, lddtree
 
     # Python
     python2nix # python -mpython2nix pandas
 
-    # ( python37.withPackages(
-    #     pkgs: with pkgs; [ numpy ]
-    #   ))
+    ( python37.withPackages(
+        pkgs: with pkgs; [ numpy ]
+      )
+    )
 
-    # R / RStudio
+    # RStudio
     # On the shell: nix-shell --packages 'rWrapper.override{ packages = with rPackages; [ ggplot2 ]; }'
-    #( rWrapper.override {
-        #packages = with rPackages; [ ggplot2 dplyr xts ];
-      #}
-    #)
     ( rstudioWrapper.override {
       packages = with rPackages; [ ggplot2 dplyr xts aplpack readxl openxlsx
                                    prob Rcmdr RcmdrPlugin_IPSUR rmarkdown tinytex
@@ -78,19 +146,26 @@
       }
     )
 
-    # Programming
-    gnumake gcc
-    ghc cabal-install stack cabal2nix nix-prefetch-git # Stack non-haskell dependencies at .stack/config.yaml
-    haskellPackages.Agda AgdaStdlib
+    # Node.js
     nodejs yarn
     nodePackages.node2nix # https://github.com/svanderburg/node2nix#installation
-    cachix # Cache for nix
-    nixops
+
+    # Agda
+    haskellPackages.Agda AgdaStdlib
+
+    # C
+    gnumake gcc
+    gecode # c++ library for constraint satisfiability problems.
+
+    # Haskell
+    ghc cabal-install
+    stack # Note: non-haskell dependencies at .stack/config.yaml
+    cabal2nix
 
     # Haskell runtime dependencies
     gsl
 
-    # Haskell exec
+    # Haskell executables
     haskellPackages.fast-tags
     haskellPackages.ghcid
     haskellPackages.xmobar
@@ -113,19 +188,6 @@
     (haskell.lib.doJailbreak haskellPackages.eventlog2html)
     haskellPackages.profiteur
     haskellPackages.prof-flamegraph flameGraph
-
-    # Fixes
-    zoom-us # It seems to be fixed
-    #(zoom-us.overrideAttrs (super: {
-      #postInstall = ''
-        #${super.postInstall}
-        #wrapProgram $out/bin/zoom-us --set LIBGL_ALWAYS_SOFTWARE 1
-      #'';
-    #}))
-
-    (discord.override {
-      nss = pkgs.nss_3_49_2;
-    })
   ];
 
   # Monitors
@@ -299,7 +361,6 @@
   };
 
   # Automounter for removable media
-  # TODO check if it is working.
   services.udiskie = {
     enable = true;
     automount = true;
@@ -332,6 +393,7 @@
     };
   };
 
+  # Dotfiles
   home.file = {
     ".xmobarrc".source = ./dotfiles/xmonad/.xmobarrc;
     ".stalonetrayrc".source = ./dotfiles/xmonad/.stalonetrayrc;
