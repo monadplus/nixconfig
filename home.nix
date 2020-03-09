@@ -117,6 +117,7 @@
 
     # LaTeX
     texlive.combined.scheme-full # contains every TeX Live package.
+    pythonPackages.pygments # required by package minted (code highlight)
 
     # Nix related
     nix-prefetch-git
