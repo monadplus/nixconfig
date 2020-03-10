@@ -140,10 +140,11 @@
     # RStudio
     # On the shell: nix-shell --packages 'rWrapper.override{ packages = with rPackages; [ ggplot2 ]; }'
     ( rstudioWrapper.override {
-      packages = with rPackages; [ ggplot2 dplyr xts aplpack readxl openxlsx
-                                   prob Rcmdr RcmdrPlugin_IPSUR rmarkdown tinytex
-                                   rprojroot
-                                 ];
+      packages = with rPackages;
+        [ ggplot2 dplyr xts aplpack readxl openxlsx
+          prob Rcmdr RcmdrPlugin_IPSUR rmarkdown tinytex
+          rprojroot RcmdrMisc lmtest FactoMineR car
+        ];
       }
     )
 
