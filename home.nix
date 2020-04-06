@@ -144,6 +144,7 @@
         [ ggplot2 dplyr xts aplpack readxl openxlsx
           prob Rcmdr RcmdrPlugin_IPSUR rmarkdown tinytex
           rprojroot RcmdrMisc lmtest FactoMineR car
+          psych sem rgl multcomp HSAUR
         ];
       }
     )
@@ -285,6 +286,7 @@
       vim-devicons
       vimtex
       zeavim-vim
+      vim-latex-live-preview # Preview your latex files as pdf.
 
       # Python setup (syntastic is also used)
       #jedi-vim # LSP Client for Python
