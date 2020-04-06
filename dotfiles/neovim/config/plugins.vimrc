@@ -104,3 +104,8 @@ let g:zv_file_types = {
             \   'py': 'python3,numpy,pandas,matplotlib',
             \   'tex' : 'latex'
             \ }
+
+"vimm-latex-live-preview
+let g:livepreview_previewer = 'zathura'
+let g:livepreview_engine = 'lualatex' . ' -shell-escape'
+let g:livepreview_cursorhold_recompile = 0 " do not recompile on cursor hold over.

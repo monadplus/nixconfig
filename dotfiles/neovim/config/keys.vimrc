@@ -8,7 +8,6 @@ let mapleader=','
 ":nnoremap ff :vimgrep <cword> **/*.scala<CR>
 :nnoremap ff :vimgrep <cword> **/*.hs<CR>
 :nnoremap <leader>ff :vimgrep <cword> **/*.sql<CR>
-:nnoremap <leader>5 :!pdflatex -shell-escape %<CR>
 
 " Git
 :nnoremap gf :G<CR>
@@ -153,5 +152,6 @@ augroup END
 nnoremap <leader>1 :Hoogle<CR>
 nnoremap <leader>2 :HoogleClose<CR>
 nnoremap <leader>3 :SyntasticToggleMode<CR>
+nnoremap <leader>5 :LLPStartPreview<CR>
 
 nnoremap <leader>o :only<CR>
