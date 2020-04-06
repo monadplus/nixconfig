@@ -198,6 +198,13 @@ in
     ];
   };
 
+  # /etc/hosts
+  networking.extraHosts =
+    ''
+      127.0.0.1 pornhub.com
+      127.0.0.1 www.pornhub.com
+    '';
+
   environment.variables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
