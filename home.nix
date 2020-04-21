@@ -73,6 +73,10 @@
     # Video Player
     vlc
 
+    # TODO fails to compile (no idea why)
+    # Linear Programming
+    (cplex.override { releasePath = /home/arnau/MIRI/CPS/cplex/cplex; })
+
     # Readers
     zathura # EPUB, PDF and XPS
     typora  # Markdown

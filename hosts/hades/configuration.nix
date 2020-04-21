@@ -106,5 +106,4 @@ with builtins;
       Option "FingerHigh" "70"
     '';
   };
-
 }

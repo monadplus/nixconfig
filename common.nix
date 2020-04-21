@@ -196,6 +196,7 @@ in
         hashedPassword = "$6$hKXoaMQzxJ$TI79FW9KtvORSrQKP5cqZR5fzOISMLDyH80BnBlg8G61piAe6qCw.07OVWk.6MfQO1l3mBhdTckNfnBpkQSCh0";
       }
     ];
+    extraGroups.vboxusers.members = [ "arnau" ];
   };
 
   # /etc/hosts
@@ -289,6 +290,6 @@ in
       enable = true;
     };
     # Virtualbox
+    virtualbox.host.enable = true;
   };
-
 }
