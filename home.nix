@@ -43,6 +43,7 @@
     dropbox
     enpass
     thunderbird
+    obs-studio
 
     # Wi-fi
     wpa_supplicant
@@ -75,7 +76,7 @@
 
     # TODO fails to compile (no idea why)
     # Linear Programming
-    (cplex.override { releasePath = /home/arnau/MIRI/CPS/cplex/cplex; })
+    (cplex.override { releasePath = /home/arnau/MIRI/CPS/lp/cplex/cplex; })
 
     # Readers
     zathura # EPUB, PDF and XPS
@@ -291,6 +292,7 @@
       vimtex
       zeavim-vim
       vim-latex-live-preview # Preview your latex files as pdf.
+      ghcid
 
       # Python setup (syntastic is also used)
       #jedi-vim # LSP Client for Python

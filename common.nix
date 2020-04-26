@@ -204,6 +204,8 @@ in
     ''
       127.0.0.1 pornhub.com
       127.0.0.1 www.pornhub.com
+      127.0.0.1 youtube.com
+      127.0.0.1 www.youtube.com
     '';
 
   environment.variables = {
