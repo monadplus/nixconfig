@@ -13,6 +13,10 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  # Whether to mount a tmpfs on /tmp during boot.
+  # Similar to https://unix.stackexchange.com/questions/55773/move-tmp-to-ram
+  boot.tmpOnTmpfs = true;
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/212b65fc-8a1d-4e45-b358-601d60d526e9";
       fsType = "ext4";
