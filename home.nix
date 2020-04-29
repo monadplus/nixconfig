@@ -293,6 +293,8 @@
       zeavim-vim
       vim-latex-live-preview # Preview your latex files as pdf.
       ghcid
+      ultisnips
+      vim-snippets
 
       # Python setup (syntastic is also used)
       #jedi-vim # LSP Client for Python

@@ -79,7 +79,7 @@ augroup END
 " Folding is disabled (https://github.com/plasticboy/vim-markdown#disable-folding)
 let g:vim_markdown_folding_disabled = 1
 
-" Syntastic Configuration
+"""" Syntastic Configuration
 " A syntactic checker like hlint should be installed in your PATH
 " Run :SyntasticInfo to see what syntactic checkers are supported and enabled.
 set statusline+=%#warningmsg#
@@ -90,22 +90,28 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0 " closed on open, not displayed until the file is saved
 let g:syntastic_check_on_wq = 0
-" Ignore hs - annoying
+"""" Ignore hs - annoying
 let g:syntastic_mode_map = { "mode": "active", "passive_filetypes": ["haskell", "hs"] }
 
-" Pointfree Configuration (:help pointfree)
+"""" Pointfree Configuration (:help pointfree)
 au BufNewFile,BufRead *.hs nmap pf <Plug>Pointfree
 
-"jedi-vim
+"""" jedi-vim
 let g:jedi#completions_enabled = 0
 
-"zealvim.vim
+"""" zealvim.vim
 let g:zv_file_types = {
             \   'py': 'python3,numpy,pandas,matplotlib',
             \   'tex' : 'latex'
             \ }
 
-"vimm-latex-live-preview
+"""" vim-latex-live-preview
 let g:livepreview_previewer = 'zathura'
 let g:livepreview_engine = 'lualatex' . ' -shell-escape'
 let g:livepreview_cursorhold_recompile = 0 " do not recompile on cursor hold over.
+
+"""" UltiSnips
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
