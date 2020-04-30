@@ -1,0 +1,254 @@
+snippet todo "This is a TODO reminder" b
+-- TODO: `echo $USER` ${1:description} `!v strftime("%c")`
+endsnippet
+
+snippet case
+  case ${1} of
+    ${2:_} -> ${3:undefined}
+endsnippet
+
+snippet do
+    do ${1:undefined}
+       ${2:undefined}
+endsnippet
+
+snippet wh
+  where
+    ${1:fn} = ${2:undefined}
+endsnippet
+
+snippet let
+  let ${1} = ${2}
+  in ${3:undefined}
+endsnippet
+
+snippet new
+  newtype ${1:name} = $1 { un$1 :: ${2} }
+    deriving ($4)
+endsnippet
+
+snippet mod
+  module ${1} (
+    ${2}
+  ) where
+endsnippet
+
+snippet if
+  if ${1}
+    then ${2}
+    else ${3}
+endsnippet
+
+snippet im "Import qualified" b
+  import qualified ${1:Data.Text} as ${2:Text}
+endsnippet
+
+snippet iq "Import qualified" b
+  import qualified ${1:Data.Text} as ${2:Text}
+endsnippet
+
+snippet cl "Class" b
+  class ${1:Name} where
+    ${2:name} :: ${3}
+endsnippet
+
+snippet in "Class instance" b
+  instance ${1:Class} ${2:Type} where
+    ${3}
+endsnippet
+
+snippet rec "Record Type" b
+  data ${1} = ${2}
+    { ${3} :: ${4:T}
+    } deriving (${6:classes})
+endsnippet
+
+snippet ff "Foreign Function" b
+  foreign import ccall safe "${1:cfunction}" ${2:name}
+      :: ${3:function}
+endsnippet
+
+snippet pra "Pragma" b
+  {-# LANGUAGE ${1} #-}
+endsnippet
+
+snippet case
+  case ${1} of
+       ${2} -> ${3}
+endsnippet
+
+snippet \
+  (\ ${1} -> ${2:undefined})
+endsnippet
+
+snippet bar
+-------------------------------------------------------------------------------
+-- ${1}
+-------------------------------------------------------------------------------
+endsnippet
+
+
+snippet bs "Import ByteString" b
+import qualified Data.ByteString as BS
+import qualified Data.ByteString.Lazy as LBS
+import qualified Data.ByteString.Char8 as BSC
+endsnippet
+
+snippet containers
+import qualified Data.HashMap.Lazy as HashMap
+import qualified Data.HashSet      as HashSet
+import qualified Data.IntMap       as IntMap
+import qualified Data.IntSet       as IntSet
+import qualified Data.IxSet        as IxSet
+import qualified Data.Map          as Map
+import qualified Data.Sequence     as Seq
+import qualified Data.Set          as Set
+endsnippet
+
+snippet str
+{-# LANGUAGE OverloadedStrings #-}
+endsnippet
+
+snippet gadt
+{-# LANGUAGE GADTs #-}
+endsnippet
+
+snippet rank
+{-# LANGUAGE RankNTypes #-}
+endsnippet
+
+snippet scope
+{-# LANGUAGE ScopedTypeVariables #-}
+endsnippet
+
+snippet ffi
+{-# LANGUAGE ForeignFunctionInterface #-}
+endsnippet
+
+snippet flex
+  {-# LANGUAGE FlexibleInstances #-}
+  {-# LANGUAGE FlexibleContexts #-}
+  {-# LANGUAGE TypeSynonymInstances #-}
+endsnippet
+
+snippet syn
+  {-# LANGUAGE TypeSynonymInstances #-}
+endsnippet
+
+snippet mparam
+  {-# LANGUAGE MultiParamTypeClasses #-}
+endsnippet
+
+snippet bang
+  {-# LANGUAGE BangPatterns #-}
+endsnippet
+
+snippet gnew
+  {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+endsnippet
+
+snippet mono
+  {-# LANGUAGE NoMonomorphismRestriction #-}
+endsnippet
+
+snippet stand
+  {-# LANGUAGE StandaloneDeriving #-}
+endsnippet
+
+snippet temp
+  {-# LANGUAGE TemplateHaskell #-}
+endsnippet
+
+snippet derive
+  {-# LANGUAGE DeriveDataTypeable #-}
+  {-# LANGUAGE DeriveGeneric #-}
+  {-# LANGUAGE DeriveFunctor #-}
+  {-# LANGUAGE DeriveTraversable #-}
+  {-# LANGUAGE DeriveFoldable #-}
+endsnippet
+
+snippet type
+  {-# LANGUAGE GADTs #-}
+  {-# LANGUAGE TypeFamilies #-}
+  {-# LANGUAGE TypeOperators #-}
+  {-# LANGUAGE DataKinds #-}
+  {-# LANGUAGE PolyKinds #-}
+  {-# LANGUAGE KindSignatures #-}
+  {-# LANGUAGE FlexibleInstances #-}
+  {-# LANGUAGE FlexibleContexts #-}
+  {-# LANGUAGE UndecidableInstances #-}
+
+  import GHC.TypeLits
+  import Data.Proxy
+  import Data.Type.Equality
+  import Data.Reflection
+  import Data.Constraint
+  import GHC.Exts (Constraint)
+  import GHC.Prim (Any, AnyK)
+endsnippet
+
+snippet crazy
+  {-# LANGUAGE GADTs #-}
+  {-# LANGUAGE DataKinds #-}
+  {-# LANGUAGE RankNTypes #-}
+  {-# LANGUAGE TypeFamilies #-}
+  {-# LANGUAGE TypeOperators #-}
+  {-# LANGUAGE KindSignatures #-}
+  {-# LANGUAGE FlexibleInstances #-}
+  {-# LANGUAGE FlexibleContexts #-}
+  {-# LANGUAGE MultiParamTypeClasses #-}
+  {-# LANGUAGE UndecidableInstances #-}
+  {-# LANGUAGE ExistentialQuantification #-}
+endsnippet
+
+snippet main
+main :: IO ()
+main = pure ()
+endsnippet
+
+snippet opt
+  {-# OPTIONS_GHC ${1} #-}
+endsnippet
+
+snippet wall
+  {-# OPTIONS_GHC -Wall #-}
+endsnippet
+
+snippet nowarn
+  {-# OPTIONS_GHC -fno-warn-name-shadowing  #-}
+  {-# OPTIONS_GHC -fno-warn-type-defaults   #-}
+  {-# OPTIONS_GHC -fno-warn-unused-do-bind  #-}
+endsnippet
+
+snippet box
+  --------------------------------------------------------------------
+  -- |
+  -- Module    :
+  -- Copyright :  (c) <author> 2016
+  -- License   :  MIT
+  -- Maintainer:  <email>
+  -- Stability :  experimental
+  -- Portability: non-portable
+  --
+  --------------------------------------------------------------------
+endsnippet
+
+snippet dd
+  deriving (Eq, Ord, Show, Typeable, Data, Generic)
+endsnippet
+
+snippet inl
+  {-# INLINE ${1} #-}
+endsnippet
+
+snippet unp
+  {-# UNPACK #-}
+endsnippet
+
+snippet un
+  undefined
+endsnippet
+
+snippet er
+  error "${1}"
+endsnippet
