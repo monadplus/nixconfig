@@ -64,9 +64,6 @@ with builtins;
   };
 
   hardware = {
-    # https://github.com/Hummer12007/brightnessctl
-    brightnessctl.enable = true;
-
     trackpoint.enable = true;
     trackpoint.emulateWheel = true; # While holding middle button
     trackpoint.speed = 97; # Kernel default
@@ -77,10 +74,15 @@ with builtins;
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
-    extraConfig = "
+    #config = {
+      #General = {
+        #Enable = ["Source" "Sink" "Media" "Socket"];
+      #};
+    #};
+    extraConfig = ''
       [General]
       Enable=Source,Sink,Media,Socket
-    ";
+    '';
   };
   services.blueman.enable = true; # GUI for bluetooth
 

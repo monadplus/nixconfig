@@ -12,12 +12,12 @@
 -- Cabal library version: 3.0.0.0
 -- cabal-install version: 3.0.0.0
 
--- -- Prevent cabal to retrieve packages from hackage so nix is the only one providing them.
--- repository hackage.haskell.org
-  -- url: http://hackage.haskell.org/
-  -- secure: True
-  -- root-keys:
-  -- key-threshold: 3
+-- Comment to prevent cabal to retrieve packages from hackage so nix is the only one providing them.
+repository hackage.haskell.org
+  url: http://hackage.haskell.org/
+  secure: True
+  root-keys:
+  key-threshold: 3
 
 -- default-user-config:
 -- require-sandbox: False

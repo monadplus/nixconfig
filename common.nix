@@ -3,17 +3,18 @@
 with lib;
 with builtins;
 
-let
-  home-manager = builtins.fetchGit {
-    url = "https://github.com/rycee/home-manager.git";
-    ref = "master";
-    rev = "0f1c9f25cf03cd5ed62db05c461af7e13f84a7b6";
-  };
-in
+#let
+  #home-manager = builtins.fetchGit {
+    #url = "https://github.com/rycee/home-manager.git";
+    #ref = "master";
+    #rev = "0f1c9f25cf03cd5ed62db05c461af7e13f84a7b6";
+  #};
+#in
 {
-  imports = [
-    "${home-manager}/nixos"
-  ];
+  #imports = [
+    #"${home-manager}/nixos"
+  #];
+  imports = [ <home-manager/nixos> ];
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -46,7 +47,7 @@ in
 
   services.autorandr.enable = true;
 
-  # https://github.com/rycee/home-manager/issues/463
+  # https://rycee.gitlab.io/home-manager/
   home-manager.users.arnau = import ./home.nix { inherit pkgs config; };
 
   # https://github.com/nix-community/NUR/
@@ -56,8 +57,7 @@ in
     };
   };
 
-  # Fix for hamster: https://github.com/NixOS/nixpkgs/issues/27498
-  services.dbus.packages = with pkgs; [ gnome2.GConf gnome3.dconf hamster-time-tracker ];
+  services.dbus.packages = with pkgs; [ gnome2.GConf gnome3.dconf ];
 
   # Only keep the last 500MiB of systemd journal.
   services.journald.extraConfig = "SystemMaxUse=500M";
@@ -93,8 +93,11 @@ in
     # drivers = (with pkgs; [ gutenprint cups-bjnp hplip cnijfilter2 ]);
   };
 
+  console = {
+    keyMap = "us";
+  };
+
   i18n = lib.mkForce {
-    consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
     #TODO not working...
     #inputMethod.enabled = "ibus";
@@ -106,9 +109,9 @@ in
   fonts = {
     fontconfig.enable = true;
     enableFontDir = true;
-    enableCoreFonts = true;
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
+      corefonts
       powerline-fonts
       nerdfonts
     ];
@@ -128,17 +131,18 @@ in
     };
 
     desktopManager = {
-       default = "none";
        xterm.enable = false;
     };
 
-    displayManager.lightdm = {
-      enable = true;
-      greeters.gtk.indicators = [ "~host" "~spacer" "~clock" "~spacer" "~a11y" "~session" "~power"];
+    displayManager = {
+      defaultSession = "none+xmonad";
+      lightdm = {
+        enable = true;
+        greeters.gtk.indicators = [ "~host" "~spacer" "~clock" "~spacer" "~a11y" "~session" "~power"];
+      };
     };
 
     windowManager = {
-      default = "xmonad";
       xmonad = {
         enable = true;
         enableContribAndExtras = true;
@@ -162,7 +166,6 @@ in
       wpa_gui &
       clipmenud &
       Enpass &
-      hamster &
 
       # Miscellaneous
       ${pkgs.xorg.xset}/bin/xset r rate 265 40
@@ -174,29 +177,28 @@ in
 
   users = {
     mutableUsers = false; # Don't allow imperative style
-    extraUsers = [
-      {
-        name = "arnau";
-        createHome = true;
-        home = "/home/arnau";
-        group = "users";
-        extraGroups = [
-          "wheel"
-          "networkmanager"
-          "video"
-          "audio"
-          "docker"
-          "transmission"
-        ];
-        isNormalUser = true;
-        uid = 1000;
-        useDefaultShell = false;
-        shell = "/run/current-system/sw/bin/zsh";
-        # mkpasswd
-        hashedPassword = "$6$hKXoaMQzxJ$TI79FW9KtvORSrQKP5cqZR5fzOISMLDyH80BnBlg8G61piAe6qCw.07OVWk.6MfQO1l3mBhdTckNfnBpkQSCh0";
-      }
-    ];
     extraGroups.vboxusers.members = [ "arnau" ];
+    extraUsers =
+      { arnau =
+         { createHome = true;
+           home = "/home/arnau";
+           group = "users";
+           extraGroups = [
+             "wheel"
+             "networkmanager"
+             "video"
+             "audio"
+             "docker"
+             "transmission"
+           ];
+           isNormalUser = true;
+           uid = 1000;
+           useDefaultShell = false;
+           shell = "/run/current-system/sw/bin/zsh";
+           # mkpasswd
+           hashedPassword = "$6$hKXoaMQzxJ$TI79FW9KtvORSrQKP5cqZR5fzOISMLDyH80BnBlg8G61piAe6qCw.07OVWk.6MfQO1l3mBhdTckNfnBpkQSCh0";
+         };
+      };
   };
 
   # /etc/hosts

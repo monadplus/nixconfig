@@ -38,6 +38,7 @@
     arandr # Graphical xrandr
     pavucontrol # Configure bluetooth device
     ddcutil # Query and change Linux monitor settings using DDC/CI and USB
+    brightnessctl
 
     # Apps
     dropbox
@@ -50,7 +51,7 @@
     wpa_supplicant_gui
 
     # Time tracker
-    hamster-time-tracker # nb. hamster required a fix that is present on common.nix.
+    # TODO
 
     # BitTorrent
     transgui
@@ -97,7 +98,7 @@
     skypeforlinux
     hexchat
     rtv # Reddit terminal viewer: https://github.com/michael-lazar/rtv
-    (discord.override { nss = pkgs.nss_3_49_2;}) # Fix to open links on browser.
+    (discord.override { nss = pkgs.nss_3_51;}) # Fix to open links on browser.
 
     # OS required tools
     dmenu
@@ -130,17 +131,18 @@
     nixops
     nix-index # nix-index, nix-locate
     nix-deploy # Lightweight nixOps, better nix-copy-closure.
-    steam-run # Run executable without a nix-derivation.
+    #steam-run # Run executable without a nix-derivation.
     patchelf # $ patchelf --print-needed binary_name # Prints required libraries for the dynamic binary.
              # Alternative: ldd, lddtree
+    haskellPackages.niv # https://github.com/nmattia/niv#getting-started
 
     # Python
     python2nix # python -mpython2nix pandas
 
-    ( python37.withPackages(
-        pkgs: with pkgs; [ numpy ]
-      )
-    )
+    #( python37.withPackages(
+        #pkgs: with pkgs; [ numpy ]
+      #)
+    #)
 
     # RStudio
     # On the shell: nix-shell --packages 'rWrapper.override{ packages = with rPackages; [ ggplot2 ]; }'
@@ -180,7 +182,10 @@
     haskellPackages.hoogle
     haskellPackages.pandoc
     haskellPackages.hlint
-    haskellPackages.stylish-haskell
+    #(haskellPackages.stylish-haskell.override {
+      #HsYAML = haskellPackages.HsYAML_0_2_1_0;
+    #})
+    #(pkgs.haskell.lib.doJailbreak haskellPackages.stylish-haskell)
     haskellPackages.hindent
     haskellPackages.brittany
     haskellPackages.idris
@@ -192,8 +197,7 @@
 
     # Profiling in haskell
     (haskell.lib.doJailbreak haskellPackages.threadscope)
-    (haskell.lib.doJailbreak haskellPackages.eventlog2html)
-    (haskell.lib.doJailbreak haskellPackages.eventlog2html)
+    #(haskell.lib.doJailbreak haskellPackages.eventlog2html)
     haskellPackages.profiteur
     haskellPackages.prof-flamegraph flameGraph
   ];
@@ -295,11 +299,12 @@
       ghcid
       ultisnips
       vim-snippets
+      unicode-vim # https://github.com/chrisbra/unicode.vim
 
       # Python setup (syntastic is also used)
-      #jedi-vim # LSP Client for Python
-      #direnv-vim
-      #YouCompleteMe
+      jedi-vim # LSP Client for Python
+      direnv-vim
+      YouCompleteMe
     ];
     extraConfig = ''
       ${builtins.readFile ./dotfiles/neovim/init.vim}
@@ -309,7 +314,6 @@
   programs.firefox = {
     enable = true;
     enableAdobeFlash = false;
-    enableIcedTea = false;
     # nb. it is necessary to manually enable these extensions inside Firefox after the first installation.
     # Source: https://gitlab.com/rycee/nur-expressions/blob/master/pkgs/firefox-addons/addons.json
     extensions = with pkgs.nur.repos.rycee.firefox-addons; [
@@ -370,6 +374,11 @@
       theme = "agnoster";
       plugins = [ "git" "sudo" ];
     };
+  };
+
+  # Lorri: nix-shell replacement. https://github.com/target/lorri
+  services.lorri = {
+    enable = true;
   };
 
   # Automounter for removable media
