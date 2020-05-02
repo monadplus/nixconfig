@@ -182,13 +182,16 @@
     haskellPackages.hoogle
     haskellPackages.pandoc
     haskellPackages.hlint
-    #(haskellPackages.stylish-haskell.override {
-      #HsYAML = haskellPackages.HsYAML_0_2_1_0;
-    #})
-    #(pkgs.haskell.lib.doJailbreak haskellPackages.stylish-haskell)
     haskellPackages.hindent
     haskellPackages.brittany
     haskellPackages.idris
+    # Broken: fixed here but still not in nixos-20.03 https://github.com/NixOS/nixpkgs/pull/85656
+    (haskellPackages.stylish-haskell.override {
+      HsYAML = haskellPackages.HsYAML_0_2_1_0;
+      HsYAML-aeson = haskellPackages.HsYAML-aeson.override {
+        HsYAML = haskellPackages.HsYAML_0_2_1_0;
+      };
+    })
 
     # Grammars
     haskellPackages.BNFC # bnfc -m Calc.cf
@@ -465,8 +468,6 @@
            allowBroken = true;
          }
     '';
-
-    # Used for python + venv + direnv but didnt work.
 
     # This has been integrated into direnv stdlib
     ".nix-direnv".source = pkgs.fetchFromGitHub {
