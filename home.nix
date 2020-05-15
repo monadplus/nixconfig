@@ -66,6 +66,9 @@
     konsole
     alacritty # GPU-based
 
+    # Wine: https://www.winehq.org/
+    wine # execute windows binaries
+
     # Image Processing
     gimp
     scrot  # Screenshots
