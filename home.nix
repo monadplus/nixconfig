@@ -121,6 +121,9 @@
     jekyll
     bundler
 
+    lingeling # Fast SAT solver
+    z3        # Fast SMT solver
+
     # Docker
     docker-compose lazydocker
 
