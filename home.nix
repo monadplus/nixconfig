@@ -123,6 +123,7 @@
 
     lingeling # Fast SAT solver
     z3        # Fast SMT solver
+    (haskell.lib.dontCheck haskellPackages.mios) # Haskell SAT solver
 
     # Docker
     docker-compose lazydocker
@@ -177,6 +178,7 @@
     ghc cabal-install
     stack # Note: non-haskell dependencies at .stack/config.yaml
     cabal2nix
+    llvm_6 # Haskell backend
 
     # Haskell runtime dependencies
     gsl

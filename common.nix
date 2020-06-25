@@ -211,8 +211,8 @@ with builtins;
       127.0.0.1 xnxx.com
       127.0.0.1 www.xnxx.com
 
-      127.0.0.1 youtube.com
-      127.0.0.1 www.youtube.com
+      # 127.0.0.1 youtube.com
+      # 127.0.0.1 www.youtube.com
     '';
 
   environment.variables = {
