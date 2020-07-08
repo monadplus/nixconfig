@@ -174,6 +174,11 @@
     gnumake gcc
     gecode # c++ library for constraint satisfiability problems.
 
+    # Rust
+    rustc
+    cargo
+    rustfmt
+
     # Haskell
     ghc cabal-install
     stack # Note: non-haskell dependencies at .stack/config.yaml
@@ -316,6 +321,12 @@
       jedi-vim # LSP Client for Python
       direnv-vim
       YouCompleteMe
+
+      # TODO: rust-vim is not working as expected with cargo mode (rustc seems to be working).
+      # Rust
+      rust-vim # uses syntastic, tagbar, rustfmt, webapi-vim
+      tagbar
+      webapi-vim # Playpen integration
     ];
     extraConfig = ''
       ${builtins.readFile ./dotfiles/neovim/init.vim}

@@ -119,3 +119,8 @@ let g:UltiSnipsSnippetDirectories=['/etc/nixos/dotfiles/neovim/UltiSnips']
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
 " ^^^^^^^^^^^ required to make tab complete snippets
+
+" rust.vim
+let g:rustfmt_autosave = 1
+let g:syntastic_rust_checkers = ['rustc'] "['cargo']
+"let g:rust_cargo_avoid_whole_workspace = 0
