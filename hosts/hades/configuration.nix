@@ -40,6 +40,10 @@ with builtins;
       "Monad" = {
         pskRaw = "338529ea97241bd0320fc7d9a4058647a9da447a5f1a70ba1129c2ae289e7461";
       };
+      # CALAF
+      "MOVISTAR_7B1B" = {
+        pskRaw = "6a1d731b3e07251fed01072b0e2d088c5f2388442b0a30745164dbc2e4069946";
+      };
       # UNIVERSITY
       "eduroam" = {
         auth = ''
