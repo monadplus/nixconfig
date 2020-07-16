@@ -122,5 +122,5 @@ let g:ycm_key_list_previous_completion=[]
 
 " rust.vim
 let g:rustfmt_autosave = 1
-let g:syntastic_rust_checkers = ['rustc'] "['cargo']
-"let g:rust_cargo_avoid_whole_workspace = 0
+let g:syntastic_rust_checkers = ['cargo']
+let g:rust_cargo_avoid_whole_workspace = 0

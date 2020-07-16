@@ -101,7 +101,7 @@
     skypeforlinux
     hexchat
     rtv # Reddit terminal viewer: https://github.com/michael-lazar/rtv
-    (discord.override { nss = pkgs.nss_3_51;}) # Fix to open links on browser.
+    (discord.override { nss = pkgs.nss_3_52;}) # Fix to open links on browser.
 
     # OS required tools
     dmenu
@@ -178,6 +178,7 @@
     rustc
     cargo
     rustfmt
+    evcxr # repl
 
     # Haskell
     ghc cabal-install
@@ -327,6 +328,9 @@
       rust-vim # uses syntastic, tagbar, rustfmt, webapi-vim
       tagbar
       webapi-vim # Playpen integration
+
+      # Agda
+      agda-vim
     ];
     extraConfig = ''
       ${builtins.readFile ./dotfiles/neovim/init.vim}
@@ -372,11 +376,6 @@
       ".." = "cd ..";
       ":e" = "'vim'";
       ":q" = "'exit'";
-
-      cdHaskell = "cd /home/arnau/haskell";
-      cdAgda    = "cd /home/arnau/agda";
-      cdNixos   = "cd /etc/nixos";
-      cdCoinweb = "cd /home/arnau/haskell/coinweb/on-server";
 
       gs = "git status -s";
       gco = "git checkout";

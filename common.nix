@@ -113,7 +113,7 @@ with builtins;
     fonts = with pkgs; [
       corefonts
       powerline-fonts
-      nerdfonts
+      #nerdfonts
     ];
   };
 

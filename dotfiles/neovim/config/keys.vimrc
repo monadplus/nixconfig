@@ -155,3 +155,13 @@ nnoremap <leader>3 :SyntasticToggleMode<CR>
 nnoremap <leader>5 :LLPStartPreview<CR>
 
 nnoremap <leader>o :only<CR>
+
+" Unicode Characters
+"
+" Already included in agda-vim plugin
+"imap <buffer> \forall ∀
+"imap <buffer> \to →
+"imap <buffer> \lambda λ
+"imap <buffer> \Sigma Σ
+"imap <buffer> \exists ∃
+"imap <buffer> \equiv ≡
