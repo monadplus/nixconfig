@@ -33,6 +33,7 @@ endfunc
 
 " map leader
 let mapleader=','
+let maplocalleader = ','
 
 set backspace=2
 

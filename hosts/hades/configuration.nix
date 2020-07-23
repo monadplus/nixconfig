@@ -37,10 +37,11 @@ with builtins;
       "MOVISTAR_8348_Extender" = {
         pskRaw = "9be2248888cc9c79b7f81aef7a17c9f3f6be1e33e19a573b5c0a8178831307c6";
       };
+      # Smartphone
       "Monad" = {
-        pskRaw = "338529ea97241bd0320fc7d9a4058647a9da447a5f1a70ba1129c2ae289e7461";
+        pskRaw = "2193ddbc3b5587f6d692c04c0e7879bfcc19f65398bcad2b0fa2b0143b082506";
       };
-      # CALAF
+      # CALAFAT
       "MOVISTAR_7B1B" = {
         pskRaw = "6a1d731b3e07251fed01072b0e2d088c5f2388442b0a30745164dbc2e4069946";
       };

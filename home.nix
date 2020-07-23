@@ -177,6 +177,7 @@
     # Rust
     rustc
     cargo
+    rls # language server
     rustfmt
     evcxr # repl
 
@@ -282,7 +283,7 @@
     vimAlias =  true;
 
     # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/vim.section.md#adding-new-plugins-to-nixpkgs
-    plugins = with pkgs.vimPlugins; [
+    plugins = (with pkgs.vimPlugins; [
       vim-nix
       vim-fugitive
       vim-airline
@@ -321,7 +322,12 @@
       # Python setup (syntastic is also used)
       jedi-vim # LSP Client for Python
       direnv-vim
-      YouCompleteMe
+      ( YouCompleteMe.overrideAttrs (oldAttrs: {
+          installPhase = ''python3 install.py --all''; # This fix is for rust but not working.
+        })
+      )
+
+      #YouCompleteMe # patched below
 
       # TODO: rust-vim is not working as expected with cargo mode (rustc seems to be working).
       # Rust
@@ -331,7 +337,8 @@
 
       # Agda
       agda-vim
-    ];
+    ]);
+
     extraConfig = ''
       ${builtins.readFile ./dotfiles/neovim/init.vim}
     '';
