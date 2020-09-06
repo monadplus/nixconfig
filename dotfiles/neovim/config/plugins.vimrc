@@ -124,3 +124,6 @@ let g:ycm_key_list_previous_completion=[]
 let g:rustfmt_autosave = 1
 let g:syntastic_rust_checkers = ['cargo']
 let g:rust_cargo_avoid_whole_workspace = 0
+
+" vim-ormolu
+let g:ormolu_options=["-o -XTypeApplications"]

@@ -38,8 +38,12 @@ with builtins;
         pskRaw = "9be2248888cc9c79b7f81aef7a17c9f3f6be1e33e19a573b5c0a8178831307c6";
       };
       # Smartphone
-      "Monad" = {
-        pskRaw = "2193ddbc3b5587f6d692c04c0e7879bfcc19f65398bcad2b0fa2b0143b082506";
+      #"Monad" = {
+        #pskRaw = "2193ddbc3b5587f6d692c04c0e7879bfcc19f65398bcad2b0fa2b0143b082506";
+      #};
+      # Arlandis
+      "Arlandiswifi-5G" = {
+        pskRaw = "656f0d41f49450feeddeb8a475586c6a91998a559bd1fd6d37f1c808e33f49af";
       };
       # CALAFAT
       "MOVISTAR_7B1B" = {

@@ -1,12 +1,31 @@
 { config, pkgs, ... }:
 
-{
+let vim-ormolu = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-ormolu";
+    src = pkgs.fetchFromGitHub {
+      owner = "sdiehl";
+      repo = "vim-ormolu";
+      rev = "0376ced83569994066c61827ad2160449033c509";
+      sha256 = "1ga5r24yymqcgjizqyaz6fxl2b8vp66ggzqa63pwl5qdp0rm97b8";
+    };
+  };
+
+  unstable = import <nixos-unstable> {};
+    # TODO seems to be looping..
+    #import (builtins.fetchGit {
+      #name = "nixpkgs-unstable-2020-09-05";
+      #url = "https://github.com/nixos/nixpkgs-channels/";
+      ## `git ls-remote https://github.com/nixos/nixpkgs-channels nixos-unstable`
+      #ref = "refs/heads/nixpkgs-unstable";
+      #rev = "49f820d217f4069472ca8f8f96d1c5681a747f7d";
+    #}) {};
+
+in {
   programs.home-manager = {
     enable = true;
   };
 
   home.packages = with pkgs; [
-
     # Utils
     bat             # better cat
     htop            # better top
@@ -101,7 +120,9 @@
     skypeforlinux
     hexchat
     rtv # Reddit terminal viewer: https://github.com/michael-lazar/rtv
-    (discord.override { nss = pkgs.nss_3_52;}) # Fix to open links on browser.
+    (discord # .override { nss = pkgs.nss_3_52;}
+          .overrideAttrs (oldAttrs: { src = builtins.fetchTarball https://discord.com/api/download?platform=linux&format=tar.gz;})
+    ) # Fix to open links on browser.
 
     # OS required tools
     dmenu
@@ -199,7 +220,11 @@
     haskellPackages.hlint
     haskellPackages.hindent
     haskellPackages.brittany
-    haskellPackages.idris
+    haskellPackages.ormolu
+
+    # Not smooth to be used, not a lot of features
+    #unstable.haskellPackages.haskell-language-server
+
     # Broken: fixed here but still not in nixos-20.03 https://github.com/NixOS/nixpkgs/pull/85656
     (haskellPackages.stylish-haskell.override {
       HsYAML = haskellPackages.HsYAML_0_2_1_0;
@@ -241,40 +266,17 @@
 
       "home-monitor" = {
         fingerprint = {
-          "HDMI-1" = "00ffffffffffff000469a52401010101201a010380351e78ea9de5a654549f260d5054b7ef00714f8180814081c081009500b3000101023a801871382d40582c4500132b2100001e000000fd00324c1e5311000a202020202020000000fc0056473234380a20202020202020000000ff0047384c4d51533030303233300a01dc02031ef14b900504030201111213141f230907078301000065030c0010001a3680a070381e4030203500132b2100001a662156aa51001e30468f3300132b2100001e011d007251d01e206e285500132b2100001e8c0ad08a20e02d10103e9600132b21000018011d8018711c1620582c2500132b2100009e000000000000003a";
+          "HDMI-1" = "00ffffffffffff0009d11e8045540000211c0103803c22782efcd0a6544a9d240e5054a56b80d1c081c081008180a9c0b300010101014dd000a0f0703e8030203500544f2100001a000000ff0042384a3035313033534c300a20000000fd001e4c1ea03c000a202020202020000000fc0042656e51204c43440a2020202001ab02033af253101f0102030405060711121314151620615e5f23090707830100006c030c0020003878200040010267d85dc40178c000e40f0000014dd000a0f0703e8030203500544f2100001e565e00a0a0a0295030203500544f2100001e000000000000000000000000000000000000000000000000000000000000000000cf";
         };
         config = {
           "HDMI-1" = {
             enable = true;
             primary = true;
             position = "0x0";
-            mode = "1920x1080";
+            mode = "3840x2160";
           };
         };
       };
-
-      #"home-dual" = {
-        #fingerprint = {
-          #"eDP-1" = "00ffffffffffff0030e4080600000000001c0104a51f117802e085a3544e9b260e5054000000010101010101010101010101010101012e3680a070381f403020350035ae1000001a542b80a070381f403020350035ae1000001a000000fe004c4720446973706c61790a2020000000fe004c503134305746392d5350463100d5";
-          #"HDMI-1" = "00ffffffffffff000469a52401010101201a010380351e78ea9de5a654549f260d5054b7ef00714f8180814081c081009500b3000101023a801871382d40582c4500132b2100001e000000fd00324c1e5311000a202020202020000000fc0056473234380a20202020202020000000ff0047384c4d51533030303233300a01dc02031ef14b900504030201111213141f230907078301000065030c0010001a3680a070381e4030203500132b2100001a662156aa51001e30468f3300132b2100001e011d007251d01e206e285500132b2100001e8c0ad08a20e02d10103e9600132b21000018011d8018711c1620582c2500132b2100009e000000000000003a";
-        #};
-        #config = {
-          #"eDP-1" = {
-            #enable = true;
-            #primary = true;
-            #position = "0x0";
-            #mode = "1920x1080";
-          #};
-
-          #"HDMI-1" = {
-            #enable = true;
-            #primary = false;
-            #position = "1920x0";
-            #mode = "1920x1080";
-            ##rate = "60.00"; # Setting this will make it fail..
-          #};
-        #};
-      #};
     };
   };
 
@@ -337,6 +339,11 @@
 
       # Agda
       agda-vim
+
+      #coc-nvim
+
+      # Own packages
+      vim-ormolu
     ]);
 
     extraConfig = ''

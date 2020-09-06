@@ -3,17 +3,18 @@
 with lib;
 with builtins;
 
-#let
-  #home-manager = builtins.fetchGit {
-    #url = "https://github.com/rycee/home-manager.git";
-    #ref = "master";
-    #rev = "0f1c9f25cf03cd5ed62db05c461af7e13f84a7b6";
-  #};
-#in
 {
-  #imports = [
-    #"${home-manager}/nixos"
-  #];
+
+  nixpkgs.config = {
+    # Example: unstable.haskell-language-server
+    packageOverrides = pkgs: {
+      # https://github.com/nix-community/NUR/
+      nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+        inherit pkgs;         # TODO pin
+      };
+    };
+  };
+
   imports = [ <home-manager/nixos> ];
 
   nixpkgs.config = {
@@ -49,13 +50,6 @@ with builtins;
 
   # https://rycee.gitlab.io/home-manager/
   home-manager.users.arnau = import ./home.nix { inherit pkgs config; };
-
-  # https://github.com/nix-community/NUR/
-  nixpkgs.config.packageOverrides = pkgs: {
-    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-      inherit pkgs;
-    };
-  };
 
   services.dbus.packages = with pkgs; [ gnome2.GConf gnome3.dconf ];
 
