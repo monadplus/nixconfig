@@ -26,6 +26,21 @@ in {
   };
 
   home.packages = with pkgs; [
+    # OS related (don't uninstall)
+    dmenu
+    stalonetray
+    udiskie         # Automounter for removable media
+    xscreensaver
+    dzen2           # Display messages on screen (not used)
+    mkpasswd
+    input-utils     # lsinput: keyboard input
+    arandr          # Graphical xrandr
+    pavucontrol     # Configure bluetooth device
+    ddcutil         # Query and change Linux monitor settings using DDC/CI and USB
+    brightnessctl
+    wpa_supplicant      # wi-fi
+    wpa_supplicant_gui
+
     # Utils
     bat             # better cat
     htop            # better top
@@ -48,29 +63,15 @@ in {
     openvpn
     direnv
 
-    # OS Miscelaneous
-    libreoffice
-    xscreensaver
-    dzen2 # Display messages on screen
-    mkpasswd
-    input-utils # lsinput: keyboard input
-    arandr # Graphical xrandr
-    pavucontrol # Configure bluetooth device
-    ddcutil # Query and change Linux monitor settings using DDC/CI and USB
-    brightnessctl
-
     # Apps
+    libreoffice
     dropbox
     enpass
     thunderbird
     obs-studio
 
-    # Wi-fi
-    wpa_supplicant
-    wpa_supplicant_gui
-
     # Time tracker
-    # TODO
+    # TODO find a suitable one
 
     # BitTorrent
     transgui
@@ -80,9 +81,10 @@ in {
 
     # Browsers
     chromium
+    # firefox is installed below with custom extensions.
 
     # Terminals
-    konsole
+    konsole   # default
     alacritty # GPU-based
 
     # Wine: https://www.winehq.org/
@@ -97,7 +99,6 @@ in {
     # Video Player
     vlc
 
-    # TODO fails to compile (no idea why)
     # Linear Programming
     (cplex.override { releasePath = /home/arnau/MIRI/CPS/lp/cplex/cplex; })
 
@@ -108,8 +109,7 @@ in {
     # Disk utility
     udisks
     parted
-    ncdu # Disk space usage analyzer
-    udiskie # Automounter for removable media
+    ncdu    # Disk space usage analyzer
 
     # Docs
     zeal # note: works offline
@@ -123,10 +123,6 @@ in {
     (discord # .override { nss = pkgs.nss_3_52;}
           .overrideAttrs (oldAttrs: { src = builtins.fetchTarball https://discord.com/api/download?platform=linux&format=tar.gz;})
     ) # Fix to open links on browser.
-
-    # OS required tools
-    dmenu
-    stalonetray
 
     # Databases
     postgresql # psql included
@@ -155,18 +151,19 @@ in {
 
     # Nix related
     nix-prefetch-git
-    cachix # Cache for nix
+    cachix
     nixops
     nix-index # nix-index, nix-locate
     nix-deploy # Lightweight nixOps, better nix-copy-closure.
-    #steam-run # Run executable without a nix-derivation.
-    patchelf # $ patchelf --print-needed binary_name # Prints required libraries for the dynamic binary.
-             # Alternative: ldd, lddtree
-    haskellPackages.niv # https://github.com/nmattia/niv#getting-started
+    # It takes a lot of type to build after a channel update
+    #steam-run  # Run executable without a nix-derivation.
+    patchelf   # $ patchelf --print-needed binary_name # Prints required libraries for the dynamic binary.
+               # Alternative: ldd, lddtree
+    haskellPackages.niv             # https://github.com/nmattia/niv#getting-started
+    haskellPackages.nix-derivation # pretty-derivation < /nix/store/00ls0qi49qkqpqblmvz5s1ajl3gc63lr-hello-2.10.drv
 
     # Python
     python2nix # python -mpython2nix pandas
-
     #( python37.withPackages(
         #pkgs: with pkgs; [ numpy ]
       #)
@@ -191,7 +188,7 @@ in {
     # Agda
     haskellPackages.Agda AgdaStdlib
 
-    # C
+    # C & C++
     gnumake gcc
     gecode # c++ library for constraint satisfiability problems.
 
@@ -203,15 +200,22 @@ in {
     evcxr # repl
 
     # Haskell
-    ghc cabal-install
-    stack # Note: non-haskell dependencies at .stack/config.yaml
+    ghc
+    cabal-install
+    stack     # Note: non-haskell dependencies at .stack/config.yaml
     cabal2nix
-    llvm_6 # Haskell backend
+    llvm_6    # Haskell backend
 
     # Haskell runtime dependencies
     gsl
 
-    # Haskell executables
+    # Profiling in haskell
+    (haskell.lib.doJailbreak haskellPackages.threadscope)
+    #(haskell.lib.doJailbreak haskellPackages.eventlog2html)
+    haskellPackages.profiteur
+    haskellPackages.prof-flamegraph flameGraph
+
+    # Haskell bin
     haskellPackages.fast-tags
     haskellPackages.ghcid
     haskellPackages.xmobar
@@ -222,7 +226,7 @@ in {
     haskellPackages.brittany
     haskellPackages.ormolu
 
-    # Not smooth to be used, not a lot of features
+    # TODO Needs configuration and has very little features so far.
     #unstable.haskellPackages.haskell-language-server
 
     # Broken: fixed here but still not in nixos-20.03 https://github.com/NixOS/nixpkgs/pull/85656
@@ -233,20 +237,14 @@ in {
       };
     })
 
-    # Grammars
-    haskellPackages.BNFC # bnfc -m Calc.cf
-    haskellPackages.alex # runtime dependecy from bnfc
-    haskellPackages.happy  # runtime dependecy from bnfc
-
-    # Profiling in haskell
-    (haskell.lib.doJailbreak haskellPackages.threadscope)
-    #(haskell.lib.doJailbreak haskellPackages.eventlog2html)
-    haskellPackages.profiteur
-    haskellPackages.prof-flamegraph flameGraph
+    # Parsing tools
+    haskellPackages.BNFC   # bnfc -m Calc.cf
+    haskellPackages.alex   # BNFC dependency
+    haskellPackages.happy  # BNFC dependency
   ];
 
   # Monitors
-  # TODO `autorandr -c`
+  #   TODO `autorandr -c`
   programs.autorandr = {
     enable = true;
     profiles = {
@@ -280,6 +278,7 @@ in {
     };
   };
 
+  # Vim setup
   programs.neovim = {
     enable = true;
     vimAlias =  true;
@@ -351,6 +350,7 @@ in {
     '';
   };
 
+  # Browser
   programs.firefox = {
     enable = true;
     enableAdobeFlash = false;
@@ -364,7 +364,7 @@ in {
       https-everywhere
       reddit-enhancement-suite
       # TODO
-      # enpass
+      # enpass # Manually installed
     ];
   };
 
@@ -430,6 +430,7 @@ in {
     defaultCacheTtl = 1800;
   };
 
+  # Dropbox
   systemd.user.services.dropbox = {
     Unit = {
       Description = "Dropbox";
