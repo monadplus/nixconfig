@@ -63,13 +63,15 @@ with builtins;
 
     trustedUsers = [ "root" "arnau" ];
 
+    # Cachix works but not using `nix-build`
+    # You can test it by calling:
+    #   $ nix-build -E '(import <nixpkgs> {}).writeText "example" (builtins.toString 2)' | cachix push monadplus
+    #   $ rm -r result && nix-store --delete /nix/store/ah0c4mb6qixs6jyc10mdgpf3qn2s14iy-example
+    #   $ nix-store --realise /nix/store/ah0c4mb6qixs6jyc10mdgpf3qn2s14iy-example
     binaryCaches = [
       "https://monadplus.cachix.org"
     ];
 
-    # TODO move cachix credentials to declarative style.
-    # /home/arnau/.config/cachix/cachix.dhall
-    # /home/arnau/.config/nix/nix.conf
     binaryCachePublicKeys = [
       "monadplus.cachix.org-1:+XFtvxGut8gfIXJtrA3plN9mZkgIHIDvYPCf+NEVd3c="
     ];

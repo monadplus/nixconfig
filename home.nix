@@ -161,6 +161,8 @@ in {
                # Alternative: ldd, lddtree
     haskellPackages.niv             # https://github.com/nmattia/niv#getting-started
     haskellPackages.nix-derivation # pretty-derivation < /nix/store/00ls0qi49qkqpqblmvz5s1ajl3gc63lr-hello-2.10.drv
+    # TODO hocker does not even compile
+    # (haskell.lib.doJailbreak haskellPackages.hocker) # https://github.com/awakesecurity/hocker
 
     # Python
     python2nix # python -mpython2nix pandas
