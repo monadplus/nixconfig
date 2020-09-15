@@ -10,7 +10,7 @@ let vim-ormolu = pkgs.vimUtils.buildVimPlugin {
     };
   };
 
-  unstable = import <nixos-unstable> {};
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
     # TODO seems to be looping..
     #import (builtins.fetchGit {
       #name = "nixpkgs-unstable-2020-09-05";
@@ -156,7 +156,7 @@ in {
     nix-index # nix-index, nix-locate
     nix-deploy # Lightweight nixOps, better nix-copy-closure.
     # It takes a lot of type to build after a channel update
-    #steam-run  # Run executable without a nix-derivation.
+    steam-run  # Run executable without a nix-derivation.
     patchelf   # $ patchelf --print-needed binary_name # Prints required libraries for the dynamic binary.
                # Alternative: ldd, lddtree
     haskellPackages.niv             # https://github.com/nmattia/niv#getting-started
@@ -200,6 +200,10 @@ in {
     rls # language server
     rustfmt
     evcxr # repl
+    #unstable.rust-analyzer
+    #(unstable.vscode-with-extensions.override {
+        #vscodeExtensions = [ unstable.vscode-extensions.rust-analyzer ];
+    #})
 
     # Haskell
     ghc
@@ -341,7 +345,8 @@ in {
       # Agda
       agda-vim
 
-      #coc-nvim
+      # coc-nvim
+      # unstable.vimPlugins.coc-rust-analyzer # You need to override rust-analyzer location: have a look at rust-analyzer pkg
 
       # Own packages
       vim-ormolu
@@ -515,11 +520,11 @@ in {
       source $HOME/.nix-direnv/direnvrc
     '';
 
-    "haskell/pipes".source = pkgs.fetchFromGitHub {
-       owner = "Gabriel439";
-       repo = "Haskell-Pipes-Library";
-       rev = "7fc14e688771a11fc6fab0f2d60f8b219d661add";
-       sha256 = "0xh232xxcc2bw71asg46bpyk119kkvp05d81v7iwwgd0vz9fgqbp";
-    };
+    #"haskell/pipes".source = pkgs.fetchFromGitHub {
+       #owner = "Gabriel439";
+       #repo = "Haskell-Pipes-Library";
+       #rev = "7fc14e688771a11fc6fab0f2d60f8b219d661add";
+       #sha256 = "0xh232xxcc2bw71asg46bpyk119kkvp05d81v7iwwgd0vz9fgqbp";
+    #};
   };
 }

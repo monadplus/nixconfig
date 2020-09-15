@@ -83,15 +83,10 @@ with builtins;
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
-    #config = {
-      #General = {
-        #Enable = ["Source" "Sink" "Media" "Socket"];
-      #};
-    #};
-    extraConfig = ''
-      [General]
-      Enable=Source,Sink,Media,Socket
-    '';
+    #extraConfig = ''
+      #[General]
+      #Enable=Source,Sink,Media,Socket
+    #'';
   };
   services.blueman.enable = true; # GUI for bluetooth
 

@@ -39,6 +39,11 @@ nnoremap <leader>d "_d
 xnoremap <leader>d "_d
 xnoremap <leader>p "_dP
 
+" Move
+"noremap j h
+"noremap k j
+"noremap l k
+"noremap ; l
 
 " Switching buffer
 nnoremap <M-h> <C-w>h

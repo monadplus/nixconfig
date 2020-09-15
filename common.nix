@@ -49,7 +49,7 @@ with builtins;
   services.autorandr.enable = true;
 
   # https://rycee.gitlab.io/home-manager/
-  home-manager.users.arnau = import ./home.nix { inherit pkgs config; };
+  home-manager.users.arnau = import ./home.nix { inherit pkgs config unstable; };
 
   services.dbus.packages = with pkgs; [ gnome2.GConf gnome3.dconf ];
 
@@ -95,9 +95,10 @@ with builtins;
 
   i18n = lib.mkForce {
     defaultLocale = "en_US.UTF-8";
-    #TODO not working...
-    #inputMethod.enabled = "ibus";
-    #inputMethod.ibus.engines = with pkgs.ibus-engines; [ uniemoji ];
+    inputMethod = {
+      enabled = "ibus";
+      ibus.engines = with pkgs.ibus-engines; [ typing-booster ]; # includes emoji-picker
+    };
   };
 
   time.timeZone = "Europe/Madrid";
@@ -109,7 +110,7 @@ with builtins;
     fonts = with pkgs; [
       corefonts
       powerline-fonts
-      #nerdfonts
+      noto-fonts-emoji
     ];
   };
 
