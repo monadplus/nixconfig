@@ -115,7 +115,8 @@ let g:livepreview_cursorhold_recompile = 0 " do not recompile on cursor hold ove
 "let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsSnippetDirectories=['/etc/nixos/dotfiles/neovim/UltiSnips']
+" TODO
+"let g:UltiSnipsSnippetDirectories=['/etc/nixos/dotfiles/neovim/UltiSnips']
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
 " ^^^^^^^^^^^ required to make tab complete snippets

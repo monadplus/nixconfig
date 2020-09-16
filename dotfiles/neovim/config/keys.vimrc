@@ -1,11 +1,6 @@
 " map leader
 let mapleader=','
 
-" Override default behaviour.
-"nnoremap o o<Esc>
-"nnoremap O O<Esc>
-
-":nnoremap ff :vimgrep <cword> **/*.scala<CR>
 :nnoremap ff :vimgrep <cword> **/*.hs<CR>
 :nnoremap <leader>ff :vimgrep <cword> **/*.sql<CR>
 

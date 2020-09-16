@@ -1,3 +1,4 @@
+" Plugins for neovim using vim-plug (https://github.com/junegunn/vim-plug)
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'tpope/vim-fugitive'                                         " git plugin
@@ -16,9 +17,6 @@ Plug 'junegunn/vim-easy-align'                                    " alignment pl
 Plug 'neomake/neomake'                                            " run programs asynchronously and highlight errors
 Plug 'Twinside/vim-hoogle'                                        " Hoogle search (Haskell) in Vim
 Plug 'terryma/vim-multiple-cursors'                               " Multiple cursors selection, etc
-"Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}        " LSP client + autocompletion plugin
-"Plug 'derekwyatt/vim-scala'                                       " scala plugin
-"Plug 'rizzatti/dash.vim'                                          " Dash
 Plug 'itchyny/lightline.vim'                                      " configurable status line (can be used by coc)
 Plug 'Xuyuanp/nerdtree-git-plugin'                                " Shows files git status on the NerdTree
 Plug 'airblade/vim-gitgutter'                                     " Show file git status
@@ -27,21 +25,29 @@ Plug 'alx741/vim-stylishask'                                      " Haskell Form
 Plug 'alx741/vim-hindent'                                         " Haskell Formatting
 Plug 'tpope/vim-unimpaired'                                       " better navigation
 Plug 'ekalinin/Dockerfile.vim'
-" Until I discover how to disable indent on nix files properly, I sadly have
-" to deactive this plugin.
-"Plug 'LnL7/vim-nix'                                               " Nix expressions in vim
+Plug 'LnL7/vim-nix'                                               " Nix expressions in vim
 Plug 'chrisbra/Recover.vim'                                       " Add compare option to vim recover
 Plug 'ervandew/supertab'                                          " Tab completition
 Plug 'godlygeek/tabular'                                          " vim-markdown dependency
 Plug 'plasticboy/vim-markdown'                                    " Markdown utilities
-" It doesn't work with fast-tags
-"Plug 'majutsushi/tagbar'                                          " Tags bar
 Plug 'vmchale/pointfree'                                           " Pointfree for haskell
-"Plug 'vmchale/hs-conceal'                                          " Replace forall and so in *.hs files
 Plug 'vmchale/cabal-project-vim'                                   " Syntax highlight for *.cabal files
 Plug 'vmchale/ghci-syntax'                                         " Syntax highlight for ghci configuration files
+"Plug 'vmchale/hs-conceal'                                          " Replace forall and so in *.hs files
 "Plug 'vmchale/c2hs-vim'                                            " Syntax highlight for *.c2hs files
 Plug 'vim-syntastic/syntastic'                                     " Hlint for hs
+Plug 'ryanoasis/vim-devicons'                                      " Icons (requires nerd-font comptabile: https://github.com/ryanoasis/vim-devicons#installation)
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }             " Live compilation of .text files
+Plug 'KabbAmine/zeavim.vim'                                        " Zeal docs https://zealdocs.org/
+Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }                 " ghcid integration :Ghcid
+Plug 'SirVer/ultisnips'                                            " Snippets
+Plug 'honza/vim-snippets'                                          " Collection of snippets for several languages
+Plug 'davidhalter/jedi-vim'                                        " Python auto-completition
+Plug 'direnv/direnv.vim'                                           " direnv integration
+Plug 'ycm-core/YouCompleteMe'                                      " Completition engine. Requires additional completition steps!
+Plug 'rust-lang/rust.vim'                                          " Rust syntax and syntastic integration
+Plug 'derekelkins/agda-vim'                                        " Agda vim
+Plug 'sdiehl/vim-ormolu'                                           " Opinionated Haskell code formatter
+
 
 call plug#end()
-
