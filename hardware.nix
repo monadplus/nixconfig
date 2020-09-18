@@ -9,29 +9,24 @@
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "ehci_pci" "xhci_pci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" "i2c-dev"];
-  boot.initrd.kernelModules = [ ]; # Doesnt work [ "coretemp" ];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  # Whether to mount a tmpfs on /tmp during boot.
-  # Similar to https://unix.stackexchange.com/questions/55773/move-tmp-to-ram
-  boot.tmpOnTmpfs = true;
-
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/212b65fc-8a1d-4e45-b358-601d60d526e9";
+    { device = "/dev/disk/by-uuid/0e900100-4ddf-4862-9c98-e5612639e316";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/9D41-A7BD";
+    { device = "/dev/disk/by-uuid/46A3-E4F5";
       fsType = "vfat";
     };
 
-    swapDevices = [
-      { label = "swap"; }
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/5efa926e-63e1-44b3-b1f4-3533bdc1fd1e"; }
     ];
 
   nix.maxJobs = lib.mkDefault 8;
-  nix.buildCores = 0; # Use all cores of your CPU
-  # ^^^^^^^^^^ Some builds may become non-deterministic with this option
+  nix.buildCores = 0; # Use all cores
 }

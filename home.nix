@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let vim-ormolu = pkgs.vimUtils.buildVimPlugin {
     name = "vim-ormolu";
@@ -9,16 +9,6 @@ let vim-ormolu = pkgs.vimUtils.buildVimPlugin {
       sha256 = "1ga5r24yymqcgjizqyaz6fxl2b8vp66ggzqa63pwl5qdp0rm97b8";
     };
   };
-
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-    # TODO seems to be looping..
-    #import (builtins.fetchGit {
-      #name = "nixpkgs-unstable-2020-09-05";
-      #url = "https://github.com/nixos/nixpkgs-channels/";
-      ## `git ls-remote https://github.com/nixos/nixpkgs-channels nixos-unstable`
-      #ref = "refs/heads/nixpkgs-unstable";
-      #rev = "49f820d217f4069472ca8f8f96d1c5681a747f7d";
-    #}) {};
 
 in {
   programs.home-manager = {
@@ -66,12 +56,10 @@ in {
     # Apps
     libreoffice
     dropbox
-    enpass
+    #pkgs.unstable.enpass
+    lesspass-cli
     thunderbird
     obs-studio
-
-    # Time tracker
-    # TODO find a suitable one
 
     # BitTorrent
     transgui
@@ -80,7 +68,7 @@ in {
     system-config-printer # GUI
 
     # Browsers
-    chromium
+    # chromium
     # firefox is installed below with custom extensions.
 
     # Terminals
@@ -100,7 +88,7 @@ in {
     vlc
 
     # Linear Programming
-    (cplex.override { releasePath = /home/arnau/MIRI/CPS/lp/cplex/cplex; })
+    (cplex.override { releasePath = /home/arnau/cplex; })
 
     # Readers
     zathura # EPUB, PDF and XPS
@@ -166,22 +154,18 @@ in {
 
     # Python
     python2nix # python -mpython2nix pandas
-    #( python37.withPackages(
-        #pkgs: with pkgs; [ numpy ]
-      #)
-    #)
 
     # RStudio
     # On the shell: nix-shell --packages 'rWrapper.override{ packages = with rPackages; [ ggplot2 ]; }'
-    ( rstudioWrapper.override {
-      packages = with rPackages;
-        [ ggplot2 dplyr xts aplpack readxl openxlsx
-          prob Rcmdr RcmdrPlugin_IPSUR rmarkdown tinytex
-          rprojroot RcmdrMisc lmtest FactoMineR car
-          psych sem rgl multcomp HSAUR
-        ];
-      }
-    )
+    # ( rstudioWrapper.override {
+    #   packages = with rPackages;
+    #     [ ggplot2 dplyr xts aplpack readxl openxlsx
+    #       prob Rcmdr RcmdrPlugin_IPSUR rmarkdown tinytex
+    #       rprojroot RcmdrMisc lmtest FactoMineR car
+    #       psych sem rgl multcomp HSAUR
+    #     ];
+    #   }
+    # )
 
     # Node.js
     nodejs yarn
@@ -200,10 +184,6 @@ in {
     rls # language server
     rustfmt
     evcxr # repl
-    #unstable.rust-analyzer
-    #(unstable.vscode-with-extensions.override {
-        #vscodeExtensions = [ unstable.vscode-extensions.rust-analyzer ];
-    #})
 
     # Haskell
     ghc
@@ -336,7 +316,6 @@ in {
 
       #YouCompleteMe # patched below
 
-      # TODO: rust-vim is not working as expected with cargo mode (rustc seems to be working).
       # Rust
       rust-vim # uses syntastic, tagbar, rustfmt, webapi-vim
       tagbar
@@ -370,8 +349,6 @@ in {
       cookie-autodelete
       https-everywhere
       reddit-enhancement-suite
-      # TODO
-      # enpass # Manually installed
     ];
   };
 
@@ -437,26 +414,6 @@ in {
     defaultCacheTtl = 1800;
   };
 
-  # Dropbox
-  systemd.user.services.dropbox = {
-    Unit = {
-      Description = "Dropbox";
-      After = [ "graphical-session-pre.target" ];
-      PartOf = [ "graphical-session.target" ];
-    };
-
-    Service = {
-      Restart = "on-failure";
-      RestartSec = 1;
-      ExecStart = "${pkgs.dropbox}/bin/dropbox";
-      Environment = "QT_PLUGIN_PATH=/run/current-system/sw/${pkgs.qt5.qtbase.qtPluginPrefix}";
-     };
-
-    Install = {
-        WantedBy = [ "graphical-session.target" ];
-    };
-  };
-
   # Dotfiles
   home.file = {
     ".xmobarrc".source = ./dotfiles/xmonad/.xmobarrc;
@@ -475,12 +432,13 @@ in {
 
     ".dmenurc".source = ./dotfiles/dmenu/.dmenurc;
 
+    ".config/konsolerc".source = ./dotfiles/konsole/konsolerc;
     ".local/share/konsole" = {
-      source = ./dotfiles/konsole;
+      source = ./dotfiles/konsole/konsole;
       recursive  = true;
     };
 
-    ".config/alacritty/alacritty.yml".source = ./dotfiles/alacritty/.alacritty.yml;
+    #".config/alacritty/alacritty.yml".source = ./dotfiles/alacritty/.alacritty.yml;
 
     ".translate-shell/init.trans".source = ./dotfiles/translate-shell/init.trans;
 
@@ -509,6 +467,7 @@ in {
          }
     '';
 
+    # TODO is this still needed?
     # This has been integrated into direnv stdlib
     ".nix-direnv".source = pkgs.fetchFromGitHub {
        owner = "nix-community";
@@ -520,11 +479,52 @@ in {
       source $HOME/.nix-direnv/direnvrc
     '';
 
-    #"haskell/pipes".source = pkgs.fetchFromGitHub {
-       #owner = "Gabriel439";
-       #repo = "Haskell-Pipes-Library";
-       #rev = "7fc14e688771a11fc6fab0f2d60f8b219d661add";
-       #sha256 = "0xh232xxcc2bw71asg46bpyk119kkvp05d81v7iwwgd0vz9fgqbp";
+    # Don't do this, the package points to the store..
+    #"nixpkgs".source = pkgs.fetchFromGitHub {
+       #owner = "NixOS";
+       #repo = "nixpkgs";
+       #rev = "52532b7c36fccd23ac0d19fbd116bb8398ef3c35";
+       #sha256 = "1g0qd8vnjwvsngdw8kdxdfsj6zk3kap5h0bx72cnlab62y5zph9d";
     #};
+  };
+
+
+  # Systemd Services
+  systemd.user.services = {
+    dropbox = {
+        Unit = {
+          Description = "Dropbox";
+          After = [ "graphical-session-pre.target" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+
+        Service = {
+          Restart = "on-failure";
+          RestartSec = 1;
+          ExecStart = "${pkgs.dropbox}/bin/dropbox";
+          Environment = "QT_PLUGIN_PATH=/run/current-system/sw/${pkgs.qt5.qtbase.qtPluginPrefix}";
+         };
+
+        Install = {
+            WantedBy = [ "graphical-session.target" ];
+        };
+    };
+
+    clipmenu = {
+      Unit = {
+        Description = "Clipboard management daemon";
+        After = [ "graphical-session.target" ];
+      };
+
+      Service = {
+        ExecStart = "${pkgs.clipmenu}/bin/clipmenud";
+        Environment = "PATH=${
+            lib.makeBinPath
+            (with pkgs; [ coreutils findutils gnugrep gnused systemd ])
+          }";
+      };
+
+      Install = { WantedBy = [ "graphical-session.target" ]; };
+    };
   };
 }

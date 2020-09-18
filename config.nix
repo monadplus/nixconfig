@@ -3,26 +3,149 @@
 with lib;
 with builtins;
 
-{
+let
+  nurTarball = builtins.fetchTarball {
+    # Commit from master branch (Sep-18-2020)
+    # To update: replace the commit with the latest one from https://github.com/nix-community/NUR/
+    url = "https://github.com/nix-community/NUR/archive/d4620041b6083df6673553a0b7112146c133cbe1.tar.gz";
+    sha256 = "1gbwb4n2ijgr89fqc1wwp6f07f7dkmxwgf3fygnjkj7ch21kjgpq";
 
-  nixpkgs.config = {
-    # Example: unstable.haskell-language-server
-    packageOverrides = pkgs: {
-      # https://github.com/nix-community/NUR/
-      nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-        inherit pkgs;         # TODO pin
-      };
-    };
   };
 
-  imports = [ <home-manager/nixos> ];
+  unstableTarball = fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz";
+    sha256 = "0093drxn7blw4hay41zbqzz1vhldil5sa5p0mwaqy5dn08yn4y3q";
+  };
+
+in
+{
+  system.stateVersion = "20.03";
 
   nixpkgs.config = {
     allowUnfree = true;
     allowBroken = true;
   };
 
-  system.stateVersion = "19.09";
+  nixpkgs.config = {
+    # Example: unstable.haskell-language-server
+    packageOverrides = pkgs: {
+      # https://github.com/nix-community/NUR/
+      nur = import nurTarball {
+        inherit pkgs;                     # TODO pin using githubFetch
+      };
+
+      unstable = import unstableTarball {
+        config = config.nixpkgs.config;
+      };
+    };
+  };
+
+  networking.hostName = "hades";
+
+  # This includes support for suspend-to-RAM and powersave features on laptops.
+  powerManagement = {
+    enable = true;
+  };
+
+  # https://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html
+  services.tlp = {
+    enable = true;
+    # Example: https://gist.github.com/pauloromeira/787c75d83777098453f5c2ed7eafa42a
+    extraConfig = ''
+      START_CHARGE_THRESH_BAT0=70
+      STOP_CHARGE_THRESH_BAT0=85
+    '';
+  };
+
+  services.logind.extraConfig = ''
+    # Controls how logind shall handle the system power and sleep keys.
+    HandlePowerKey=suspend
+  '';
+
+  networking.wireless = {
+    enable = true;
+    # wpa_passphrase ESSID PSK
+    networks = {
+      # HOME
+      "MOVISTAR_8348" = {
+        pskRaw = "9be2248888cc9c79b7f81aef7a17c9f3f6be1e33e19a573b5c0a8178831307c6";
+      };
+      "MOVISTAR_8348_Extender" = {
+        pskRaw = "9be2248888cc9c79b7f81aef7a17c9f3f6be1e33e19a573b5c0a8178831307c6";
+      };
+      # Smartphone
+      #"Monad" = {
+        #pskRaw = "2193ddbc3b5587f6d692c04c0e7879bfcc19f65398bcad2b0fa2b0143b082506";
+      #};
+      # Arlandis
+      "Arlandiswifi-5G" = {
+        pskRaw = "656f0d41f49450feeddeb8a475586c6a91998a559bd1fd6d37f1c808e33f49af";
+      };
+      # CALAFAT
+      "MOVISTAR_7B1B" = {
+        pskRaw = "6a1d731b3e07251fed01072b0e2d088c5f2388442b0a30745164dbc2e4069946";
+      };
+      # UNIVERSITY
+       "eduroam" = {
+        auth = ''
+          ssid="eduroam"
+          key_mgmt=WPA-EAP
+          eap=TTLS
+          group=CCMP
+          phase2="auth=PAP"
+          anonymous_identity="anonymous@upc.edu"
+          identity="arnau.abella"
+          password="asdadaADSA131231!#!@#!"
+          ca_cert="/etc/nixos/upc_eduroam.crt"
+          priority=10
+        '';
+      };
+    };
+    extraConfig = ''
+      ctrl_interface=/run/wpa_supplicant
+      ctrl_interface_group=wheel
+    '';
+  };
+
+  hardware = {
+    trackpoint.enable = true;
+    trackpoint.emulateWheel = true; # While holding middle button
+    trackpoint.speed = 97; # Kernel default
+    trackpoint.sensitivity = 128; # Kernel default
+  };
+
+  # https://nixos.wiki/wiki/Bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
+  services.blueman.enable = true; # GUI for bluetooth
+
+  # https://nixos.wiki/wiki/ALSA
+  hardware.pulseaudio = {
+    enable = true;
+    support32Bit = true;
+    extraModules = [ pkgs.pulseaudio-modules-bt ];
+    package = pkgs.pulseaudioFull;
+  };
+
+  # Touchpad
+  services.xserver.libinput = {
+    enable = true;
+    tapping = false;
+    middleEmulation = false;
+    additionalOptions = ''
+      Option "AccelSpeed" "0.3"        # Mouse sensivity
+      Option "TapButton2" "0"          # Disable two finger tap
+      Option "VertScrollDelta" "-180"  # scroll sensitivity
+      Option "HorizScrollDelta" "-180"
+      Option "FingerLow" "40"          # when finger pressure drops below this value, the driver counts it as a release.
+      Option "FingerHigh" "70"
+    '';
+  };
+
+  imports = [ <home-manager/nixos> ];
 
   # Use the latest kernel - This solver suspend and bright issue.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -49,7 +172,7 @@ with builtins;
   services.autorandr.enable = true;
 
   # https://rycee.gitlab.io/home-manager/
-  home-manager.users.arnau = import ./home.nix { inherit pkgs config unstable; };
+  home-manager.users.arnau = import ./home.nix { inherit pkgs config lib; };
 
   services.dbus.packages = with pkgs; [ gnome2.GConf gnome3.dconf ];
 
@@ -68,6 +191,7 @@ with builtins;
     #   $ nix-build -E '(import <nixpkgs> {}).writeText "example" (builtins.toString 2)' | cachix push monadplus
     #   $ rm -r result && nix-store --delete /nix/store/ah0c4mb6qixs6jyc10mdgpf3qn2s14iy-example
     #   $ nix-store --realise /nix/store/ah0c4mb6qixs6jyc10mdgpf3qn2s14iy-example
+    # TODO missing keys
     binaryCaches = [
       "https://monadplus.cachix.org"
     ];
@@ -147,12 +271,14 @@ with builtins;
         extraPackages = haskellPackages : [
           haskellPackages.xmonad-contrib
           haskellPackages.xmonad-extras
+          haskellPackages.xmonad-wallpaper
           haskellPackages.xmobar
           haskellPackages.X11
         ];
       };
     };
 
+    # TODO move them to systemd
     displayManager.sessionCommands = ''
       # Must be run before the rest of the apps in order to make them appear.
       stalonetray &
@@ -161,8 +287,6 @@ with builtins;
       xscreensaver -no-splash &
       blueman-manager &
       wpa_gui &
-      clipmenud &
-      Enpass &
 
       # Miscellaneous
       ${pkgs.xorg.xset}/bin/xset r rate 265 40
@@ -269,7 +393,7 @@ with builtins;
         ];
     };
 
-  # TODO disable because it clashes with docker postgres
+  # It clashes with docker postgres
   #services.postgresql = {
     #enable = true;
     #package = pkgs.postgresql_11;
