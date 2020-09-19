@@ -10,12 +10,27 @@ let vim-ormolu = pkgs.vimUtils.buildVimPlugin {
     };
   };
 
+  # https://github.com/vlaci/nix-doom-emacs
+  doom-emacs = pkgs.callPackage (builtins.fetchTarball {
+     url = https://github.com/vlaci/nix-doom-emacs/archive/master.tar.gz;
+  }) {
+     doomPrivateDir = ./doom.d;  # Directory containing your config.el init.el
+                                 # and packages.el files
+  };
+
 in {
   programs.home-manager = {
     enable = true;
   };
 
+ home.file.".emacs.d/init.el".text = ''
+     (load "default.el")
+ '';
+
   home.packages = with pkgs; [
+    # TODO
+    # doom-emacs
+
     # OS related (don't uninstall)
     dmenu
     stalonetray
@@ -28,8 +43,10 @@ in {
     pavucontrol     # Configure bluetooth device
     ddcutil         # Query and change Linux monitor settings using DDC/CI and USB
     brightnessctl
-    wpa_supplicant      # wi-fi
+    wpa_supplicant  # wi-fi
     wpa_supplicant_gui
+    nitrogen  # Wallpaper
+    picom     # Xorg Compositor https://wiki.archlinux.org/index.php/Picom
 
     # Utils
     bat             # better cat
@@ -479,7 +496,9 @@ in {
       source $HOME/.nix-direnv/direnvrc
     '';
 
-    # Don't do this, the package points to the store..
+    ".config/picom.conf".source = ./dotfiles/picom.conf;
+
+    # Don't do this, the package points to the store and you can't modify it without sudo
     #"nixpkgs".source = pkgs.fetchFromGitHub {
        #owner = "NixOS";
        #repo = "nixpkgs";

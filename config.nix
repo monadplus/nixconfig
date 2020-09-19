@@ -27,11 +27,9 @@ in
   };
 
   nixpkgs.config = {
-    # Example: unstable.haskell-language-server
     packageOverrides = pkgs: {
-      # https://github.com/nix-community/NUR/
       nur = import nurTarball {
-        inherit pkgs;                     # TODO pin using githubFetch
+        inherit pkgs;
       };
 
       unstable = import unstableTarball {
@@ -42,7 +40,7 @@ in
 
   networking.hostName = "hades";
 
-  # This includes support for suspend-to-RAM and powersave features on laptops.
+  # This includes support for suspend-to-RAM and power-save features on laptops.
   powerManagement = {
     enable = true;
   };
@@ -73,11 +71,7 @@ in
       "MOVISTAR_8348_Extender" = {
         pskRaw = "9be2248888cc9c79b7f81aef7a17c9f3f6be1e33e19a573b5c0a8178831307c6";
       };
-      # Smartphone
-      #"Monad" = {
-        #pskRaw = "2193ddbc3b5587f6d692c04c0e7879bfcc19f65398bcad2b0fa2b0143b082506";
-      #};
-      # Arlandis
+      # SECOND HOME
       "Arlandiswifi-5G" = {
         pskRaw = "656f0d41f49450feeddeb8a475586c6a91998a559bd1fd6d37f1c808e33f49af";
       };
@@ -100,6 +94,11 @@ in
           priority=10
         '';
       };
+      # TODO wpa broken??
+      # ANDROID HOT-SPOT
+      #"Monad" = {
+        #pskRaw = "00b2a451d1f5658f910b65dc3bac3dd949c62194e8179dbe08ae090aaca7ff6";
+      #};
     };
     extraConfig = ''
       ctrl_interface=/run/wpa_supplicant
@@ -257,8 +256,25 @@ in
 
     displayManager = {
       defaultSession = "none+xmonad";
+      # Shell commands executed just before the window or desktop manager is started. These commands are not currently sourced for Wayland sessions.
+      sessionCommands = ''
+        stalonetray &
+        xscreensaver -no-splash &
+        blueman-manager &
+        wpa_gui &
+        nitrogen --restore &
+        picom & # Careful, errors do not show
+
+        # Mouse repetition key input speed
+        ${pkgs.xorg.xset}/bin/xset r rate 265 40
+
+        # Unfortunately since the HM autorandr module is not set up to detect hardware events, that is, it won't react to simply inserting the HDMI cable. It would be sweet to fix so that it does and if anybody know udev or something well enough to figure out how to do it that would be great.I suspect it's not doable without hooking it up in the system level configuration, though. Something like what the autorandr Makefile does.
+        # ${pkgs.autorandr}/bin/autorandr -c
+      '';
       lightdm = {
         enable = true;
+        # doesn't work
+        # background = "/home/arnau/wallpaper.jpeg";
         greeters.gtk.indicators = [ "~host" "~spacer" "~clock" "~spacer" "~a11y" "~session" "~power"];
       };
     };
@@ -277,23 +293,6 @@ in
         ];
       };
     };
-
-    # TODO move them to systemd
-    displayManager.sessionCommands = ''
-      # Must be run before the rest of the apps in order to make them appear.
-      stalonetray &
-
-      # Apps
-      xscreensaver -no-splash &
-      blueman-manager &
-      wpa_gui &
-
-      # Miscellaneous
-      ${pkgs.xorg.xset}/bin/xset r rate 265 40
-
-      # Unfortunately since the HM autorandr module is not set up to detect hardware events, that is, it won't react to simply inserting the HDMI cable. It would be sweet to fix so that it does and if anybody know udev or something well enough to figure out how to do it that would be great.I suspect it's not doable without hooking it up in the system level configuration, though. Something like what the autorandr Makefile does.
-      # ${pkgs.autorandr}/bin/autorandr -c
-    '';
   };
 
   users = {
@@ -350,7 +349,8 @@ in
 
   programs.zsh = {
     enable = true;
-    # https://github.com/Powerlevel9k/powerlevel9k/wiki/Install-Instructions#nixos
+    # Doesn't work, it clashes with the static .zsh file :(
+    #promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
     promptInit = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
   };
 
