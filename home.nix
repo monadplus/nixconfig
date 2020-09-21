@@ -11,12 +11,12 @@ let vim-ormolu = pkgs.vimUtils.buildVimPlugin {
   };
 
   # https://github.com/vlaci/nix-doom-emacs
-  doom-emacs = pkgs.callPackage (builtins.fetchTarball {
-     url = https://github.com/vlaci/nix-doom-emacs/archive/master.tar.gz;
-  }) {
-     doomPrivateDir = ./doom.d;  # Directory containing your config.el init.el
-                                 # and packages.el files
-  };
+  #doom-emacs = pkgs.callPackage (builtins.fetchTarball {
+     #url = https://github.com/vlaci/nix-doom-emacs/archive/master.tar.gz;
+  #}) {
+     #doomPrivateDir = ./doom.d;  # Directory containing your config.el init.el
+                                 ## and packages.el files
+  #};
 
     myEmacsConfig = pkgs.writeText "default.el" ''
     ;; initialize package
@@ -58,8 +58,8 @@ in {
  '';
 
   home.packages = with pkgs; [
-    #doom-emacs # nb: some compilations may take a long time
-    #myEmacs
+    # doom-emacs # nb: some compilations may take a long time
+    myEmacs
 
     # OS related (don't uninstall)
     dmenu
@@ -81,6 +81,7 @@ in {
     # Utils
     bat             # better cat
     htop            # better top
+    gtop            # better htop
     unzip
     gnupg           # GNU programs: gpg, gpg-agent, etc
     tree
