@@ -18,6 +18,36 @@ let vim-ormolu = pkgs.vimUtils.buildVimPlugin {
                                  # and packages.el files
   };
 
+    myEmacsConfig = pkgs.writeText "default.el" ''
+    ;; initialize package
+
+    (require 'package)
+    (package-initialize 'noactivate)
+    (eval-when-compile
+      (require 'use-package))
+
+    ;; load some packages
+
+    (require 'evil)
+    (evil-mode 1)
+
+    (use-package projectile
+      :commands projectile-mode
+      :bind-keymap ("C-c p" . projectile-command-map)
+      :defer 5
+      :config
+      (projectile-global-mode))
+    '';
+
+  myEmacs = pkgs.emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
+      (pkgs.runCommand "default.el" {} ''
+        mkdir -p $out/share/emacs/site-lisp
+        cp ${myEmacsConfig} $out/share/emacs/site-lisp/default.el
+      '')
+      evil
+      use-package
+    ]));
+
 in {
   programs.home-manager = {
     enable = true;
@@ -28,8 +58,8 @@ in {
  '';
 
   home.packages = with pkgs; [
-    # TODO
-    # doom-emacs
+    #doom-emacs # nb: some compilations may take a long time
+    #myEmacs
 
     # OS related (don't uninstall)
     dmenu

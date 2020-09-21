@@ -89,7 +89,7 @@ in
           phase2="auth=PAP"
           anonymous_identity="anonymous@upc.edu"
           identity="arnau.abella"
-          password="asdadaADSA131231!#!@#!"
+          password="Abellix1995"
           ca_cert="/etc/nixos/upc_eduroam.crt"
           priority=10
         '';
